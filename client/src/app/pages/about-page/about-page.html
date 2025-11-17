@@ -1,6 +1,4 @@
 <div class="about-page-main-container">
-
-    <!-- SECTION 1: Hero + Stats -->
     <div class="section1">
         <app-header title="Building the Future of" strong="Collaborative Work"
             p="We believe that great work happens when teams have the right tools. That's why we created Tavolo — a platform that combines power with simplicity.">
@@ -14,8 +12,6 @@
       ]" statsClass="about-stats">
         </app-stats>
     </div>
-
-    <!-- SECTION 2: Core Values -->
     <div class="section2">
         <app-header title="Our Core Values" headerClass="about-header"
             p="These principles guide everything we do — from product decisions to how we treat each other.">
@@ -24,11 +20,8 @@
         <app-card [CardData]="ourValues" buttonClass="about-page-ourValues">
         </app-card>
     </div>
-
-
-    <!-- 🆕 SECTION 3: Our Story -->
     <div class="section4">
-        <app-header title="Meet the Team" headerClass="about-page-header"
+        <app-header title="Meet the Team" headerClass="about-page-cards"
             p="We're a diverse group of designers, engineers, and dreamers working to change how teams work together.">
         </app-header>
         <app-card [CardData]="ourTeam" buttonClass="about-page-outTeam">
@@ -38,5 +31,4 @@
             <app-link-button title="View Open Positions" route="/login" buttonClass="home-page-getstarted-button"
                 icon="arrow_forward"></app-link-button>
         </app-card></div>
-
 </div>

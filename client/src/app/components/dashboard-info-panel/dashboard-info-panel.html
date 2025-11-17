@@ -1,0 +1,21 @@
+<div class="dash-panel-info-container">
+
+    <div class="section1">
+        <div class="title">
+            <p>{{ title() }}</p>
+            <p class="description">{{ description() }}</p>
+
+        </div>
+
+        <div class="ng-content-section1">
+            <ng-content select="[section1]"></ng-content>
+        </div>
+    </div>
+
+    <div class="section2">
+        <div class="ng-content-section2">
+            <ng-content select="[section2]"></ng-content>
+        </div>
+    </div>
+
+</div>

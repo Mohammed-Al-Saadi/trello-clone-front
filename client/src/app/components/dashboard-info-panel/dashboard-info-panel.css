@@ -1,0 +1,34 @@
+.dash-panel-info-container {
+  background-color: #101018;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 1px solid #252537;
+  padding-bottom: 0.23rem;
+}
+.section1 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+}
+.section2 {
+  width: 100%;
+}
+.title {
+  padding-left: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+}
+.ng-content-section1 {
+  padding-right: 1.5rem;
+}
+.description {
+  font-size: 1rem;
+  color: #8c8c94;
+}

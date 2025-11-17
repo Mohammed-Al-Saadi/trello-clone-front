@@ -1,7 +1,7 @@
-<app-navbar [navLinks]="navLinks()" [showLogin]="showLogin()" [logo]="logo()" [showLogo]="showLogo()">
-    <app-link-button title="Login" route="/login" buttonClass="login">
+<app-navbar [navLinks]="navLinks()" [showLogin]="showLogin()" [logo]="logo()" [showLogo]="showLogo()"
+    [showProfileImage]="showProfile()">
+    <app-link-button title="Login" (click)="onLoginClick()" buttonClass="login">
     </app-link-button>
-
     <app-link-button title="Register" route="/register" buttonClass="register">
     </app-link-button>
 

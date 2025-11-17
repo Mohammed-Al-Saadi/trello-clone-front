@@ -1,0 +1,16 @@
+<app-dashboard-info-panel title="Projects">
+    <app-link-button title="Add Member" buttonClass="" icon="add">
+    </app-link-button>
+</app-dashboard-info-panel>
+
+
+<app-model-view class="management-model">
+    <app-reactive-form title=" Add New Member" p="Add a new member to start organizing your work"
+        buttonName="Add member" [formData]="formData()" formClass=" management-form-class" titleIcon="add">
+    </app-reactive-form>
+</app-model-view>
+
+<p>Project ID: {{ projectId }}</p>
+<p>Board ID: {{ boardId }}</p>
+
+<button (click)="goBack()">⬅ Back</button>

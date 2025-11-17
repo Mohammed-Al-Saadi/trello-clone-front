@@ -57,8 +57,14 @@ export class SrpRegisterService {
     //   - Reject duplicates
     //   - Never store raw password
     const body = { full_name, email, salt: salt_hex, verifier: verifier_hex };
-
-    // POST /srp-register with JSON body.
-    return await firstValueFrom(this.http.post(`${this.BASE_URL}/srp-register`, body));
+    try {
+      const response = await firstValueFrom(
+        this.http.post<any>(`${this.BASE_URL}/srp-register`, body)
+      );
+      return response;
+    } catch (err: any) {
+      const errorMsg = err.error?.error || 'Registration failed';
+      throw { error: errorMsg };
+    }
   }
 }

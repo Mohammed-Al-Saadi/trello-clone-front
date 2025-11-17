@@ -1,3 +1,4 @@
+/* GLOBAL STYLES FOR THE CARD*/
 .card-container {
   padding: 1rem;
   display: flex;
@@ -5,16 +6,20 @@
   flex-wrap: wrap;
   font-family: Arial, Helvetica, sans-serif;
   justify-content: center;
-  margin: 0;
 }
+
 h3 {
   font-weight: 550;
   font-size: 1rem;
 }
+
 p {
   color: #000000b7;
   font-size: 0.9rem;
+  position: relative;
+  top: -0.3rem;
 }
+
 .card {
   border-radius: 1rem;
   padding: 1.5rem;
@@ -27,6 +32,7 @@ p {
   transform: translateY(-4px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
+
 .icon-wrapper {
   width: fit-content;
   display: flex;
@@ -34,6 +40,7 @@ p {
   justify-content: center;
   border-radius: 0.9rem;
 }
+
 .icon {
   padding: 0.6rem;
 }
@@ -42,7 +49,10 @@ p {
   transform: scale(1.1);
   color: #000;
 }
-/* home page starts */
+
+/* HOME PAGE STYLES */
+
+/* Get Started Section */
 .card-container.home-page-getstarted {
   border-radius: 0.4rem;
   text-align: center;
@@ -52,21 +62,26 @@ p {
   justify-content: center;
   margin: 2rem auto;
 }
+
 .home-page-getstarted .card {
   max-width: 100%;
   border-radius: 0.4rem;
   box-shadow: unset;
 }
+
 .home-page-getstarted h3 {
   font-size: 2rem;
   color: white;
 }
+
 .home-page-getstarted p {
   font-size: 1.2rem;
   color: white;
+  top: -0.5rem;
 }
 
-.home-page-featurs-card {
+/* Description Cards */
+.home-page-discription-card {
   display: flex;
   gap: 2rem 3rem;
   justify-content: center;
@@ -74,23 +89,24 @@ p {
   margin-top: 3rem;
   padding: 1rem;
 }
-.home-page-featurs-card .card:nth-child(1) {
+
+.home-page-discription-card .card:nth-child(1) {
   margin-top: 4rem;
 }
 
-.home-page-featurs-card .card:nth-child(2) {
+.home-page-discription-card .card:nth-child(2) {
   margin-top: 2rem;
 }
 
-.home-page-featurs-card .card:nth-child(3) {
+.home-page-discription-card .card:nth-child(3) {
   margin-top: 2rem;
 }
 
-.home-page-featurs-card .card:nth-child(4) {
+.home-page-discription-card .card:nth-child(4) {
   margin-top: 0rem;
 }
 
-.home-page-featurs-card .card {
+.home-page-discription-card .card {
   background-color: #fff;
   border-radius: 1rem;
   padding: 1.5rem;
@@ -100,14 +116,14 @@ p {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.home-page-featurs-card .card:hover {
+.home-page-discription-card .card:hover {
   transform: translateY(-6px);
   box-shadow: 0 0 25px rgba(154, 92, 247, 0.4), 0 0 50px rgba(217, 79, 248, 0.35),
     0 0 70px rgba(241, 106, 138, 0.3);
 }
-/* home page ends */
 
-.how-it-works-card .card {
+/* How It Works Section */
+.home-how-it-works-card .card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -119,16 +135,17 @@ p {
   height: 200px;
 }
 
-.how-it-works-card .card:nth-child(2) {
+.home-how-it-works-card .card:nth-child(2) {
   position: relative;
   bottom: -2.5rem;
 }
 
-.how-it-works-card .card:nth-child(4) {
+.home-how-it-works-card .card:nth-child(4) {
   position: relative;
   bottom: -2.5rem;
 }
 
+/* Built For Section */
 .card-container.home-page-built-for {
   border-radius: 0.4rem;
   text-align: center;
@@ -146,6 +163,7 @@ p {
   height: 200px;
   border-radius: unset;
 }
+
 .home-page-built-for .card:nth-child(2) {
   position: relative;
   bottom: -2.5rem;
@@ -155,17 +173,20 @@ p {
   position: relative;
   bottom: -2.5rem;
 }
-.features-page-features .card {
+
+/*  FEATURES PAGE STYLES   */
+.features-page-cards {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+}
+
+.features-page-cards .card {
   max-width: 250px;
   padding: 1.2rem;
   background-color: white;
   box-shadow: 0 0 10px rgba(154, 92, 247, 0.28), 0 0 40px rgba(217, 79, 248, 0.25),
     0 0 60px rgba(241, 106, 138, 0.2);
-}
-.features-page-features {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding-bottom: 3rem;
 }
 
 .features-page-loveTavoloFeatures .card {
@@ -178,38 +199,13 @@ p {
   justify-content: center;
   text-align: center;
 }
+
 .features-page-loveTavoloFeatures p {
   position: relative;
   top: -1rem;
 }
-.features-page-getstarted {
-  max-width: 1300px;
-  margin: 0 auto;
-}
 
-.features-page-getstarted h3 {
-  font-size: 2rem;
-  color: white;
-}
-.features-page-getstarted p {
-  font-size: 1.2rem;
-  color: white;
-  position: relative;
-  top: -1rem;
-}
-
-.features-page-getstarted .card {
-  border-radius: 0.4rem;
-  text-align: center;
-  background: linear-gradient(135deg, #9b5cf7 0%, #d94ff8 50%, #f16a8a 100%);
-  max-width: 1250px;
-  display: flex;
-  justify-content: center;
-  margin: 2rem auto;
-  flex-direction: column;
-  width: 100%;
-}
-
+/*  ABOUT PAGE STYLES      */
 .about-page-ourValues .card:nth-child(1) {
   background: #faf5ff;
 }

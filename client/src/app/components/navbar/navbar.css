@@ -3,11 +3,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  transition: margin-left 0.3s ease-in-out;
+  transition: transform 0.35s ease, opacity 0.35s ease, width 0.35s ease;
+  transform-origin: left center;
   font-family: Arial, Helvetica, sans-serif;
   max-width: 1250px;
-
-  margin: 0 auto;
 }
 
 .navbar__logo a {
@@ -90,6 +89,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100px !important;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  transform: translateX(0px);
 }
 .navbar-container {
   position: sticky;
@@ -124,9 +127,65 @@
 .navbar.hidden {
   display: flex;
   align-items: center;
-  width: 30px;
+  width: 80px;
 }
 
 .navbar.hidden .navbar__links i {
   font-size: 1.8rem;
+}
+.navbar__profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  height: 4.1vh;
+}
+.navbar__profile p {
+  color: white;
+}
+.underline {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #252537;
+  border-radius: 2px;
+  margin-bottom: 01.5rem;
+}
+
+.navbar__profile img {
+  width: 40px;
+}
+.display {
+  display: none;
+}
+.dash-content-display {
+  width: 100%;
+}
+.navbar--dashboard .navbar__links ul li.active-link a::after {
+  background: unset;
+}
+.navbar--dashboard .navbar__links ul li a {
+  padding-bottom: unset;
+  padding: 0.6rem 1.5rem;
+  display: flex;
+  gap: 0.8rem;
+  width: 100%;
+  letter-spacing: 0.3px;
+}
+.menu-arrow {
+  font-size: 32px;
+  padding: 0.4rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.menu-arrow:hover {
+  background-color: #74747417;
 }

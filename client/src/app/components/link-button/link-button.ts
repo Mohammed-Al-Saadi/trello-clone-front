@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, input, Input } from '@angular/core';
+import { Component, EventEmitter, inject, input, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-link-button',
@@ -13,10 +13,15 @@ export class LinkButton {
   private router = inject(Router);
   buttonClass = input<string>('');
   title = input<string>('Get Started');
-  route = input<string>('/');
+  route = input<string>('');
   icon = input<string>('');
+  @Output() action = new EventEmitter<void>();
 
   onClick() {
-    this.router.navigate([this.route()]);
+    if (this.route()) {
+      this.router.navigate([this.route()]);
+    } else {
+      this.action.emit();
+    }
   }
 }

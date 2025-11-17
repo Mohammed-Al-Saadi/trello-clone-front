@@ -18,6 +18,22 @@ export class SrpAuthService {
 
   private BASE_URL = 'http://127.0.0.1:8080';
 
+  async logout() {
+    try {
+      const res: any = await firstValueFrom(
+        this.http.post(`${this.BASE_URL}/logout`, {}, { withCredentials: true })
+      );
+
+      if (res?.message === 'Successfully logged out') {
+        return true;
+      }
+
+      return false;
+    } catch (error) {
+      return false;
+    }
+  }
+
   async login(emailRaw: string, password: string) {
     // Normalize the identity string to keep server and client consistent
     const email = emailRaw.trim().toLowerCase();
@@ -75,7 +91,7 @@ export class SrpAuthService {
     //     inner = H("email:password")
     //     x = H(s, inner)    (both bigints → padded)
     // Make sure server uses the same exact encoding rule.
-    const innerHex = await H(`${email}:${password}`); 
+    const innerHex = await H(`${email}:${password}`);
     const inner = BigInt('0x' + innerHex);
     const x = BigInt('0x' + (await H(s, inner)));
 
@@ -119,8 +135,13 @@ export class SrpAuthService {
     //   - Recompute M1 and compare
     //   - If OK, respond with M2 (server proof)
     const verify: any = await firstValueFrom(
-      this.http.post(`${this.BASE_URL}/srp-login/verify`, { email, M1: M1_hex, session_id })
+      this.http.post(
+        `${this.BASE_URL}/srp-login/verify`,
+        { email, M1: M1_hex, session_id },
+        { withCredentials: true }
+      )
     );
+    console.log(verify);
 
     // (9) SERVER PROOF M2 = H(A | M1 | K)
     // WHY M2: Mutual authentication. Server proves to the client that it also

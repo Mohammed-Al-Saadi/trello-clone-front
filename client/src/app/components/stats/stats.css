@@ -1,4 +1,4 @@
-.home-stats {
+.stats-component {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,11 +31,8 @@
 .about-stats .stat-value {
   color: rgba(121, 27, 121, 0.829);
 }
-.about-stats {
-}
 
-.about-stats.home-stats {
-
+.about-stats.stats-component {
   display: flex;
   flex-direction: row;
   align-items: center;

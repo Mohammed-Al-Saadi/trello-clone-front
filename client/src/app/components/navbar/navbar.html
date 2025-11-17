@@ -2,28 +2,51 @@
     <div class="navbar-container">
 
         <header class="navbar" [class.hidden]="checkMenuOpen">
-            @if (showMenuIcon()) {
-            <button class="menu-toggle" [class.hidden]="checkMenuOpen" (click)="toggleMenu()">
-                <span *ngIf="checkMenuOpen">&#9776;</span>
-                <span *ngIf="!checkMenuOpen">&times;</span>
-            </button>
-            }
+
 
             @if (!showLogo()) {
             <div class="navbar__logo">
+                @if (!checkMenuOpen) {
                 <a routerLink="/">
                     <img [src]="logo()" alt="MyApp Logo" />
                 </a>
+                }
+
+                @if (showMenuIcon()) {
+                <mat-icon class="menu-arrow" (click)="toggleMenu()">
+                    {{ !checkMenuOpen ? 'keyboard_arrow_left' : 'keyboard_arrow_right' }}
+                </mat-icon>
+
+
+                }
+
+            </div>
+            }
+            @if (showMenuIcon()) {
+            <div class="underline"></div>
+
+            }
+
+
+            @if (showProfileImage()) {
+            <div class="navbar__profile">
+                <a routerLink="/dashboard">
+                    <img [src]="profileImage()" alt="MyApp Logo" />
+                </a>
+
                 @if (showProfileName() && !checkMenuOpen) {
                 <p>John..</p>
                 }
             </div>
             }
+            @if (showMenuIcon()) {
+            <div class="underline"></div>
+            }
 
             <nav class="navbar__links">
                 <ul>
                     @for (link of navLinks(); track link.path) {
-                    <li routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+                    <li routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: !navbarClass() }">
 
 
                         <a [routerLink]="link.path">
@@ -47,7 +70,7 @@
         </header>
     </div>
 
-    <div>
+    <div class="dash-content-display">
         <router-outlet></router-outlet>
     </div>
 </div>

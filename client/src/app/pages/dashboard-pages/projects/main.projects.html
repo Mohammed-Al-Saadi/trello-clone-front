@@ -1,0 +1,93 @@
+<div class="projects-container">
+    <app-dashboard-info-panel title="Projects" description="Manage and track all your projects">
+        <app-link-button section1 title="New Project" (action)="onClickAddProject()" buttonClass="create-project-button"
+            icon="add">
+        </app-link-button>
+        <div section2 class="search-wrapper">
+            <div class="search-box">
+                <span class="material-icons search-icon">search</span>
+                <input type="text" placeholder="Search projects by name..." [(ngModel)]="searchQuery"
+                    (input)="applyFilters()" />
+            </div>
+
+            <select [(ngModel)]="ownerFilter" (change)="applyFilters()" class="owner-filter">
+                <option value="all">All Projects</option>
+                <option value="me">My Projects</option>
+                <option value="others">Other Owners</option>
+            </select>
+        </div>
+
+    </app-dashboard-info-panel>
+
+    @if( showModel() ){
+    <app-model-view class="management-model" (closeModel)="onClickAddProject()">
+        <app-reactive-form title="Create New Project" p="Add a new project to start organizing your work"
+            buttonName="Create Project" [formData]="formData()" (submittedData)="onSubmiteNewProject($event)"
+            formClass="management-form-class" titleIcon="add">
+        </app-reactive-form>
+    </app-model-view>
+    }
+
+    @if( showEditModel() ){
+    <app-model-view class="management-model" (closeModel)="onClickColseEdit()">
+        <app-reactive-form title="Update Project" p="Update your project fields" buttonName="Save changes"
+            [formData]="formData()" (submittedData)="onSubmitEditForm($event)" formClass="management-form-class"
+            titleIcon="edit">
+        </app-reactive-form>
+    </app-model-view>
+    }
+
+    <div class="project-list">
+        @for (item of projectsData(); track item.id) {
+        <div class="project-item" (click)="goToProject(item.id)">
+            <div class="project-info">
+                <div class="project-list-title">
+                    <label class="project-initial">
+                        {{ item.name[0] | uppercase }}
+                    </label>
+                    <div class="actions" (click)="$event.stopPropagation()">
+                        <span class="material-icons edit-icon" (click)="onEditFormData(item)">
+                            edit
+                        </span>
+
+                        <span class="material-icons delete-icon" (click)="onDeleteProject(item.id, item.owner_id)">
+                            delete
+                        </span>
+                    </div>
+                </div>
+
+                <h2>{{ item.name }}</h2>
+                <p class="desc">{{ item.description }}</p>
+                <p class="cata">{{ item.category }}</p>
+                <p class="owner">Project Owner</p>
+                <p class="owner name">{{ item.owner_name }}</p>
+                <p class="owner email ">{{ item.owner_email }}</p>
+
+                <div class="underline"></div>
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <span class="material-icons">view_kanban</span>
+                        <span>{{ item.boards_count }}</span>
+                    </div>
+
+                    <div class="meta-item">
+                        <span class="material-icons">group</span>
+                        <span>{{ item.members_count }}</span>
+                    </div>
+
+                    <div class="meta-item">
+                        <span class="material-icons">calendar_today</span>
+                        <span> {{ item.created_at }}</span>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+        }
+    </div>
+
+</div>

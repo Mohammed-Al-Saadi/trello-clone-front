@@ -104,7 +104,7 @@ export class FeaturesPage {
       iconBgColor: '#e8f5e9',
     },
   ];
-  test = [
+  featuresGetStarted = [
     {
       title: 'Ready to Ship Faster?',
       p: 'Join thousands of teams already building better products with Tavolo.',

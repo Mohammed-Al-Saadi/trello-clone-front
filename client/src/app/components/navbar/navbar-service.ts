@@ -11,13 +11,16 @@ export class NavbarService {
   private logo = signal<string>('');
   private menuOpen = signal(false);
   private navIcone = signal('');
-
+  private profile = signal(false);
+  private profileImg = signal('');
   navLinks = this.navLinksSignal.asReadonly();
   showLogin = this.showLoginSignal.asReadonly();
   showLogo = this.showLogoSignal.asReadonly();
   logoUrl = this.logo.asReadonly();
   isMenyOpen = this.menuOpen.asReadonly();
   showNavIcone = this.navIcone.asReadonly();
+  showProfile = this.profile.asReadonly();
+  addProfileImng = this.profileImg.asReadonly();
 
   toggleMenu() {
     this.menuOpen.update((v) => !v);
@@ -25,9 +28,16 @@ export class NavbarService {
   setNavLinks(links: NavLink[]) {
     this.navLinksSignal.set(links);
   }
+  setShowProfile(show: boolean) {
+    this.profile.set(show);
+  }
   setLogo(logo: string) {
     this.logo.set(logo);
   }
+  setprofileImage(image: string) {
+    this.profileImg.set(image);
+  }
+
   setIcone(icone: string) {
     this.navIcone.set(icone);
   }

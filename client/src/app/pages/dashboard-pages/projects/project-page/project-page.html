@@ -1,0 +1,40 @@
+<div class="projects-page-main">
+
+    <app-dashboard-info-panel title="Boards">
+        <app-link-button section1 title="Create board" buttonClass="" icon="add" (action)="onClickOpenAddBoard()">
+        </app-link-button>
+        <app-link-button section1 title="Add Member" buttonClass="" icon="add" (action)="onClickOpenAddMember()">
+        </app-link-button>
+    </app-dashboard-info-panel>
+    @if( showAddMemberModel() ){
+    <app-model-view class="management-model" (closeModel)="onClickOpenAddMember()">
+        <app-reactive-form title=" Add New Member" p="Add a new member to start organizing your work"
+            buttonName="Add member" (submittedData)="onSubmiteNewMember($event)" [formData]="addMemberformData()"
+            formClass=" management-form-class" titleIcon="add">
+        </app-reactive-form>
+    </app-model-view>
+    }
+
+    @if( showModel() ){
+    <app-model-view class="management-model" (closeModel)="onClickOpenAddBoard()">
+        <app-reactive-form title="Create New Board" p="Add a new board to start organizing your work"
+            buttonName="Create Project" [formData]="formData()" formClass="management-form-class" titleIcon="add"
+            (submittedData)="onSubmiteNewBoard($event)">
+        </app-reactive-form>
+    </app-model-view>
+    }
+    <div class=" p-4">
+        <h1>Project ID: {{ projectId }}</h1>
+        <button (click)="goBack()">Back</button>
+    </div>
+
+    @for (item of boardsData(); track item.id ){
+    <p (click)="goTobordId(item.project_id, item.id)">
+        {{ item.name }}
+
+        <button>Edit</button>
+        <button>Delete</button>
+    </p>
+    }
+
+</div>

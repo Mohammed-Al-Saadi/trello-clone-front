@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { SrpAuthService } from './srp-auth';
 import { FormItems, ReactiveForm } from '../../components/reactive-form/reactive-form';
+import { ToastService } from '../../components/reusable-toast/toast-service';
 
 @Component({
   selector: 'app-login-page',
@@ -15,6 +16,7 @@ import { FormItems, ReactiveForm } from '../../components/reactive-form/reactive
 export class LoginPage {
   private router = inject(Router);
   private srpAuthService = inject(SrpAuthService);
+  private toast = inject(ToastService);
 
   loading = signal(false);
   message = signal('');
@@ -45,18 +47,15 @@ export class LoginPage {
       const responseData = await this.srpAuthService.login(value.email, value.password);
 
       if (responseData === true) {
-        this.message.set('Login successful ✅');
-        console.log('Login success:', responseData);
-
+        this.toast.showMessage({ id: 1, type: 'success', text: 'Login successful' });
         setTimeout(() => {
           this.router.navigate(['/dashboard']);
         }, 1500);
-      } else {
-        this.message.set('Invalid credentials. Please try again.');
       }
     } catch (err: any) {
-      console.error('Login error:', err);
-      this.message.set('Something went wrong. Please try again later.');
+      console.log(err);
+
+      this.toast.showMessage({ id: 1, type: 'error', text: err.error.error });
     } finally {
       this.loading.set(false);
     }
