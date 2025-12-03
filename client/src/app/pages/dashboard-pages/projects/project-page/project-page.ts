@@ -1,135 +1,247 @@
-import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { Component, computed, inject, signal } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { LinkButton } from '../../../../components/link-button/link-button';
 import { DashboardInfoPanel } from '../../../../components/dashboard-info-panel/dashboard-info-panel';
-import { Validators } from '@angular/forms';
-import { FormItems, ReactiveForm } from '../../../../components/reactive-form/reactive-form';
+import { ReactiveForm, FormItems } from '../../../../components/reactive-form/reactive-form';
 import { ModelView } from '../../../../components/model-view/model-view';
 import { BoardService } from '../../../../services/board-service';
-import { BoardPage } from '../board-page/board-page';
 import { AuthService } from '../../../../services/auth';
-import { ProjectsService } from '../../../../services/projects-service';
-import { ProjectMembership } from '../../../../services/project-membership';
+import { BoardMembership } from '../../../../services/board-membership';
+import { FloatingField } from '../../../../components/floating-field/floating-field';
+import { ProjectCard } from '../../../../components/project-card/project-card';
+import { ConfirmDelete } from '../../../../components/confirm-delete/confirm-delete';
+import { ToastService } from '../../../../components/reusable-toast/toast-service';
+import {
+  editBoardsFormData,
+  getAddMemberFormData,
+  newBoardFormData,
+} from '../main.project.form.data';
+import { checkBoardNoChanges, getShortNameUtil } from '../../../../utils/main.projects.utils';
+import { ManageRoles } from '../../../../components/manage-roles/manage-roles';
+import { NgFor, TitleCasePipe } from '@angular/common';
+import { LoadingSkeleton } from '../../../../components/loading-skeleton/loading-skeleton';
 
 @Component({
   selector: 'app-project-page',
   standalone: true,
   templateUrl: './project-page.html',
-  styleUrl: './project-page.css',
-  imports: [LinkButton, DashboardInfoPanel, ModelView, ReactiveForm],
+  styleUrls: ['./project-page.css', '../main.projects.css'],
+  imports: [
+    LinkButton,
+    DashboardInfoPanel,
+    ModelView,
+    ReactiveForm,
+    FloatingField,
+    ProjectCard,
+    ConfirmDelete,
+    ManageRoles,
+    TitleCasePipe,
+    LoadingSkeleton,
+    NgFor,
+  ],
 })
 export class ProjectPage {
   route = inject(ActivatedRoute);
   projectId = this.route.snapshot.params['project_id'];
-  projectMembership = inject(ProjectMembership);
 
-  showModel = signal<boolean>(false);
-  showAddMemberModel = signal<boolean>(false);
   auth = inject(AuthService);
-  roles = this.auth.roles;
   user = this.auth.user;
+  roles = this.auth.roles;
+  boardRoles = signal<any[]>([]);
 
   boardService = inject(BoardService);
-  boardsData = signal<any[]>([]);
+  memberMembership = inject(BoardMembership);
   router = inject(Router);
-  addMemberformData = signal<FormItems[]>([
-    {
-      label: 'Email *',
-      type: 'email',
-      formControlName: 'email',
-      placeholder: 'Your email...',
-      validators: [Validators.required, Validators.email],
-      options: [],
-    },
-    {
-      label: 'Select Board *',
-      type: 'select',
-      formControlName: 'board',
-      placeholder: 'Select board.. ',
-      options: [],
+  toast = inject(ToastService);
 
-      validators: [Validators.required],
-      allowTyping: false,
-    },
-    {
-      label: 'Select Role *',
-      type: 'select',
-      formControlName: 'roles',
-      placeholder: 'Select role.. ',
-      options: this.roles()
-        .filter((item) => item.name.toLowerCase().startsWith('project'))
-        .map((item) => item.name),
+  projectName = history.state.projectName;
+  loadingBoards = signal<boolean>(false);
+  showModel = signal(false);
+  showAddMemberModel = signal(false);
+  showEditBoardState = signal(false);
+  showDeleteModal = signal(false);
+  showEditBoardMembershipState = signal(false);
+  selectedRole = signal('');
 
-      validators: [Validators.required],
-      allowTyping: false,
-    },
-  ]);
+  boardsData = signal<any[]>([]);
+  selectedBoard = signal<any>(null);
+  selectedBoardId = signal<number | null>(null);
+  selectedRoleDescription = signal('');
 
-  formData = signal<FormItems[]>([
-    {
-      label: 'Board Name *',
-      type: 'text',
-      formControlName: 'board_name',
-      placeholder: 'Your board...',
-      validators: [Validators.required],
-      options: [],
-    },
-  ]);
+  searchQuery = signal('');
+  addMemberformData = signal<FormItems[]>(getAddMemberFormData(this.roles()));
+  editBoards = signal<FormItems[]>(editBoardsFormData);
+  formData = signal<FormItems[]>(newBoardFormData);
+  setMemberData = signal<any[]>([]);
+  filteredBoards = computed(() => {
+    const query = this.searchQuery().toLowerCase().trim();
+    if (!query) return this.boardsData();
 
-  async ngOnInit() {
-    const result: any = await this.boardService.getBoards(this.projectId, this.user().id);
-    this.boardsData.set(result);
+    return this.boardsData().filter((board) => board.name.toLowerCase().includes(query));
+  });
 
-    const boardNames = this.boardsData().map((b) => b.name);
+  getShortName(name: string): string {
+    return getShortNameUtil(name);
+  }
+  onChangeSelect(event: any) {
+    const value = (event.target as HTMLSelectElement).value;
+    if (!value.startsWith('board_')) return;
+    this.selectedRole.set(value);
+    this.selectedRoleDescription.set(this.roleDescriptions[value] || '');
+    console.log(value);
+  }
+  roleDescriptions: Record<string, string> = {
+    board_admin:
+      'Full control of the board—can manage lists, tasks, and board members, but cannot delete the board.',
 
-    this.addMemberformData.update((items) => {
-      const boardField = items.find((item) => item.formControlName === 'board');
-      if (boardField) boardField.options = boardNames;
+    board_member:
+      'Task-level access. Can add, edit, move, and delete tasks, but cannot delete the board or manage board settings or members.',
+  };
 
-      return [...items];
-    });
+  onNewRole(event: any) {
+    console.log(event);
+    const board_id = event.entityId;
+    const user_id = event.memberId;
+    const role_name = event.newRole;
+    const role_id = this.roles().find((r) => r.name === role_name).id;
+    this.memberMembership.updateBoardMembership(board_id, user_id, role_id);
+  }
+  openManageBoardRoles() {
+    this.showEditBoardMembershipState.update((v) => !v);
+  }
+  async deleteMemberShip(event: any) {
+    const board_id = event.entityId;
+    const user_id = event.memberId;
+
+    try {
+      await this.memberMembership.deleteBoardMembership(board_id, user_id);
+
+      this.ngOnInit();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  ngOnInit() {
+    this.boardRoles.set(this.roles().filter((r) => r.name.startsWith('board')));
+    this.loadBoards();
+  }
+
+  async loadBoards() {
+    this.loadingBoards.set(true);
+
+    try {
+      const result: any = await this.boardService.getBoards(this.projectId, this.user().id);
+      this.boardsData.set(result);
+
+      this.addMemberformData.update((items) => {
+        const boardField = items.find((f) => f.formControlName === 'board');
+        if (boardField) boardField.options = result.map((b: any) => b.name);
+        return [...items];
+      });
+    } finally {
+      this.loadingBoards.set(false);
+    }
+  }
+
+  goBack() {
+    history.back();
   }
 
   onClickOpenAddBoard() {
-    this.showModel.update((value) => !value);
+    this.showModel.update((v) => !v);
   }
+
   onClickOpenAddMember() {
-    this.showAddMemberModel.update((value) => !value);
+    this.showAddMemberModel.update((v) => !v);
   }
-  async onSubmiteNewMember(formData: any) {
-    try {
-      const selectedRoleName = formData.roles;
-      const selectedBoardName = formData.board;
-      const board_id = this.boardsData().find((r) => r.name === selectedBoardName).id;
-      const role_id = this.roles().find((r) => r.name === selectedRoleName).id;
-      const added_by = this.user().id;
-      console.log(this.projectId, board_id, formData.email, role_id, added_by);
-      const res = await this.projectMembership.addProjectMembership(
-        this.projectId,
-        board_id,
-        role_id,
-        formData.email,
-        added_by
-      );
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
+
+  onClickCloseEditBoard() {
+    this.showEditBoardState.update((v) => !v);
   }
 
   async onSubmiteNewBoard(formData: any) {
+    await this.boardService.addNewBoard(this.projectId, formData.board_name, 0, formData.category);
+    this.showModel.set(false);
+    this.loadBoards();
+  }
+
+  openEditBoard(board: any) {
+    this.selectedBoard.set(board);
+    this.showEditBoardState.set(true);
+
+    this.editBoards.update((fields) =>
+      fields.map((f) => {
+        if (f.formControlName === 'name') return { ...f, value: board.name };
+        if (f.formControlName === 'category') return { ...f, value: board.category };
+        return f;
+      })
+    );
+  }
+
+  async onSubmitEditBoard(editFormData: any) {
+    const oldBoard = this.selectedBoard();
+    const { noChange, currentName, currentCategory } = checkBoardNoChanges(oldBoard, editFormData);
+
+    if (noChange) {
+      this.toast.showMessage({
+        id: 1,
+        type: 'success',
+        text: 'No changes detected.',
+      });
+      this.showEditBoardState.set(false);
+      return;
+    }
+
+    await this.boardService.editBoard(oldBoard.id, currentName, currentCategory);
+    this.showEditBoardState.set(false);
+    this.loadBoards();
+  }
+
+  async onSubmiteNewMember(formData: any) {
     try {
-      const result = await this.boardService.addNewBoard(this.projectId, formData.board_name, 0);
-      this.showModel.set(false);
-    } catch (error) {
-      console.error('Failed to create board:', error);
+      const selectedBoardName = formData.board;
+      const selectedRoleName = formData.roles;
+
+      const board_id = this.boardsData().find((b) => b.name === selectedBoardName).id;
+      const role_id = this.roles().find((r) => r.name === selectedRoleName).id;
+
+      await this.memberMembership.addBoardMembership(
+        board_id,
+        role_id,
+        formData.email,
+        this.user().id
+      );
+      this.showAddMemberModel.set(false);
+      this.ngOnInit();
+    } catch (e) {
+      console.log(e);
+      this.showAddMemberModel.set(false);
     }
   }
 
-  goTobordId(projectId: number, boardId: number) {
-    this.router.navigate(['/dashboard/projects', projectId, 'boards', boardId]);
+  async handleDelete(confirmed: boolean) {
+    this.showDeleteModal.set(false);
+    if (!confirmed) return;
+
+    const boardId = this.selectedBoardId();
+    if (!boardId) return;
+
+    await this.boardService.deleteBoard(this.projectId, boardId);
+    this.loadBoards();
   }
-  goBack() {
-    history.back();
+
+  openDeleteBoard(event: { id: number }) {
+    this.selectedBoardId.set(event.id);
+    this.showDeleteModal.set(true);
+  }
+
+  goToBoard(boardId: number) {
+    const projectNAme = this.projectName;
+    const board = this.boardsData().find((n) => n.id === boardId);
+    this.router.navigate(['/dashboard/projects', this.projectId, 'boards', boardId], {
+      state: { projectName: this.projectName, boardName: board.name },
+    });
   }
 }

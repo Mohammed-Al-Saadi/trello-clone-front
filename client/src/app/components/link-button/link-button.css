@@ -11,6 +11,9 @@ button.login {
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
+button label {
+  cursor: pointer;
+}
 button.login:hover {
   background: rgba(0, 0, 0, 0.034);
   transform: translateY(-2px);
@@ -125,12 +128,98 @@ button.create-project-button {
   font-weight: bold;
   color: white;
   cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-  background: linear-gradient(90deg, #8a56ff, #ff7b7b);
+  transition: max-width 0.35s ease, opacity 0.35s ease;
+  background: linear-gradient(90deg, #8956ff3d, #ff7b7b02);
   border: none;
   display: flex;
+  align-items: center;
   flex-direction: row-reverse;
   gap: 0.5rem;
   font-weight: bold;
-  box-shadow: rgba(100, 100, 111, 0.685) 0px 7px 29px 0px;
+  box-shadow: 0 0px 20px rgba(123, 66, 246, 0.35), 0 0 12px rgba(95, 127, 255, 0.25),
+    0 6px 10px rgba(0, 0, 0, 0.55);
+}
+button.create-project-button label {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: max-width 3.2s ease, opacity 5.2s ease;
+}
+
+button.create-project-button:hover label {
+  max-width: 200px;
+  opacity: 1;
+  transition: max-width 0.35s ease, opacity 0.35s ease;
+}
+
+button.create-project-button .material-icons {
+  transition: transform 0.35s ease;
+  font-size: 1.3rem;
+  color: rgb(229, 230, 231);
+}
+
+button.create-project-button:hover .material-icons {
+  transform: translateX(-3px);
+}
+
+button.create-new-project-button {
+  font-family: Arial, Helvetica, sans-serif;
+  border: none;
+  padding: 0.7rem 0.8rem;
+  border-radius: 0.8rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: max-width 0.35s ease, opacity 0.35s ease;
+  background: #202027;
+  border: none;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  background: linear-gradient(90deg, #8956ff3d, #ff7b7b02);
+  gap: 0.5rem;
+  font-weight: bold;
+  box-shadow: 0 0px 20px rgba(123, 66, 246, 0.35), 0 0 12px rgba(95, 127, 255, 0.25),
+    0 6px 10px rgba(0, 0, 0, 0.55);
+}
+button.create-new-project-button:hover .material-icons {
+  transform: unset;
+}
+button.create-new-project-button:hover {
+  background: linear-gradient(90deg, #8956ff9d, #ff7b7b4b);
+}
+button.create-new-project-button .material-icons {
+  font-size: 1.3rem;
+}
+
+button.list-card-button {
+  font-family: Arial, Helvetica, sans-serif;
+  border: none;
+  padding: 0.7rem 1rem;
+  border-radius: 0.8rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: max-width 0.35s ease, opacity 0.35s ease;
+  border: 1px rgba(92, 92, 92, 0.308) solid;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  background: initial;
+  color: #e9e9e9;
+  cursor: pointer;
+
+  gap: 0.5rem;
+  font-weight: bold;
+  box-shadow: 0 0px 20px rgba(123, 66, 246, 0.178), 0 0 12px rgba(95, 127, 255, 0.123),
+    0 6px 10px rgba(0, 0, 0, 0.301);
+}
+button.list-card-button:hover .material-icons {
+  transform: unset;
+}
+button.list-card-button:hover {
+  background: linear-gradient(90deg, #8956ff28, #ff7b7b02);
 }

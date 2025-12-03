@@ -12,6 +12,10 @@
 
     <p>{{ p() }}</p>
 
+    <div class="reactive-form-extra">
+        <ng-content></ng-content>
+
+    </div>
     @for (item of formData(); track item.label) {
     <label for="{{ item.formControlName }}">{{ item.label }}</label>
 
@@ -22,7 +26,7 @@
 
     @if (!item.allowTyping) {
     <div class="select-wrapper">
-        <select [formControlName]="item.formControlName">
+        <select [formControlName]="item.formControlName" (change)="onSelectChange($event, item)">
             <option value="" disabled selected>{{ item.placeholder }}</option>
             @for (option of item.options; track option) {
             <option [value]="option">{{ option }}</option>
@@ -72,4 +76,5 @@
         <a routerLink="/login">Sign in</a>.
     </p>
     }
+
 </form>

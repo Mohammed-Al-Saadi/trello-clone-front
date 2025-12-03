@@ -15,9 +15,11 @@ export class LinkButton {
   title = input<string>('Get Started');
   route = input<string>('');
   icon = input<string>('');
+  disabled = input<boolean>(false);
   @Output() action = new EventEmitter<void>();
 
   onClick() {
+    if (this.disabled()) return;
     if (this.route()) {
       this.router.navigate([this.route()]);
     } else {

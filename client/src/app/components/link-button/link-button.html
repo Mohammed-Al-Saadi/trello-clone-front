@@ -1,4 +1,5 @@
-<button [ngClass]="buttonClass()" (click)="onClick()">
-    {{ title() }}
+<button [ngClass]="buttonClass()" [disabled]="disabled()" (click)="onClick()">
+    <label> {{ title() }}
+    </label>
     <span *ngIf="icon()" class="material-icons">{{ icon() }}</span>
 </button>

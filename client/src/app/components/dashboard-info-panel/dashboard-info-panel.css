@@ -1,34 +1,62 @@
-.dash-panel-info-container {
-  background-color: #101018;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+.panel-container {
+  background: #101018;
   border-bottom: 1px solid #252537;
-  padding-bottom: 0.23rem;
-}
-.section1 {
+  position: sticky;
+  top: 0;
+  z-index: 200;
   width: 100%;
+}
+
+/* HEADER */
+.panel-header {
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0rem 0rem 1.5rem;
+  flex-wrap: wrap;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+
+  gap: 1rem;
+}
+
+.title-wrapper h2 {
+  margin: 0;
+  font-weight: 700;
   color: white;
+  text-transform: capitalize;
 }
-.section2 {
-  width: 100%;
-}
-.title {
-  padding-left: 1.5rem;
-  font-size: 1.5rem;
-  font-weight: bold;
-  letter-spacing: 0.3px;
-}
-.ng-content-section1 {
-  padding-right: 1.5rem;
-}
-.description {
-  font-size: 1rem;
+
+.date {
+  font-size: 0.9rem;
   color: #8c8c94;
+  margin-top: 0.2rem;
+}
+
+.right {
+  display: flex;
+  gap: 0.5rem;
+  margin-right: 1.5rem;
+}
+
+/* SUB BAR */
+.panel-subbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1.5rem;
+  background: #101018;
+  flex-wrap: wrap-reverse;
+  gap: 1rem;
+}
+
+.sub-left,
+.sub-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-direction: row;
 }

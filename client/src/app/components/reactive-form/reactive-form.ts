@@ -34,6 +34,7 @@ export interface FormItems {
   options?: any[];
   value?: any;
   allowTyping?: boolean;
+  onChange?: (value: any) => void;
 }
 
 @Component({
@@ -56,6 +57,12 @@ export class ReactiveForm implements OnInit {
   @Output() submittedData = new EventEmitter<any>();
   form = new FormGroup({});
   private formBuilder = inject(FormBuilder);
+
+  onSelectChange(event: Event, item: FormItems) {
+    if (item.formControlName !== 'roles') return;
+    const value = (event.target as HTMLSelectElement).value;
+    item.onChange?.(value);
+  }
 
   ngOnInit() {
     const items = this.formData();

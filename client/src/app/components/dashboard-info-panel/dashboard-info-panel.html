@@ -1,20 +1,28 @@
-<div class="dash-panel-info-container">
+<div class="panel-container">
 
-    <div class="section1">
-        <div class="title">
-            <p>{{ title() }}</p>
-            <p class="description">{{ description() }}</p>
+    <div class="panel-header">
 
+        <div class="left">
+            <ng-content select="[back]"></ng-content>
+
+            <div class="title-wrapper">
+                <h2>{{ title() }}</h2>
+                <p class="date">{{ today | date:'EEE, dd MMM yyyy' }}</p>
+            </div>
         </div>
 
-        <div class="ng-content-section1">
-            <ng-content select="[section1]"></ng-content>
+        <div class="right">
+            <ng-content select="[title-actions]"></ng-content>
         </div>
     </div>
 
-    <div class="section2">
-        <div class="ng-content-section2">
-            <ng-content select="[section2]"></ng-content>
+    <div class="panel-subbar">
+        <div class="sub-left">
+            <ng-content select="[content-left]"></ng-content>
+        </div>
+
+        <div class="sub-right">
+            <ng-content select="[content-right]"></ng-content>
         </div>
     </div>
 

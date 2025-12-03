@@ -6,7 +6,6 @@
   transition: transform 0.35s ease, opacity 0.35s ease, width 0.35s ease;
   transform-origin: left center;
   font-family: Arial, Helvetica, sans-serif;
-  max-width: 1250px;
 }
 
 .navbar__logo a {
@@ -99,7 +98,7 @@
   background-color: #ffffff;
   box-shadow: 0 2px 8px rgba(175, 175, 175, 0.05);
   top: 0;
-  z-index: 1000;
+  z-index: 0;
 }
 
 .menu-toggle {
@@ -141,7 +140,7 @@
   width: 100%;
   gap: 1rem;
   margin-bottom: 1rem;
-  height: 4.1vh;
+  height: 3.8vh;
 }
 .navbar__profile p {
   color: white;

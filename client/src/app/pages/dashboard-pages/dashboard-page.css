@@ -1,9 +1,14 @@
+:host ::ng-deep .navbar--dashboard {
+  height: 100vh;
+  overflow: hidden;
+}
+
 :host ::ng-deep .navbar--dashboard .navbar {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 99.9vh;
   background-color: #14141f;
   padding: 0rem 0rem;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
@@ -11,6 +16,10 @@
   font-family: Arial, Helvetica, sans-serif;
   border: 1px #252537 solid;
 }
+:host {
+  overflow-x: hidden !important;
+}
+
 :host ::ng-deep .navbar--dashboard {
   display: flex;
   flex-direction: row;
@@ -32,7 +41,10 @@
 }
 :host ::ng-deep .navbar--dashboard .dash-content-display {
   background-color: #0c0c12;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
+
 :host ::ng-deep .navbar--dashboard .navbar__logo {
   display: flex;
   align-items: center;
