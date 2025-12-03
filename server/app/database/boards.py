@@ -4,16 +4,16 @@ import psycopg2
 
 
 
-def add_new_board(project_id: int, name: str, position: int = 0):
+def add_new_board(project_id: int, name: str, position: int = 0, category: str = "General"):
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
     try:
         cur.execute("""
-            INSERT INTO boards (project_id, name, position)
-            VALUES (%s, %s, %s)
+            INSERT INTO boards (project_id, name, position, category)
+            VALUES (%s, %s, %s, %s)
             RETURNING id, project_id, name, position
-        """, (project_id, name, position))
+        """, (project_id, name, position, category))
 
         new_board = cur.fetchone()
         conn.commit()
@@ -30,64 +30,234 @@ def add_new_board(project_id: int, name: str, position: int = 0):
     finally:
         cur.close()
         conn.close()
-        
+
+
 
 def get_boards_for_project(project_id: int, user_id: int):
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
     try:
-        # Step 1: check if user is owner
+        # --------------------------------------------------------
+        # 1️⃣ Get required roles (project_owner id)
+        # --------------------------------------------------------
+        cur.execute("SELECT id FROM roles WHERE name = 'project_owner'")
+        owner_role = cur.fetchone()
+        if not owner_role:
+            return {"error": "project_owner role missing"}, 500
+
+        PROJECT_OWNER_ROLE_ID = owner_role["id"]
+        PROJECT_OWNER_ROLE_NAME = "project_owner"
+
+        # --------------------------------------------------------
+        # 2️⃣ Get project owner + membership for current user
+        # --------------------------------------------------------
         cur.execute("""
-            SELECT owner_id 
-            FROM projects 
-            WHERE id = %s
-        """, (project_id,))
-        
+            SELECT 
+                p.owner_id,
+                pm.role_id AS project_role_id,
+                r.name AS project_role_name
+            FROM projects p
+            LEFT JOIN project_memberships pm
+                ON pm.project_id = p.id
+               AND pm.user_id = %s
+            LEFT JOIN roles r
+                ON r.id = pm.role_id
+            WHERE p.id = %s
+        """, (user_id, project_id))
+
         project = cur.fetchone()
         if not project:
             return {"error": "Project not found"}, 404
-        
+
         is_owner = project["owner_id"] == user_id
 
-        # Step 2: Owner gets ALL boards
+        # Determine user's project role
         if is_owner:
-            cur.execute("""
-                SELECT *
-                FROM boards
-                WHERE project_id = %s
-                ORDER BY position ASC
-            """, (project_id,))
-        else:
-            # Step 3: Not owner → get only boards where user is member
-            cur.execute("""
-                SELECT b.*
-                FROM boards b
-                JOIN project_memberships pm 
-                    ON pm.board_id = b.id
-                WHERE b.project_id = %s
-                  AND pm.user_id = %s
-                ORDER BY b.position ASC
-            """, (project_id, user_id))
+            project_role_id = PROJECT_OWNER_ROLE_ID
+            project_role_name = PROJECT_OWNER_ROLE_NAME
 
-        rows = cur.fetchall()
+        elif project["project_role_id"]:
+            project_role_id = project["project_role_id"]
+            project_role_name = project["project_role_name"]
+
+        else:
+            project_role_id = None
+            project_role_name = None
+
+        # --------------------------------------------------------
+        # 3️⃣ Fetch boards — if user is project_owner/project_admin/member: full access
+        # --------------------------------------------------------
+        if is_owner or (project_role_name and project_role_name.startswith("project_")):
+
+            cur.execute("""
+                SELECT 
+                    b.*,
+                    (
+                        SELECT COUNT(DISTINCT u.user_id) FROM (
+                            SELECT bm2.user_id
+                            FROM board_memberships bm2
+                            WHERE bm2.board_id = b.id
+                            
+                            UNION
+                            
+                            SELECT pm.user_id
+                            FROM project_memberships pm
+                            JOIN roles pr ON pr.id = pm.role_id
+                            WHERE pm.project_id = b.project_id
+                              AND pr.name LIKE 'project_%%'
+                            
+                            UNION
+                            
+                            SELECT p.owner_id
+                            FROM projects p
+                            WHERE p.id = b.project_id
+                        ) u
+                    ) AS members_count,
+                    
+                    bm.role_id AS board_role_id,
+                    r.name AS board_role_name
+
+                FROM boards b
+                LEFT JOIN board_memberships bm 
+                    ON bm.board_id = b.id
+                   AND bm.user_id = %s
+
+                LEFT JOIN roles r
+                    ON r.id = bm.role_id
+
+                WHERE b.project_id = %s
+                ORDER BY b.position ASC
+            """, (user_id, project_id))
+
+        # --------------------------------------------------------
+        # 4️⃣ If user is ONLY a board member → fetch only their boards
+        # --------------------------------------------------------
+        else:
+            cur.execute("""
+                SELECT 
+                    b.*,
+                    (
+                        SELECT COUNT(DISTINCT u.user_id) FROM (
+                            SELECT bm2.user_id
+                            FROM board_memberships bm2
+                            WHERE bm2.board_id = b.id
+                            
+                            UNION
+                            
+                            SELECT pm.user_id
+                            FROM project_memberships pm
+                            JOIN roles pr ON pr.id = pm.role_id
+                            WHERE pm.project_id = b.project_id
+                              AND pr.name LIKE 'project_%%'
+                            
+                            UNION
+                            
+                            SELECT p.owner_id
+                            FROM projects p
+                            WHERE p.id = b.project_id
+                        ) u
+                    ) AS members_count,
+
+                    bm.role_id AS board_role_id,
+                    r.name AS board_role_name
+
+                FROM boards b
+                JOIN board_memberships bm 
+                    ON bm.board_id = b.id
+                   AND bm.user_id = %s
+
+                LEFT JOIN roles r
+                    ON r.id = bm.role_id
+
+                WHERE b.project_id = %s
+                ORDER BY b.position ASC
+            """, (user_id, project_id))
+
+        boards = cur.fetchall()
         conn.commit()
 
-        return [dict(row) for row in rows], 200
+        # --------------------------------------------------------
+        # 5️⃣ Fetch ALL members for each board (board_roles + project_owner/admin/member)
+        # --------------------------------------------------------
+        for board in boards:
+
+            cur.execute("""
+                SELECT DISTINCT
+                    u.id AS user_id,
+                    u.full_name,
+                    u.email,
+                    role_data.role_id,
+                    role_data.role_name
+
+                FROM users u
+                JOIN (
+                    -- Board members
+                    SELECT bm.user_id, bm.role_id, r.name AS role_name
+                    FROM board_memberships bm
+                    LEFT JOIN roles r ON r.id = bm.role_id
+                    WHERE bm.board_id = %s
+
+                    UNION
+
+                    -- Project-level roles
+                    SELECT pm.user_id, pm.role_id, r.name AS role_name
+                    FROM project_memberships pm
+                    JOIN roles r ON r.id = pm.role_id
+                    WHERE pm.project_id = %s
+                      AND r.name LIKE 'project_%%'
+
+                    UNION
+
+                    -- Project Owner
+                    SELECT p.owner_id AS user_id,
+                           (SELECT id FROM roles WHERE name='project_owner'),
+                           'project_owner'
+                    FROM projects p
+                    WHERE p.id = %s
+                ) AS role_data
+                    ON role_data.user_id = u.id
+            """, (board["id"], project_id, project_id))
+
+            board_members = cur.fetchall()
+            board["members"] = [dict(m) for m in board_members]
+
+        # --------------------------------------------------------
+        # 6️⃣ Final role resolution for current user
+        # --------------------------------------------------------
+        results = []
+        for board in boards:
+            b = dict(board)
+
+            if is_owner:
+                b["user_role_id"] = PROJECT_OWNER_ROLE_ID
+                b["user_role_name"] = PROJECT_OWNER_ROLE_NAME
+
+            elif project_role_name and project_role_name.startswith("project_"):
+                b["user_role_id"] = project_role_id
+                b["user_role_name"] = project_role_name
+
+            else:
+                b["user_role_id"] = b["board_role_id"]
+                b["user_role_name"] = b["board_role_name"]
+
+            del b["board_role_id"]
+            del b["board_role_name"]
+
+            results.append(b)
+
+        return results, 200
 
     except psycopg2.Error as e:
         conn.rollback()
-        return {"error": f"Database error: {e.pgerror or str(e)}"}, 400
+        return {"error": str(e)}, 400
 
     finally:
         cur.close()
         conn.close()
 
 
-
-
-
-def update_board(board_id: int, name: str, position: int):
+def update_board(board_id: int, name: str, category: str):
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
@@ -95,10 +265,10 @@ def update_board(board_id: int, name: str, position: int):
         cur.execute("""
             UPDATE boards
             SET name = %s,
-                position = %s
+                category = %s
             WHERE id = %s
-            RETURNING id, project_id, name, position
-        """, (name, position, board_id))
+            RETURNING id
+        """, (name, category, board_id)) 
 
         updated_board = cur.fetchone()
 
@@ -122,16 +292,16 @@ def update_board(board_id: int, name: str, position: int):
 
 
 
-def delete_board(board_id: int):
+def delete_board(project_id: int, board_id: int):
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
     try:
         cur.execute("""
             DELETE FROM boards
-            WHERE id = %s
+            WHERE id = %s AND project_id = %s
             RETURNING id
-        """, (board_id,))
+        """, (board_id, project_id))
 
         deleted = cur.fetchone()
 

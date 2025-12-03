@@ -28,18 +28,29 @@ CREATE TABLE boards (
   id SERIAL PRIMARY KEY,
   project_id INTEGER REFERENCES projects(id) ON DELETE CASCADE,
   name VARCHAR(120) NOT NULL,
-  position INTEGER DEFAULT 0
+  position INTEGER DEFAULT 0,
+  category VARCHAR(120) DEFAULT 'General',
+  created_at TIMESTAMP DEFAULT NOW()
 );
+
 
 CREATE TABLE project_memberships (
   id SERIAL PRIMARY KEY,
-  project_id INTEGER REFERENCES projects(id) ON DELETE CASCADE,
-  board_id INTEGER REFERENCES boards(id) ON DELETE CASCADE,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  project_id INTEGER NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   role_id INTEGER REFERENCES roles(id) ON DELETE RESTRICT,
   added_by INTEGER REFERENCES users(id) ON DELETE SET NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE (project_id, board_id, user_id)
+  UNIQUE (project_id, user_id)
+);
+CREATE TABLE board_memberships (
+  id SERIAL PRIMARY KEY,
+  board_id INTEGER NOT NULL REFERENCES boards(id) ON DELETE CASCADE,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  role_id INTEGER REFERENCES roles(id) ON DELETE RESTRICT,
+  added_by INTEGER REFERENCES users(id) ON DELETE SET NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE (board_id, user_id)
 );
 
 
@@ -54,34 +65,23 @@ CREATE TABLE cards (
   id SERIAL PRIMARY KEY,
   list_id INTEGER REFERENCES lists(id) ON DELETE CASCADE,
   title VARCHAR(200) NOT NULL,
-  description TEXT,
   position INTEGER DEFAULT 0,
-  due_date DATE,
-  archived BOOLEAN DEFAULT FALSE,
   created_by INTEGER REFERENCES users(id) ON DELETE RESTRICT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  priority VARCHAR(20) DEFAULT 'low' 
+);
+
+CREATE TABLE card_contents (
+  card_id INTEGER PRIMARY KEY REFERENCES cards(id) ON DELETE CASCADE,
+  due_date TIMESTAMPTZ NULL,
+  content_html TEXT  NULL,
+  updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE card_assignees (
   card_id INTEGER REFERENCES cards(id) ON DELETE CASCADE,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   PRIMARY KEY (card_id, user_id)
-);
-
-CREATE TABLE card_checklists (
-  id SERIAL PRIMARY KEY,
-  card_id INTEGER NOT NULL REFERENCES cards(id) ON DELETE CASCADE,
-  title VARCHAR(120) NOT NULL,
-  position INTEGER DEFAULT 0,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE card_checklist_items (
-  id SERIAL PRIMARY KEY,
-  checklist_id INTEGER NOT NULL REFERENCES card_checklists(id) ON DELETE CASCADE,
-  content VARCHAR(255) NOT NULL,
-  is_completed BOOLEAN DEFAULT FALSE,
-  position INTEGER DEFAULT 0
 );
 
 CREATE TABLE card_comments (
@@ -92,11 +92,3 @@ CREATE TABLE card_comments (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE card_attachments (
-  id SERIAL PRIMARY KEY,
-  card_id INTEGER NOT NULL REFERENCES cards(id) ON DELETE CASCADE,
-  file_name VARCHAR(255),
-  file_url TEXT NOT NULL,
-  uploaded_by INTEGER REFERENCES users(id) ON DELETE SET NULL,
-  uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);

@@ -29,48 +29,115 @@ def add_new_project(name: str, description: str, owner_id: int, category:str):
         cur.close()
         conn.close()
 
-
 def get_all_project_for_user(user_id: str):
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
     try:
-        cur.execute("""
-            SELECT 
-                p.*,
+        sql = """
+        SELECT 
+            p.*,
+            u.full_name AS owner_name,
+            u.email AS owner_email,
 
-                -- Owner info
-                u.full_name AS owner_name,
-                u.email AS owner_email,
+            COUNT(DISTINCT b.id) AS boards_count,
 
-                -- Number of boards in the project
-                COUNT(DISTINCT b.id) AS boards_count,
+            (COUNT(DISTINCT pm_all.user_id) + 1) AS members_count,
 
-                -- Members count (unique project members + owner)
-                (COUNT(DISTINCT pm.user_id) + 1) AS members_count
+            -- If user has project-level role → use pm_user.role_id
+            -- If user is owner → use owner role
+            CASE
+                WHEN pm_user.role_id IS NULL AND p.owner_id = %s THEN ro.id
+                ELSE pm_user.role_id
+            END AS project_role_id,
 
-            FROM projects p
+            CASE
+                WHEN pm_user.role_id IS NULL AND p.owner_id = %s THEN ro.name
+                ELSE r.name
+            END AS project_role_name
 
-            JOIN users u 
-                ON u.id = p.owner_id
+        FROM projects p
 
-            LEFT JOIN boards b 
-                ON b.project_id = p.id
+        JOIN users u 
+            ON u.id = p.owner_id
 
-            LEFT JOIN project_memberships pm 
-                ON pm.project_id = p.id
+        LEFT JOIN boards b 
+            ON b.project_id = p.id
 
-            WHERE p.owner_id = %s
-               OR pm.user_id = %s
+        LEFT JOIN project_memberships pm_all
+            ON pm_all.project_id = p.id
 
-            GROUP BY p.id, u.full_name, u.email
-            ORDER BY p.created_at DESC
-        """, (user_id, user_id))
+        LEFT JOIN project_memberships pm_user
+            ON pm_user.project_id = p.id
+           AND pm_user.user_id = %s
 
+        -- Project-level role name
+        LEFT JOIN roles r
+            ON r.id = pm_user.role_id
+
+        -- Owner role (project_owner)
+        LEFT JOIN roles ro
+            ON ro.name = 'project_owner'
+
+        -- NEW: include board memberships for visibility
+        LEFT JOIN board_memberships bm_user
+            ON bm_user.user_id = %s
+
+        LEFT JOIN boards b2
+            ON b2.id = bm_user.board_id
+           AND b2.project_id = p.id
+
+        WHERE 
+            p.owner_id = %s            -- user owns project
+            OR pm_user.user_id = %s    -- user has project role
+            OR b2.id IS NOT NULL       -- user is board member
+
+        GROUP BY 
+            p.id, 
+            u.full_name, 
+            u.email, 
+            pm_user.role_id, 
+            r.name, 
+            ro.id, 
+            ro.name
+
+        ORDER BY p.created_at DESC;
+        """
+
+        cur.execute(sql, (user_id, user_id, user_id, user_id, user_id, user_id))
         rows = cur.fetchall()
         conn.commit()
 
-        return [dict(row) for row in rows], 200
+        cleaned_rows = []
+        for row in rows:
+            row = dict(row)
+            cleaned_rows.append(row)
+
+        # -----------------------------------------------------
+        # ONLY NEW ADDITION (does NOT change your functionality)
+        # -----------------------------------------------------
+        for project in cleaned_rows:
+            project_id = project["id"]
+
+            cur.execute("""
+                SELECT 
+                    u.id AS user_id,
+                    u.email,
+                    u.full_name,
+                    pm.role_id,
+                    r.name AS role_name
+                FROM project_memberships pm
+                JOIN users u ON u.id = pm.user_id
+                LEFT JOIN roles r ON r.id = pm.role_id
+                WHERE pm.project_id = %s;
+            """, (project_id,))
+
+            members = cur.fetchall()
+
+            project["members"] = members
+        # -----------------------------------------------------
+
+        return cleaned_rows, 200
 
     except psycopg2.Error as e:
         conn.rollback()
@@ -79,6 +146,7 @@ def get_all_project_for_user(user_id: str):
     finally:
         cur.close()
         conn.close()
+
 
 
 def delete_project(project_id: int, owner_id: int):

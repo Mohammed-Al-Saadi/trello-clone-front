@@ -25,5 +25,3 @@ def get_all_roles_db():
     finally:
         cur.close()
         conn.close()
-data = get_all_roles_db()
-print(data)

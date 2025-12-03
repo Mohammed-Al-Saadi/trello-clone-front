@@ -2,7 +2,7 @@ from database.config import get_db_connection
 from psycopg2.extras import RealDictCursor
 import psycopg2
 
-def add_project_membership_db(project_id: int, role_id: int, email: str, added_by: int):
+def add_board_membership_db(board_id: int, role_id: int, email: str, added_by: int):
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
@@ -18,15 +18,14 @@ def add_project_membership_db(project_id: int, role_id: int, email: str, added_b
 
         # 2. Insert membership
         cur.execute("""
-            INSERT INTO project_memberships (project_id, user_id, role_id, added_by)
+            INSERT INTO board_memberships (board_id, user_id, role_id, added_by)
             VALUES (%s, %s, %s, %s)
             RETURNING *;
-        """, (project_id, user_id, role_id, added_by))
+        """, (board_id, user_id, role_id, added_by))
 
         row = cur.fetchone()
         conn.commit()
 
-        # 🔥 FINAL FIX: return success message for toast
         return {
             "message": "New owner added successfully!",
             "data": row
@@ -46,7 +45,7 @@ def add_project_membership_db(project_id: int, role_id: int, email: str, added_b
 
 
 
-def delete_project_membership_db(project_id: int, user_id: int):
+def delete_board_membership_db(project_id: int, user_id: int):
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
@@ -75,41 +74,73 @@ def delete_project_membership_db(project_id: int, user_id: int):
 
 
 
-def update_project_membership_role_db(project_id: int, user_id: int, new_role_id: int):
+
+def update_board_member_role_db(board_id: int, user_id: int, new_role_id: int):
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
     try:
-        # Check membership exists
+      
+
+        # 2. Validate role exists
+        cur.execute("SELECT id FROM roles WHERE id = %s", (new_role_id,))
+        role = cur.fetchone()
+
+        if not role:
+            return {"error": "Role does not exist"}, 404
+
+        # 3. Update membership
         cur.execute("""
-            SELECT * FROM project_memberships
-            WHERE project_id = %s AND user_id = %s
-        """, (project_id, user_id))
-
-        member = cur.fetchone()
-
-        if not member:
-            return {"error": "Membership not found for this user and project"}, 404
-
-        # Update role_id
-        cur.execute("""
-            UPDATE project_memberships
+            UPDATE board_memberships
             SET role_id = %s
-            WHERE project_id = %s AND user_id = %s
+            WHERE board_id = %s AND user_id = %s
             RETURNING *;
-        """, (new_role_id, project_id, user_id))
+        """, (new_role_id, board_id, user_id))
 
         updated = cur.fetchone()
         conn.commit()
 
         return {
             "message": "Role updated successfully",
-            "data": updated
+            "updated": updated
         }, 200
 
     except psycopg2.Error as e:
         conn.rollback()
-        return {"error": f"Database error: {e.pgerror or str(e)}"}, 400
+        return {
+            "error": f"Database error: {e.pgerror or str(e)}"
+        }, 400
+
+    finally:
+        cur.close()
+        conn.close()
+
+
+def delete_board_member_db(board_id: int, user_id: int):
+    conn = get_db_connection()
+    cur = conn.cursor(cursor_factory=RealDictCursor)
+
+    try:
+        # 2. Delete membership
+        cur.execute("""
+            DELETE FROM board_memberships
+            WHERE board_id = %s AND user_id = %s
+            RETURNING *;
+        """, (board_id, user_id))
+
+        deleted_row = cur.fetchone()
+        conn.commit()
+
+        return {
+            "message": "Board member removed successfully",
+            "deleted": deleted_row
+        }, 200
+
+    except psycopg2.Error as e:
+        conn.rollback()
+        return {
+            "error": f"Database error: {e.pgerror or str(e)}"
+        }, 400
 
     finally:
         cur.close()
