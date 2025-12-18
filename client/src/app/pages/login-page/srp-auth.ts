@@ -151,6 +151,7 @@ export class SrpAuthService {
     if (String(verify.M2).toLowerCase() !== M2_calc) {
       throw new Error('M2 mismatch');
     }
+    // Login successful, redirect to dashboard
 
     return true;
   }
