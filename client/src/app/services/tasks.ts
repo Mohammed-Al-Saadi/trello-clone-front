@@ -14,7 +14,7 @@ export class TasksService {
     const body = { list_id, title, created_by, priority };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('http://127.0.0.1:8080/add-cards', body, {
+        this.http.post('https://trello-clone-zg0j.onrender.com/add-cards', body, {
           withCredentials: true,
         })
       );
@@ -44,7 +44,7 @@ export class TasksService {
     const body = { card_id, role_name };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('http://127.0.0.1:8080/delete-cards', body, {
+        this.http.post('https://trello-clone-zg0j.onrender.com/delete-cards', body, {
           withCredentials: true,
           headers: {
             'X-Role-Name': role_name || '',
@@ -76,7 +76,7 @@ export class TasksService {
     const body = { list_id, cards };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('http://127.0.0.1:8080/update-cards-list', body, {
+        this.http.post('https://trello-clone-zg0j.onrender.com/update-cards-list', body, {
           withCredentials: true,
         })
       );
@@ -91,7 +91,7 @@ export class TasksService {
     const body = { card_id, new_list_id, new_position };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('http://127.0.0.1:8080/move-card-to-new-list', body, {
+        this.http.post('https://trello-clone-zg0j.onrender.com/move-card-to-new-list', body, {
           withCredentials: true,
         })
       );
@@ -110,7 +110,7 @@ export class TasksService {
 
     try {
       const res: any = await lastValueFrom(
-        this.http.post('http://127.0.0.1:8080/update-card-details', body, {
+        this.http.post('https://trello-clone-zg0j.onrender.com/update-card-details', body, {
           withCredentials: true,
         })
       );

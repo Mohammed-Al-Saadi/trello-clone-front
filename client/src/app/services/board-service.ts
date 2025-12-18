@@ -20,7 +20,7 @@ export class BoardService {
     const body = { project_id, name, position, category, role_name };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('http://127.0.0.1:8080/add-board', body, {
+        this.http.post('https://trello-clone-zg0j.onrender.com/add-board', body, {
           withCredentials: true,
           headers: {
             'X-Role-Name': role_name || '',
@@ -52,7 +52,7 @@ export class BoardService {
     const body = { project_id, board_id, role_name };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('http://127.0.0.1:8080/delete-board', body, {
+        this.http.post('https://trello-clone-zg0j.onrender.com/delete-board', body, {
           withCredentials: true,
           headers: {
             'X-Role-Name': role_name || '',
@@ -84,7 +84,7 @@ export class BoardService {
   async getBoards(project_id: number, user_id: number) {
     const body = { project_id, user_id };
     const res = await lastValueFrom(
-      this.http.post('http://127.0.0.1:8080/get-boards', body, {
+      this.http.post('https://trello-clone-zg0j.onrender.com/get-boards', body, {
         withCredentials: true,
       })
     );
@@ -96,7 +96,7 @@ export class BoardService {
 
     try {
       const res: any = await lastValueFrom(
-        this.http.put('http://127.0.0.1:8080/edit-board', body, {
+        this.http.put('https://trello-clone-zg0j.onrender.com/edit-board', body, {
           withCredentials: true,
           headers: {
             'X-Role-Name': role_name || '',

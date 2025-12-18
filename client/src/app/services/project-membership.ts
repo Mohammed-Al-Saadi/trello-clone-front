@@ -21,7 +21,7 @@ export class ProjectMembership {
 
     try {
       const response: any = await lastValueFrom(
-        this.http.post('http://127.0.0.1:8080/add-project-membership', body, {
+        this.http.post('https://trello-clone-zg0j.onrender.com/add-project-membership', body, {
           withCredentials: true,
         })
       );
@@ -54,7 +54,7 @@ export class ProjectMembership {
 
     try {
       const response: any = await lastValueFrom(
-        this.http.post('http://127.0.0.1:8080/delete-project-membership', body, {
+        this.http.post('https://trello-clone-zg0j.onrender.com/delete-project-membership', body, {
           withCredentials: true,
           headers: {
             'X-Role-Name': role_name || '',
@@ -95,7 +95,7 @@ export class ProjectMembership {
 
     try {
       const response: any = await lastValueFrom(
-        this.http.post('http://127.0.0.1:8080/edit-project-membership', body, {
+        this.http.post('https://trello-clone-zg0j.onrender.com/edit-project-membership', body, {
           withCredentials: true,
           headers: {
             'X-Role-Name': role_name || '',

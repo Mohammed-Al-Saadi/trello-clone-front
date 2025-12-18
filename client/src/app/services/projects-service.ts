@@ -16,7 +16,7 @@ export class ProjectsService {
 
     try {
       const response: any = await lastValueFrom(
-        this.http.post('http://127.0.0.1:8080/add-project', body, {
+        this.http.post('https://trello-clone-zg0j.onrender.com/add-project', body, {
           withCredentials: true,
         })
       );
@@ -47,7 +47,7 @@ export class ProjectsService {
   async getAllProjects(owner_id: string) {
     const body = { owner_id };
     const data = await lastValueFrom(
-      this.http.post('http://127.0.0.1:8080/get-projects', body, {
+      this.http.post('https://trello-clone-zg0j.onrender.com/get-projects', body, {
         withCredentials: true,
       })
     );
@@ -59,7 +59,7 @@ export class ProjectsService {
     try {
       const response: any = await lastValueFrom(
         this.http.post(
-          'http://127.0.0.1:8080/delete-project',
+          'https://trello-clone-zg0j.onrender.com/delete-project',
           { project_id, owner_id, role_name },
           {
             withCredentials: true,
@@ -115,7 +115,7 @@ export class ProjectsService {
 
     try {
       const response: any = await lastValueFrom(
-        this.http.put('http://127.0.0.1:8080/update-project', body, {
+        this.http.put('https://trello-clone-zg0j.onrender.com/update-project', body, {
           withCredentials: true,
           headers: {
             'X-Role-Name': role_name || '',

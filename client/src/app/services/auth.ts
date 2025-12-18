@@ -11,7 +11,7 @@ import { GetRoles } from './get-roles';
 export class AuthService {
   private http = inject(HttpClient);
   private store = inject(Store);
-  private BASE_URL = 'http://127.0.0.1:8080';
+  private BASE_URL = 'https://trello-clone-zg0j.onrender.com';
   private getRoles = inject(GetRoles);
   user = this.store.selectSignal(selectUser);
   roles = signal<any[]>([]);

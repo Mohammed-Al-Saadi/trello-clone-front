@@ -10,7 +10,7 @@ export class GetRoles {
 
   async getRoles() {
     const res: any = await lastValueFrom(
-      this.http.get('http://127.0.0.1:8080/get-roles', {
+      this.http.get('https://trello-clone-zg0j.onrender.com/get-roles', {
         withCredentials: true,
       })
     );
