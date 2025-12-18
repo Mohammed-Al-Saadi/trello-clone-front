@@ -21,7 +21,7 @@ export class AuthService {
         this.http.get(`${this.BASE_URL}/protected`, { withCredentials: true })
       );
 
-      console.log('response from authcheck', res);
+      console.log(res);
 
       if (res?.authenticated && res.user) {
         this.store.dispatch(setUser({ user: res.user }));
@@ -33,9 +33,7 @@ export class AuthService {
         this.store.dispatch(clearUser());
         return null;
       }
-    } catch (err) {
-      console.log(err);
-
+    } catch {
       this.store.dispatch(clearUser());
       return null;
     }

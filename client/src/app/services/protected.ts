@@ -9,8 +9,6 @@ export const Protected: CanActivateFn = async () => {
   const user = await auth.checkAuth();
 
   if (user) {
-    router.navigate(['/dashboard']);
-
     return true;
   }
 
