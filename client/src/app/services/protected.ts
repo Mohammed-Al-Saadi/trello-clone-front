@@ -6,20 +6,12 @@ export const Protected: CanActivateFn = async () => {
   const router = inject(Router);
   const auth = inject(AuthService);
 
-  console.log('[Guard] Protected guard running...');
+  const user = await auth.checkAuth();
 
-  try {
-    const user = await auth.checkAuth();
-    console.log('[Guard] checkAuth user:', user);
-
-    if (user) return true;
-
-    console.warn('[Guard] No user -> redirecting to /login');
-    router.navigate(['/login']);
-    return false;
-  } catch (err) {
-    console.error('[Guard] checkAuth threw error:', err);
-    router.navigate(['/login']);
-    return false;
+  if (user) {
+    return true;
   }
+
+  router.navigate(['/login']);
+  return false;
 };
