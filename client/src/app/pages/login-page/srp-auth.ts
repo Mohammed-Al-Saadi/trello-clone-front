@@ -56,7 +56,11 @@ export class SrpAuthService {
     //   - B (hex), the server's public ephemeral key
     //   - session_id to bind the two-phase login (start/verify)
     const start: any = await firstValueFrom(
-      this.http.post(`${this.BASE_URL}/srp-login/start`, { email, A: A_hex })
+      this.http.post(
+        `${this.BASE_URL}/srp-login/start`,
+        { email, A: A_hex },
+        { withCredentials: true }
+      )
     );
     const salt_hex: string = String(start.salt).toLowerCase();
     const B_hex: string = String(start.B).toLowerCase();
