@@ -184,7 +184,6 @@ p {
 }
 
 .features-page-cards .card {
-  max-width: 250px;
   padding: 1.2rem;
   background-color: #1a162280;
   box-shadow: 0 0 10px rgba(154, 92, 247, 0.11), 0 0 40px rgba(217, 79, 248, 0.103),
@@ -234,6 +233,9 @@ p {
   }
 }
 @media (max-width: 675px) {
+  .features-page-loveTavoloFeatures .card {
+    padding: 0.1rem;
+  }
   .home-page-discription-card .card:nth-child(1) {
     margin-top: unset;
   }
@@ -276,5 +278,11 @@ p {
   .home-page-built-for .card:nth-child(4) {
     position: unset;
     bottom: unset;
+  }
+}
+@media (max-width: 476px) {
+  .about-page-outTeam .card {
+    max-width: 85%;
+    height: unset;
   }
 }

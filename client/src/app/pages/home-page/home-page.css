@@ -155,3 +155,17 @@ strong {
     font-size: 1.1rem;
   }
 }
+
+@media (max-width: 551px) {
+  .home-section-built-for-container {
+    padding-top: 0rem;
+  }
+  .home-section-page-getstarted {
+    padding: 2rem;
+  }
+}
+@media (max-width: 414px) {
+  .home-section-page-getstarted {
+    padding: 1rem;
+  }
+}
