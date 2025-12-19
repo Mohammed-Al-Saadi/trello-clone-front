@@ -14,7 +14,7 @@ export class BoardListService {
     const body = { board_id, name, role_name };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://trello-clone-zg0j.onrender.com/add-board-list', body, {
+        this.http.post('https://api.tavolopro.live/add-board-list', body, {
           withCredentials: true,
           headers: {
             'X-Role-Name': role_name || '',
@@ -47,7 +47,7 @@ export class BoardListService {
     const body = { board_id };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://trello-clone-zg0j.onrender.com/get-board-lists', body, {
+        this.http.post('https://api.tavolopro.live/get-board-lists', body, {
           withCredentials: true,
         })
       );
@@ -59,7 +59,7 @@ export class BoardListService {
   async updateListsPosition(data: any[]) {
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://trello-clone-zg0j.onrender.com/update-board-list-positions', data, {
+        this.http.post('https://api.tavolopro.live/update-board-list-positions', data, {
           withCredentials: true,
         })
       );
@@ -94,7 +94,7 @@ export class BoardListService {
     const data = { id, name, role_name };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://trello-clone-zg0j.onrender.com/update-list-name', data, {
+        this.http.post('https://api.tavolopro.live/update-list-name', data, {
           withCredentials: true,
           headers: {
             'X-Role-Name': role_name || '',
@@ -133,7 +133,7 @@ export class BoardListService {
 
     try {
       const res: any = await lastValueFrom(
-        this.http.delete('https://trello-clone-zg0j.onrender.com/delete-board-list', {
+        this.http.delete('https://api.tavolopro.live/delete-board-list', {
           body,
           withCredentials: true,
           headers: {

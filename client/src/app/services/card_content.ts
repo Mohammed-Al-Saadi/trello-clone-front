@@ -24,7 +24,7 @@ export class CardContentService {
 
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://trello-clone-zg0j.onrender.com/add-cards-content', body, {
+        this.http.post('https://api.tavolopro.live/add-cards-content', body, {
           withCredentials: true,
         })
       );
@@ -57,7 +57,7 @@ export class CardContentService {
 
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://trello-clone-zg0j.onrender.com/add-card-comment', body, {
+        this.http.post('https://api.tavolopro.live/add-card-comment', body, {
           withCredentials: true,
         })
       );
@@ -89,7 +89,7 @@ export class CardContentService {
 
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://trello-clone-zg0j.onrender.com/delete-comment', body, {
+        this.http.post('https://api.tavolopro.live/delete-comment', body, {
           withCredentials: true,
         })
       );
@@ -121,7 +121,7 @@ export class CardContentService {
     const body = { card_id };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://trello-clone-zg0j.onrender.com/get-card-content', body, {
+        this.http.post('https://api.tavolopro.live/get-card-content', body, {
           withCredentials: true,
         })
       );

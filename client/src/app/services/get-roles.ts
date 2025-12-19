@@ -10,7 +10,7 @@ export class GetRoles {
 
   async getRoles() {
     const res: any = await lastValueFrom(
-      this.http.get('https://trello-clone-zg0j.onrender.com/get-roles', {
+      this.http.get('https://api.tavolopro.live/get-roles', {
         withCredentials: true,
       })
     );

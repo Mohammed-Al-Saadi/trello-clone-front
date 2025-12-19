@@ -15,7 +15,7 @@ export class CardMembershipService {
 
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://trello-clone-zg0j.onrender.com/cards-assign-member', body, {
+        this.http.post('https://api.tavolopro.live/cards-assign-member', body, {
           withCredentials: true,
         })
       );
@@ -47,7 +47,7 @@ export class CardMembershipService {
 
     try {
       const res: any = await lastValueFrom(
-        this.http.delete('https://trello-clone-zg0j.onrender.com/cards-remove-member', {
+        this.http.delete('https://api.tavolopro.live/cards-remove-member', {
           body,
           withCredentials: true,
         })

@@ -16,7 +16,7 @@ import {
 export class SrpAuthService {
   private http = inject(HttpClient);
 
-  private BASE_URL = 'https://trello-clone-zg0j.onrender.com';
+  private BASE_URL = 'https://api.tavolopro.live';
 
   async logout() {
     try {
