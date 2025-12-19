@@ -2,12 +2,13 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { H, N, g, modPow, randomBigInt, bigIntToHex } from '../../utils/srp_utils';
-
+import { environment } from '../../../environments/environment.development';
+environment;
 @Injectable({ providedIn: 'root' })
 export class SrpRegisterService {
   private http = inject(HttpClient);
 
-  private BASE_URL = 'https://api.tavolopro.live';
+  private BASE_URL = environment.API_BASE_URL;
 
   async register(full_name: string, emailRaw: string, password: string) {
     // Normalize the login identifier:

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { ToastService } from '../components/reusable-toast/toast-service';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,7 @@ import { ToastService } from '../components/reusable-toast/toast-service';
 export class CardContentService {
   private http = inject(HttpClient);
   toast = inject(ToastService);
+  private BASE_URL = environment.API_BASE_URL;
 
   async addCardContent(
     card_id: number,
@@ -24,7 +26,7 @@ export class CardContentService {
 
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://api.tavolopro.live/add-cards-content', body, {
+        this.http.post(`${this.BASE_URL}/add-cards-content`, body, {
           withCredentials: true,
         })
       );
@@ -57,7 +59,7 @@ export class CardContentService {
 
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://api.tavolopro.live/add-card-comment', body, {
+        this.http.post(`${this.BASE_URL}/add-card-comment`, body, {
           withCredentials: true,
         })
       );
@@ -89,7 +91,7 @@ export class CardContentService {
 
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://api.tavolopro.live/delete-comment', body, {
+        this.http.post(`${this.BASE_URL}/delete-comment`, body, {
           withCredentials: true,
         })
       );
@@ -121,7 +123,7 @@ export class CardContentService {
     const body = { card_id };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://api.tavolopro.live/get-card-content', body, {
+        this.http.post(`${this.BASE_URL}/get-card-content`, body, {
           withCredentials: true,
         })
       );

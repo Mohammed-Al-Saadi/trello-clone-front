@@ -137,6 +137,7 @@ export class Management {
         (role) => role.name.startsWith('project') && role.name !== 'project_owner'
       )
     );
+
     const data = Array.isArray(response) ? response : response.projects ?? [];
     console.log(data);
     console.log(response);

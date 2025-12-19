@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { ToastService } from '../components/reusable-toast/toast-service';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,7 @@ import { ToastService } from '../components/reusable-toast/toast-service';
 export class BoardMembership {
   private http = inject(HttpClient);
   private toast = inject(ToastService);
+  private BASE_URL = environment.API_BASE_URL;
 
   async addBoardMembership(
     board_id: number,
@@ -21,7 +23,7 @@ export class BoardMembership {
 
     try {
       const response: any = await lastValueFrom(
-        this.http.post('https://api.tavolopro.live/add-board-membership', body, {
+        this.http.post(`${this.BASE_URL}/add-board-membership`, body, {
           withCredentials: true,
           headers: {
             'X-Role-Name': role_name || '',
@@ -57,7 +59,7 @@ export class BoardMembership {
 
     try {
       const response: any = await lastValueFrom(
-        this.http.post('https://api.tavolopro.live/delete-board-membership', body, {
+        this.http.post(`${this.BASE_URL}/delete-board-membership`, body, {
           withCredentials: true,
           headers: {
             'X-Role-Name': role_name || '',
@@ -97,7 +99,7 @@ export class BoardMembership {
 
     try {
       const response: any = await lastValueFrom(
-        this.http.put('https://api.tavolopro.live/update-board-membership', body, {
+        this.http.put(`${this.BASE_URL}/update-board-membership`, body, {
           withCredentials: true,
           headers: {
             'X-Role-Name': role_name || '',

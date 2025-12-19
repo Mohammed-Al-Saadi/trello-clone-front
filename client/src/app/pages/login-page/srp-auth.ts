@@ -11,12 +11,13 @@ import {
   bytesFromHex,
   toHex64,
 } from '../../utils/srp_utils';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({ providedIn: 'root' })
 export class SrpAuthService {
   private http = inject(HttpClient);
 
-  private BASE_URL = 'https://api.tavolopro.live';
+  private BASE_URL = environment.API_BASE_URL;
 
   async logout() {
     try {

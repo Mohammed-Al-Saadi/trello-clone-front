@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { ToastService } from '../components/reusable-toast/toast-service';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -9,12 +10,13 @@ import { ToastService } from '../components/reusable-toast/toast-service';
 export class TasksService {
   private http = inject(HttpClient);
   toast = inject(ToastService);
+  private BASE_URL = environment.API_BASE_URL;
 
   async addNewtask(list_id: number, title: string, created_by: number, priority: string) {
     const body = { list_id, title, created_by, priority };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://api.tavolopro.live/add-cards', body, {
+        this.http.post(`${this.BASE_URL}/add-cards`, body, {
           withCredentials: true,
         })
       );
@@ -44,7 +46,7 @@ export class TasksService {
     const body = { card_id, role_name };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://api.tavolopro.live/delete-cards', body, {
+        this.http.post(`${this.BASE_URL}/delete-cards`, body, {
           withCredentials: true,
           headers: {
             'X-Role-Name': role_name || '',
@@ -76,7 +78,7 @@ export class TasksService {
     const body = { list_id, cards };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://api.tavolopro.live/update-cards-list', body, {
+        this.http.post(`${this.BASE_URL}/update-cards-list`, body, {
           withCredentials: true,
         })
       );
@@ -91,7 +93,7 @@ export class TasksService {
     const body = { card_id, new_list_id, new_position };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://api.tavolopro.live/move-card-to-new-list', body, {
+        this.http.post(`${this.BASE_URL}/move-card-to-new-list`, body, {
           withCredentials: true,
         })
       );
@@ -110,7 +112,7 @@ export class TasksService {
 
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://api.tavolopro.live/update-card-details', body, {
+        this.http.post(`${this.BASE_URL}/update-card-details`, body, {
           withCredentials: true,
         })
       );

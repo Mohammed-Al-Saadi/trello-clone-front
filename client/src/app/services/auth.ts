@@ -6,12 +6,13 @@ import { Store } from '@ngrx/store';
 import { clearUser, setUser } from '../store/actions';
 import { selectUser } from '../store/selectors';
 import { GetRoles } from './get-roles';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
   private store = inject(Store);
-  private BASE_URL = 'https://api.tavolopro.live';
+  private BASE_URL = environment.API_BASE_URL;
   private getRoles = inject(GetRoles);
   user = this.store.selectSignal(selectUser);
   roles = signal<any[]>([]);

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { ToastService } from '../components/reusable-toast/toast-service';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -9,12 +10,13 @@ import { ToastService } from '../components/reusable-toast/toast-service';
 export class BoardListService {
   private http = inject(HttpClient);
   toast = inject(ToastService);
+  private BASE_URL = environment.API_BASE_URL;
 
   async addNewBoardList(board_id: number, name: string, role_name: string) {
     const body = { board_id, name, role_name };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://api.tavolopro.live/add-board-list', body, {
+        this.http.post(`${this.BASE_URL}/add-board-list`, body, {
           withCredentials: true,
           headers: {
             'X-Role-Name': role_name || '',
@@ -47,7 +49,7 @@ export class BoardListService {
     const body = { board_id };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://api.tavolopro.live/get-board-lists', body, {
+        this.http.post(`${this.BASE_URL}/get-board-lists`, body, {
           withCredentials: true,
         })
       );
@@ -59,7 +61,7 @@ export class BoardListService {
   async updateListsPosition(data: any[]) {
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://api.tavolopro.live/update-board-list-positions', data, {
+        this.http.post(`${this.BASE_URL}/update-board-list-positions`, data, {
           withCredentials: true,
         })
       );
@@ -94,7 +96,7 @@ export class BoardListService {
     const data = { id, name, role_name };
     try {
       const res: any = await lastValueFrom(
-        this.http.post('https://api.tavolopro.live/update-list-name', data, {
+        this.http.post(`${this.BASE_URL}/update-list-name`, data, {
           withCredentials: true,
           headers: {
             'X-Role-Name': role_name || '',
@@ -133,7 +135,7 @@ export class BoardListService {
 
     try {
       const res: any = await lastValueFrom(
-        this.http.delete('https://api.tavolopro.live/delete-board-list', {
+        this.http.post(`${this.BASE_URL}/update-list-name`, {
           body,
           withCredentials: true,
           headers: {
