@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { clearUser, setUser } from '../store/actions';
 import { selectUser } from '../store/selectors';
 import { GetRoles } from './get-roles';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {

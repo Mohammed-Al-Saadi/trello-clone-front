@@ -11,7 +11,7 @@ import {
   bytesFromHex,
   toHex64,
 } from '../../utils/srp_utils';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class SrpAuthService {

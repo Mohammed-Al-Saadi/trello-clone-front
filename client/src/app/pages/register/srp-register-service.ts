@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { H, N, g, modPow, randomBigInt, bigIntToHex } from '../../utils/srp_utils';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 environment;
 @Injectable({ providedIn: 'root' })
 export class SrpRegisterService {
