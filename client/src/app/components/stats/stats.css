@@ -51,7 +51,6 @@
     color: #ffffffd3;
   }
   .about-stats.stats-component {
-    justify-content: space-evenly;
 
     gap: 2rem;
   }

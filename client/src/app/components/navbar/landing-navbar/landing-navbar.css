@@ -5,7 +5,18 @@
   position: sticky !important;
   top: 0;
   z-index: 1000;
-  background: #110917;
+
+  background: radial-gradient(
+      circle at -20% 80%,
+      rgba(0, 0, 0, 0.952) 0%,
+      rgba(0, 0, 0, 0.979) 40%,
+      rgb(0, 0, 0) 70%
+    ),
+    radial-gradient(circle at 85% 20%, rgba(255, 0, 128, 0.089) 0%, rgba(0, 0, 0, 0) 60%),
+    radial-gradient(circle at 50% 115%, rgba(80, 0, 120, 0.18) 0%, rgba(0, 0, 0, 0) 70%),
+    linear-gradient(135deg, #07080e 0%, #090a16 40%, #0b0e19 100%);
+
+  background-blend-mode: screen;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -71,7 +82,17 @@
 .landing-mobile {
   display: none;
   flex-direction: column;
-  background: #000;
+  background: radial-gradient(
+      circle at -20% 80%,
+      rgba(0, 0, 0, 0.952) 0%,
+      rgba(0, 0, 0, 0.979) 40%,
+      rgb(0, 0, 0) 70%
+    ),
+    radial-gradient(circle at 85% 20%, rgba(255, 0, 128, 0.089) 0%, rgba(0, 0, 0, 0) 60%),
+    radial-gradient(circle at 50% 115%, rgba(80, 0, 120, 0.18) 0%, rgba(0, 0, 0, 0) 70%),
+    linear-gradient(135deg, #07080e 0%, #090a16 40%, #0b0e19 100%);
+
+  background-blend-mode: screen;
   position: fixed;
   left: 0;
   height: calc(100vh - 64px);

@@ -102,6 +102,7 @@ button.home-page-getstarted-button {
 button.home-button {
   position: relative;
   top: -1rem;
+  left: 0.7rem;
   font-family: Arial, Helvetica, sans-serif;
   border: none;
   padding: 0.5rem 0.8rem;
@@ -111,14 +112,18 @@ button.home-button {
   color: white;
   cursor: pointer;
   transition: transform 0.2s ease, opacity 0.2s ease;
-  background: linear-gradient(90deg, #8a56ff, #ff7b7b);
+  background: linear-gradient(90deg, #8956ff38, #ff7b7b50);
   border: none;
   display: flex;
   flex-direction: row-reverse;
   gap: 0.5rem;
   font-weight: bold;
-  box-shadow: rgba(100, 100, 111, 0.685) 0px 7px 29px 0px;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45), 0 2px 0 rgba(255, 255, 255, 0.08) inset,
+    0 -3px 10px rgba(0, 0, 0, 0.35) inset;
+  transform: translateY(0);
 }
+
 button.home-button:hover .material-icons {
   transform: translateX(-4px);
 }

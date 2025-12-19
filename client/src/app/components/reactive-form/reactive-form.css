@@ -186,7 +186,10 @@
   box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.12);
 }
 /* management-form-class */
-
+.login-form.reactive-form {
+  background-color: unset;
+  border: unset;
+}
 .management-form-class.reactive-form h2 {
   font-size: 1.3rem;
   text-align: unset;
@@ -194,6 +197,10 @@
   align-items: center;
   gap: 0.5rem;
   padding-bottom: 0.5rem;
+}
+.auth-note a {
+  color: white;
+  font-weight: 600;
 }
 .management-form-class.reactive-form p {
   text-align: unset;
@@ -234,7 +241,25 @@
 
 @media (max-width: 600px) {
   .reactive-form {
-    width: 98%;
+    width: 450px;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 458px) {
+  .reactive-form {
+    width: 400px;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 402px) {
+  .reactive-form {
+    width: 370px;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 380px) {
+  .reactive-form {
+    width: 100%;
     margin: 0 auto;
   }
 }
