@@ -85,7 +85,6 @@ p {
   gap: 2rem 3rem;
   justify-content: center;
   align-items: start;
-  margin-top: 3rem;
   padding: 1rem;
 }
 
@@ -225,4 +224,57 @@ p {
   justify-content: center;
   text-align: center;
   padding: 1rem;
+}
+
+@media (max-width: 743px) {
+  .home-page-discription-card {
+    padding: 0rem;
+    max-width: 100%;
+    gap: 1rem;
+  }
+}
+@media (max-width: 675px) {
+  .home-page-discription-card .card:nth-child(1) {
+    margin-top: unset;
+  }
+
+  .home-page-discription-card .card:nth-child(2) {
+    margin-top: unset;
+  }
+
+  .home-page-discription-card .card:nth-child(3) {
+    margin-top: unset;
+  }
+
+  .home-page-discription-card .card:nth-child(4) {
+    margin-top: unset;
+  }
+}
+@media (max-width: 551px) {
+  .home-how-it-works-card .card {
+    max-width: 300px;
+    height: unset;
+  }
+  .home-page-built-for .card {
+    max-width: 300px;
+    height: unset;
+  }
+  .home-how-it-works-card .card:nth-child(2) {
+    position: unset;
+    bottom: unset;
+  }
+
+  .home-how-it-works-card .card:nth-child(4) {
+    position: unset;
+    bottom: unset;
+  }
+  .home-page-built-for .card:nth-child(2) {
+    position: unset;
+    bottom: unset;
+  }
+
+  .home-page-built-for .card:nth-child(4) {
+    position: unset;
+    bottom: unset;
+  }
 }

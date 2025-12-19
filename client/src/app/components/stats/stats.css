@@ -44,3 +44,10 @@
   max-width: 900px;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 40px 40px -7px;
 }
+@media (max-width: 743px) {
+  .stat-value {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #ffffffd3;
+  }
+}
