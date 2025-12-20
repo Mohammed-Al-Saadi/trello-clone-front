@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
 import * as srp from 'secure-remote-password/client';
 import { SrpRegisterService } from './srp-register-service';
@@ -8,9 +8,10 @@ import { Router, RouterLink } from '@angular/router';
 import { FormItems, ReactiveForm } from '../../components/reactive-form/reactive-form';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ToastService } from '../../components/reusable-toast/toast-service';
+import { RainLoader } from '../../components/rain-loader/rain-loader';
 @Component({
   selector: 'app-register',
-  imports: [ReactiveForm, ReactiveFormsModule, MatSnackBarModule],
+  imports: [ReactiveForm, ReactiveFormsModule, MatSnackBarModule, RainLoader],
   templateUrl: './register.html',
   styleUrl: './register.css',
   standalone: true,
@@ -19,6 +20,7 @@ export class Register {
   private auth = inject(SrpRegisterService);
   private router = inject(Router);
   private toast = inject(ToastService);
+  @ViewChild(ReactiveForm) FormItems!: ReactiveForm;
 
   loading = signal(false);
   message = signal('');
@@ -56,10 +58,17 @@ export class Register {
 
   async onSubmitted(value: any) {
     try {
+      this.loading.set(true);
       const data = await this.auth.register(value.full_name, value.emailRaw, value.password);
       this.toast.showMessage({ id: 1, type: 'success', text: data.message });
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 2000);
     } catch (err: any) {
       this.toast.showMessage({ id: 2, type: 'error', text: err.error });
+    } finally {
+      this.loading.set(false);
+      this.FormItems.form.reset();
     }
   }
 }

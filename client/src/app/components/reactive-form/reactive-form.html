@@ -63,7 +63,9 @@
     }
     }
 
-    <button type="submit">{{ buttonName() }}</button>
+    <button type="submit" [disabled]="loading() || form.invalid">
+        {{ loading() ? 'Please wait…' : buttonName() }}
+    </button>
 
     @if (formType() === 'login') {
     <p class="auth-note">

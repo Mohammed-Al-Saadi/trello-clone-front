@@ -53,6 +53,7 @@ export class ReactiveForm implements OnInit {
   buttonName = input<string>('');
   formClass = input<string>('');
   titleIcon = input<string>('');
+  loading = input<boolean>(false);
 
   @Output() submittedData = new EventEmitter<any>();
   form = new FormGroup({});
@@ -86,6 +87,5 @@ export class ReactiveForm implements OnInit {
       return;
     }
     this.submittedData.emit(this.form.value);
-    this.form.reset();
   }
 }

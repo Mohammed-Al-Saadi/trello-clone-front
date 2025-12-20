@@ -1,15 +1,16 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { SrpAuthService } from './srp-auth';
 import { FormItems, ReactiveForm } from '../../components/reactive-form/reactive-form';
 import { ToastService } from '../../components/reusable-toast/toast-service';
+import { RainLoader } from '../../components/rain-loader/rain-loader';
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [ReactiveForm],
+  imports: [ReactiveForm, RainLoader],
   templateUrl: './login-page.html',
   styleUrls: ['./login-page.css'],
 })
@@ -17,6 +18,7 @@ export class LoginPage {
   private router = inject(Router);
   private srpAuthService = inject(SrpAuthService);
   private toast = inject(ToastService);
+  @ViewChild(ReactiveForm) FormItems!: ReactiveForm;
 
   loading = signal(false);
   message = signal('');
@@ -39,7 +41,6 @@ export class LoginPage {
   ]);
 
   async onSubmitted(value: any) {
-    // Reset messages
     this.message.set('');
     this.loading.set(true);
 
@@ -47,17 +48,23 @@ export class LoginPage {
       const responseData = await this.srpAuthService.login(value.email, value.password);
 
       if (responseData === true) {
-        this.toast.showMessage({ id: 1, type: 'success', text: 'Login successful' });
+        this.toast.showMessage({
+          id: 1,
+          type: 'success',
+          text: 'Login successful — redirecting to dashboard…',
+        });
         setTimeout(() => {
           this.router.navigate(['/dashboard']);
-        }, 1500);
+        }, 1000);
       }
     } catch (err: any) {
       console.log(err);
 
-      this.toast.showMessage({ id: 1, type: 'error', text: err.error.error });
+      const message = err?.error?.error;
+      this.toast.showMessage({ id: 1, type: 'error', text: message });
     } finally {
       this.loading.set(false);
+      this.FormItems.form.reset();
     }
   }
 }

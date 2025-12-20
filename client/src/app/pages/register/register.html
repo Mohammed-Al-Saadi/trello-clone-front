@@ -1,6 +1,10 @@
 <div class="register-container">
     <p>{{message()}}</p>
     <app-reactive-form formClass="login-form" title="Create your account" p="Start your journey with AgilePro today"
-        buttonName="Submit" [formData]="formData()" (submittedData)="onSubmitted($event)"
-        formType="register"></app-reactive-form>
+        buttonName="Submit" [formData]="formData()" (submittedData)="onSubmitted($event)" formType="register"
+        [loading]="loading()"></app-reactive-form>
+
+    @if(loading()){
+    <app-rain-loader title="Creating your account… Please wait."></app-rain-loader>
+    }
 </div>

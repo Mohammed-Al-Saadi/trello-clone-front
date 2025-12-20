@@ -59,10 +59,8 @@ export class SrpAuthService {
             { withCredentials: true }
           )
         );
-        console.log('[SRP] Step 1: Server start response', start);
-      } catch (err) {
-        console.error('[SRP] Step 1: /srp-login/start failed', err);
-        throw new Error('Login failed: Unable to start SRP handshake.');
+      } catch (err: any) {
+        throw err;
       }
 
       const salt_hex: string = String(start.salt).toLowerCase();
@@ -101,7 +99,6 @@ export class SrpAuthService {
             { withCredentials: true }
           )
         );
-        console.log('[SRP] Step 2: Server verify response', verify);
       } catch (err: any) {
         console.error('[SRP] Step 2: /srp-login/verify failed', err);
         if (err.status === 403) {
@@ -122,7 +119,7 @@ export class SrpAuthService {
       return true;
     } catch (err: any) {
       console.error('[SRP] Login error:', err);
-      throw err; // rethrow so your UI can show "Invalid credentials" or similar
+      throw err;
     }
   }
 }
