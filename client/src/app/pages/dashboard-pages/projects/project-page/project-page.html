@@ -75,7 +75,7 @@
     }
     @if (loadingBoards()) {
     <div class="skeleton-grid">
-        <app-loading-skeleton *ngFor="let i of [1,2,3,4]"></app-loading-skeleton>
+        <app-loading-skeleton *ngFor="let i of [1,2,3,4]" variant="card"></app-loading-skeleton>
     </div>
     } @else if (boardsData().length !== 0) {
     <app-project-card [projectsData]="filteredBoards()" (deleteProject)="openDeleteBoard($event)"

@@ -55,9 +55,15 @@
         </app-reactive-form>
     </app-model-view>
     }
-
+    @if (listsLoading()) {
+    <div class="skeleton-grid">
+        <app-loading-skeleton *ngFor="let i of [1,2,3,4]" variant="list"></app-loading-skeleton>
+    </div>
+    }@else{
     <app-board-lists [lists]="lists()" [boardMembers]="allBoardMembers()"
         (refresh)="loadBoardLists()"></app-board-lists>
+    }
+
 
     @if (showManageMemberModel()) {
     <app-model-view class="management-model" (closeModel)="openManageMembers()">

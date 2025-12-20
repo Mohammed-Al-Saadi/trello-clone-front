@@ -1,7 +1,7 @@
 import { Component, inject, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { TitleCasePipe } from '@angular/common';
+import { NgFor, TitleCasePipe } from '@angular/common';
 
 import { LinkButton } from '../../../../components/link-button/link-button';
 import { DashboardInfoPanel } from '../../../../components/dashboard-info-panel/dashboard-info-panel';
@@ -19,6 +19,7 @@ import { TasksService } from '../../../../services/tasks';
 import { getShortNameUtil } from '../../../../utils/main.projects.utils';
 import { createAddListFormItems, createAddMemberFormItems } from '../main.project.form.data';
 import { BOARD_ROLE_DESCRIPTIONS } from '../../../../utils/boards';
+import { LoadingSkeleton } from '../../../../components/loading-skeleton/loading-skeleton';
 
 @Component({
   selector: 'app-board-page',
@@ -35,6 +36,8 @@ import { BOARD_ROLE_DESCRIPTIONS } from '../../../../utils/boards';
     BoardListsComponent,
     FormsModule,
     TitleCasePipe,
+    LoadingSkeleton,
+    NgFor,
   ],
 })
 export class BoardPage {
@@ -68,6 +71,7 @@ export class BoardPage {
   selectedCardToDelete = signal<number>(0);
   selectedRole = signal('');
   selectedRoleDescription = signal('');
+  listsLoading = signal(false);
 
   listFormData = signal<FormItems[]>(createAddListFormItems());
   formData = signal<FormItems[]>(
@@ -89,13 +93,13 @@ export class BoardPage {
   }
 
   async loadBoardLists() {
+    this.listsLoading.set(true);
     const data: any = await this.boardListService.getBoardList(this.boardId);
-    console.log(data);
-
     this.lists.set([...data.lists]);
     this.allBoardMembers.set([...data.members]);
 
     this.manageRolesData.set([{ id: this.boardId, name: this.boardName, members: data.members }]);
+    this.listsLoading.set(false);
   }
 
   getShortName(name: string) {

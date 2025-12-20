@@ -1,5 +1,5 @@
+@if (variant === 'card') {
 <div class="skeleton-card shimmer-parent">
-
     <div class="skeleton-header">
         <div class="skeleton-avatar shimmer"></div>
 
@@ -25,5 +25,31 @@
         <div class="footer-item shimmer"></div>
         <div class="footer-item shimmer"></div>
     </div>
-
 </div>
+} @else {
+<div class="skeleton-list-col shimmer-parent">
+    <div class="list-col-header">
+        <div class="list-col-title shimmer"></div>
+        <div class="list-col-count shimmer"></div>
+    </div>
+
+    <div class="list-col-action shimmer"></div>
+
+    <div class="list-col-divider shimmer"></div>
+
+    @for (i of [].constructor(items); track $index) {
+    <div class="list-item shimmer-parent">
+        <div class="list-item-title shimmer"></div>
+        <div class="list-item-line shimmer"></div>
+        <div class="list-item-line short shimmer"></div>
+
+        <div class="list-item-tag shimmer"></div>
+
+        <div class="list-item-footer">
+            <div class="list-item-avatar shimmer"></div>
+            <div class="list-item-date shimmer"></div>
+        </div>
+    </div>
+    }
+</div>
+}

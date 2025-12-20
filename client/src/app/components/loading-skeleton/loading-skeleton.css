@@ -1,3 +1,35 @@
+/* ========== SHIMMER ========== */
+.shimmer-parent {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  height: 100%;
+  width: 150%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(130, 130, 180, 0.12) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 1.6s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+
+/* ========== VARIANT: CARD (your existing) ========== */
 .skeleton-card {
   background: #121218;
   border-radius: 14px;
@@ -86,34 +118,124 @@
   background: #1f1f28;
 }
 
-.shimmer-parent {
-  position: relative;
+/* ========== VARIANT: LIST/KANBAN COLUMN ========== */
+.skeleton-list-col {
+  width: 280px;
+  min-height: 420px;
+  background: #121218;
+  border: 1px solid #1c1c24;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.list-col-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-col-title {
+  width: 45%;
+  height: 16px;
+  border-radius: 6px;
+  background: #1f1f28;
+}
+
+.list-col-count {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: #1f1f28;
+}
+
+.list-col-action {
+  width: 55%;
+  height: 14px;
+  border-radius: 6px;
+  background: #1f1f28;
+}
+
+.list-col-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+}
+
+/* each list item */
+.list-item {
+  background: #14141c;
+  border: 1px solid #1c1c24;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   overflow: hidden;
 }
 
-.shimmer::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -120%;
-  height: 100%;
-  width: 150%;
-
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(130, 130, 180, 0.12) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-
-  animation: shimmer 1.6s infinite;
+.list-item-title {
+  width: 70%;
+  height: 14px;
+  border-radius: 6px;
+  background: #1f1f28;
 }
 
-@keyframes shimmer {
-  0% {
-    left: -150%;
+.list-item-line {
+  width: 90%;
+  height: 10px;
+  border-radius: 6px;
+  background: #1f1f28;
+}
+
+.list-item-line.short {
+  width: 55%;
+}
+
+.list-item-tag {
+  width: 90px;
+  height: 18px;
+  border-radius: 999px;
+  background: #1f1f28;
+}
+
+.list-item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.list-item-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #1f1f28;
+}
+
+.list-item-date {
+  width: 55px;
+  height: 10px;
+  border-radius: 6px;
+  background: #1f1f28;
+}
+
+@media (max-width: 466px) {
+  .skeleton-card {
+    max-width: 250px;
   }
-  100% {
-    left: 150%;
+  .skeleton-list-col {
+    max-width: 250px;
+  }
+}
+@media (max-width: 371px) {
+  .skeleton-card {
+    max-width: 200px;
+  }
+  .skeleton-list-col {
+    max-width: 200px;
   }
 }

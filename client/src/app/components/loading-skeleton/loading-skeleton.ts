@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-loading-skeleton',
@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './loading-skeleton.css',
 })
 export class LoadingSkeleton {
+  @Input() variant: 'card' | 'list' = 'card';
 
+  @Input() items = 3;
 }
