@@ -208,9 +208,12 @@ export class ProjectPage {
       this.showEditBoardState.set(false);
       return;
     }
+    this.createBoardLoading.set(true);
 
     await this.boardService.editBoard(oldBoard.id, currentName, currentCategory, this.projectRole);
     this.showEditBoardState.set(false);
+    this.createBoardLoading.set(false);
+
     this.loadBoards();
   }
   async onSubmiteNewMember(formData: any) {

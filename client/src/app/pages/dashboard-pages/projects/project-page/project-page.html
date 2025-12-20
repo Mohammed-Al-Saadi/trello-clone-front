@@ -58,7 +58,7 @@
     <app-model-view class="management-model" (closeModel)="onClickCloseEditBoard()">
         <app-reactive-form title="Edit Board" p="Update your board details" buttonName="Save Changes"
             [formData]="editBoards()" formClass="management-form-class" titleIcon="edit"
-            (submittedData)="onSubmitEditBoard($event)">
+            (submittedData)="onSubmitEditBoard($event)" [loading]="createBoardLoading()">
         </app-reactive-form>
 
     </app-model-view>

@@ -107,29 +107,40 @@ export class Management {
   };
 
   async onNewRole(event: any) {
-    const user_id = event.memberId;
-    const project_id = event.entityId;
-    const role_name = event.newRole;
-    const project_role_name = event.entityRoleName;
-    this.updateProjectMembershipLoading.set(true);
-    const role_id = this.roles().find((item) => item.name === role_name).id;
-    await this.projectMembership.editProjectUserRole(
-      project_id,
-      user_id,
-      role_id,
-      project_role_name
-    );
-    this.updateProjectMembershipLoading.set(false);
+    try {
+      const user_id = event.memberId;
+      const project_id = event.entityId;
+      const role_name = event.newRole;
+      const project_role_name = event.entityRoleName;
+      this.updateProjectMembershipLoading.set(true);
+      const role_id = this.roles().find((item) => item.name === role_name).id;
+      await this.projectMembership.editProjectUserRole(
+        project_id,
+        user_id,
+        role_id,
+        project_role_name
+      );
+    } catch (error) {
+      this.updateProjectMembershipLoading.set(false);
+    } finally {
+      this.updateProjectMembershipLoading.set(false);
+    }
   }
   async deleteMemberShip(event: any) {
-    this.updateProjectMembershipLoading.set(true);
-
-    const user_id = event.memberId;
-    const project_id = event.entityId;
-    await this.projectMembership.deleteProjectMembership(project_id, user_id, event.entityRoleName);
-    this.updateProjectMembershipLoading.set(false);
-
-    this.ngOnInit();
+    try {
+      this.updateProjectMembershipLoading.set(true);
+      const user_id = event.memberId;
+      const project_id = event.entityId;
+      await this.projectMembership.deleteProjectMembership(
+        project_id,
+        user_id,
+        event.entityRoleName
+      );
+      this.ngOnInit();
+    } catch (error) {
+    } finally {
+      this.updateProjectMembershipLoading.set(false);
+    }
   }
   onOpenManageOwners() {
     this.showManageOwners.update((v) => !v);
@@ -308,6 +319,8 @@ export class Management {
       return;
     }
     try {
+      this.createProjectLoading.set(true);
+
       await this.addProject.updateProject(
         this.userDataState().id,
         current.id,
@@ -320,11 +333,13 @@ export class Management {
 
       this.showEditModel.set(false);
       this.selectedProject.set(null);
+      this.createProjectLoading.set(false);
 
       await this.ngOnInit();
     } catch (error) {
       this.showEditModel.set(false);
       this.selectedProject.set(null);
+      this.createProjectLoading.set(false);
     }
   }
 }

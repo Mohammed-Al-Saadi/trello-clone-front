@@ -150,7 +150,6 @@ export class BoardPage {
         addedBy,
         this.boardRoleName
       );
-      this.loading.set(false);
       this.addMemberForm.form.reset();
     } catch (error) {
       console.log(error);

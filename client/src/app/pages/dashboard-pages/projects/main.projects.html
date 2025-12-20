@@ -66,7 +66,8 @@
     <app-model-view class="management-model" (closeModel)="closeEditModal()">
         <app-reactive-form title="Update Project" p="Update your project fields"
             [buttonName]="updateProjectLoading() ? 'Loading...' : 'Save changes'" [formData]="formData()"
-            (submittedData)="updateProject($event)" formClass="management-form-class" titleIcon="edit">
+            (submittedData)="updateProject($event)" [loading]="createProjectLoading()" formClass="management-form-class"
+            titleIcon="edit">
         </app-reactive-form>
     </app-model-view>
     }
