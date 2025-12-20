@@ -28,7 +28,7 @@
     @if (showModel()) {
     <app-model-view class="management-model" (closeModel)="toggleNewProjectModal()">
         <app-reactive-form title="Create New Project" p="Add a new project to start organizing your work"
-            [buttonName]="createProjectLoading() ? 'Loading...' : 'Create Project'" [formData]="formData()"
+            buttonName="Create Project" [loading]="createProjectLoading()" [formData]="formData()"
             (submittedData)="createProject($event)" formClass="management-form-class" titleIcon="add">
         </app-reactive-form>
     </app-model-view>
@@ -36,8 +36,9 @@
     @if (showCollaboratorModel()) {
     <app-model-view class="management-model" (closeModel)="toggleAddCollaboratorModal()">
         <app-reactive-form title="Add Project Owners" p="Assign a project owner role for the selected project."
-            buttonName="Add Owner" [formData]="addProjectCollaborator()" (submittedData)="addCollaborator($event)"
-            formClass="management-form-class" titleIcon="add" (change)="onChangeSelect($event)">
+            buttonName="Add Owner" [loading]="addProjectMembershipLoading()" [formData]="addProjectCollaborator()"
+            (submittedData)="addCollaborator($event)" formClass="management-form-class" titleIcon="add"
+            (change)="onChangeSelect($event)">
             <p class="project-level-info">
                 This is a project-level role. The user's permissions apply across the entire project and all boards
                 within it.
@@ -104,6 +105,8 @@
     <app-manage-roles [manageRolesData]="projectsData()" [roles]="rolesList()" (deleteMember)="deleteMemberShip($event)"
         (saveRole)="onNewRole($event)" headerTitle="Project Owners Management"
         headerDescription="Managing project owners. Updating or revoking a role will remove their access to the project and all boards within it."
-        searchPlaceholder="Search by Name..." context="project" label="Search project"></app-manage-roles>
+        searchPlaceholder="Search by Name..." context="project" label="Search project"
+        [loading]="updateProjectMembershipLoading()">
+    </app-manage-roles>
 </app-model-view>
 }

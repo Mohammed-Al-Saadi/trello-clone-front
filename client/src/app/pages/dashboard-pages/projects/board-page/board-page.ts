@@ -62,6 +62,7 @@ export class BoardPage {
   showaddListModel = signal(false);
   showDeleteModal = signal(false);
   showDeleteCardModal = signal(false);
+  loading = signal(false);
 
   selectedListId = signal<number | null>(null);
   selectedCardToDelete = signal<number>(0);
@@ -128,44 +129,55 @@ export class BoardPage {
     const name = event.list_name;
     await this.boardListService.addNewBoardList(this.boardId, name, this.boardRoleName);
     this.showaddListModel.set(false);
+    this.loading.set(true);
+
     this.loadBoardLists();
   }
 
-  addBoardMember(formData: any) {
+  async addBoardMember(formData: any) {
     try {
+      this.loading.set(true);
+
       const email = formData.email;
       const roleName = formData.roles;
       const addedBy = this.auth.user().id;
       const role = this.auth.roles().find((r) => r.name === roleName);
       if (!role) return;
-      this.boardMembership.addBoardMembership(
+      await this.boardMembership.addBoardMembership(
         this.boardId,
         role.id,
         email,
         addedBy,
         this.boardRoleName
       );
-      this.showAddMemberModel.set(false);
+      this.loading.set(false);
       this.addMemberForm.form.reset();
     } catch (error) {
       console.log(error);
+    } finally {
+      this.loading.set(false);
+      this.showAddMemberModel.set(false);
     }
   }
 
   async deleteMemberShip(event: any) {
+    this.loading.set(true);
     const boardId = event.entityId;
     const userId = event.memberId;
     await this.boardMembership.deleteBoardMembership(boardId, userId, this.boardRoleName);
+    this.loading.set(false);
     this.loadBoardLists();
   }
 
   async onNewRole(event: any) {
+    this.loading.set(true);
     const boardId = event.entityId;
     const userId = event.memberId;
     const roleName = event.newRole;
     const role = this.auth.roles().find((r) => r.name === roleName);
     if (!role) return;
     await this.boardMembership.updateBoardMembership(boardId, userId, role.id, this.boardRoleName);
+    this.loading.set(false);
     this.loadBoardLists();
   }
 

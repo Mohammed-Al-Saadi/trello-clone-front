@@ -69,6 +69,9 @@ export class Management {
   ownerFilter = signal<'all' | 'me' | 'others'>('all');
   ownerMode: 'add' | 'delete' = 'add';
   createProjectLoading = signal(false);
+  addProjectMembershipLoading = signal(false);
+  updateProjectMembershipLoading = signal(false);
+
   updateProjectLoading = signal(false);
   loadingProjects = signal(true);
   userDataState = this.store.selectSignal(selectUser);
@@ -108,7 +111,7 @@ export class Management {
     const project_id = event.entityId;
     const role_name = event.newRole;
     const project_role_name = event.entityRoleName;
-
+    this.updateProjectMembershipLoading.set(true);
     const role_id = this.roles().find((item) => item.name === role_name).id;
     await this.projectMembership.editProjectUserRole(
       project_id,
@@ -116,13 +119,16 @@ export class Management {
       role_id,
       project_role_name
     );
+    this.updateProjectMembershipLoading.set(false);
   }
   async deleteMemberShip(event: any) {
-    console.log(event);
+    this.updateProjectMembershipLoading.set(true);
 
     const user_id = event.memberId;
     const project_id = event.entityId;
     await this.projectMembership.deleteProjectMembership(project_id, user_id, event.entityRoleName);
+    this.updateProjectMembershipLoading.set(false);
+
     this.ngOnInit();
   }
   onOpenManageOwners() {
@@ -241,6 +247,7 @@ export class Management {
 
     if (!project) return;
     try {
+      this.addProjectMembershipLoading.set(true);
       await this.projectMembership.addProjectMembership(
         project.id,
         this.roles().find((r) => r.name === form.roles)!.id,
@@ -253,6 +260,8 @@ export class Management {
       await this.ngOnInit();
     } catch (error) {
       this.showCollaboratorModel.set(false);
+    } finally {
+      this.addProjectMembershipLoading.set(false);
     }
   }
 

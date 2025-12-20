@@ -34,7 +34,7 @@
     <app-model-view class="management-model" (closeModel)="onClickOpenAddMember()">
         <app-reactive-form title=" Add New Member" p="Add a new member to start organizing your work"
             buttonName="Add member" [formData]="formData()" (submittedData)="addBoardMember($event)"
-            formClass="management-form-class" titleIcon="add" (change)="onChangeSelect($event)">
+            formClass="management-form-class" titleIcon="add" [loading]="loading()" (change)="onChangeSelect($event)">
             <p class="project-level-info">
                 This is a board-level role. The member will have access only to this board and not to any other boards
                 in the project.
@@ -64,7 +64,8 @@
         <app-manage-roles [manageRolesData]="manageRolesData()" [roles]="boardRoles()"
             (deleteMember)="deleteMemberShip($event)" (saveRole)="onNewRole($event)"
             headerTitle="Board Members Management" headerDescription="Control who can access and manage this board.
-            Update roles, adjust permissions, or remove members." searchPlaceholder="Search by email" context="board">
+            Update roles, adjust permissions, or remove members." searchPlaceholder="Search by email" context="board"
+            [loading]="loading()">
         </app-manage-roles>
     </app-model-view>
     }
@@ -73,7 +74,7 @@
     <app-model-view class="management-model" (closeModel)="onClickOpenAddList()">
         <app-reactive-form title="Add New List" p="Create a new list for this board to help organize your tasks."
             buttonName="Create List" [formData]="listFormData()" (submittedData)="addNewList($event)"
-            formClass="management-form-class" titleIcon="playlist_add">
+            formClass="management-form-class" titleIcon="playlist_add" [loading]="loading()">
         </app-reactive-form>
     </app-model-view>
     }

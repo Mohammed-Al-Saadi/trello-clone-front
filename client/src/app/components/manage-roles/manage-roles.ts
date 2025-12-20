@@ -20,6 +20,7 @@ export class ManageRoles {
   @Input() searchPlaceholder: string = 'Search...';
   @Input() context: 'project' | 'board' = 'project';
   @Input() label: string = '';
+  @Input() loading = false;
 
   @Output() saveRole = new EventEmitter<{
     entityId: number;
@@ -94,7 +95,6 @@ export class ManageRoles {
       newRole: member.role_name,
       entityRoleName: entity.role_name,
     });
-
     this.selectedMember.set(null);
     this.selectedBoard.set(null);
   }
@@ -109,7 +109,6 @@ export class ManageRoles {
       this.showDeleteModal.set(false);
       return;
     }
-
     if (this.memberToDelete) {
       this.deleteMember.emit({
         entityId: this.memberToDelete.entityId,
@@ -117,11 +116,9 @@ export class ManageRoles {
         entityRoleName: this.memberToDelete.entityRoleName,
       });
     }
-
     this.showDeleteModal.set(false);
     this.memberToDelete = null;
   }
-
   onDeleteMember(entity: ManageEntity, member: ManageMember) {
     this.memberToDelete = {
       entityId: entity.id,

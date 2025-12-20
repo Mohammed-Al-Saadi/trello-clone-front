@@ -4,11 +4,9 @@
         <div class="header-left">
             <div class="header-text">
                 <span class="material-icons title-icon">admin_panel_settings</span>
-
                 <h2>{{ headerTitle }}</h2>
             </div>
             <p>{{ headerDescription }}</p>
-
         </div>
 
         <div class="header-inputs">
@@ -19,27 +17,26 @@
     </div>
 
     <div class="header-divider"></div>
-
     <div class="scroll-area">
+        @if (loading) {
+        <div class="loading-overlay">
+            <div class="loader"></div>
+        </div>
+        }
         @for (board of filteredBoards(); track board.id) {
 
         @if (board.members.length > 0) {
         <div class="board-block">
-
             <div class="board-header">
                 <h3>{{ board.name }}</h3>
             </div>
-
             <div class="member-list">
                 @for (member of board.members; track $index) {
-
                 <div class="member-row">
                     <div class="member-info">
-
                         <div class="member-avatar">
                             {{ member.full_name.charAt(0).toUpperCase() }}
                         </div>
-
                         <div class="details">
                             <p class="name">{{ member.full_name }}</p>
                             <p class="email">{{ member.email }}</p>
@@ -51,7 +48,6 @@
                                         {{ r.name }}
                                     </option>
                                 </select>
-
                                 <div class="edit-actions">
                                     <button class="save-btn" (click)="onSaveRole(board, member)">Save</button>
                                     <button class="cancel-btn" (click)="onCancelEdit()">Cancel</button>
@@ -61,11 +57,9 @@
                             <p class="role">{{ member.role_name }}</p>
                             }
                         </div>
-
                     </div>
                     <div class="member-actions">
                         @if (context === 'project') {
-
                         @if (member.role_name.toLowerCase().includes('owner')) {
                         <span class="owner-badge">
                             <span class="material-icons owner-icon">workspace_premium</span>

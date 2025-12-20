@@ -65,6 +65,7 @@ export class ProjectPage {
   showDeleteModal = signal(false);
   showEditBoardMembershipState = signal(false);
   selectedRole = signal('');
+  createBoardLoading = signal(false);
 
   boardsData = signal<any[]>([]);
   selectedBoard = signal<any>(null);
@@ -100,18 +101,21 @@ export class ProjectPage {
       'Task-level access. Can add, edit, move, and delete tasks, but cannot delete the board or manage board settings or members.',
   };
 
-  onNewRole(event: any) {
-    console.log(event);
+  async onNewRole(event: any) {
+    this.createBoardLoading.set(true);
     const board_id = event.entityId;
     const user_id = event.memberId;
     const role_name = event.newRole;
     const role_id = this.roles().find((r) => r.name === role_name).id;
-    this.memberMembership.updateBoardMembership(board_id, user_id, role_id, this.projectRole);
+    await this.memberMembership.updateBoardMembership(board_id, user_id, role_id, this.projectRole);
+    this.createBoardLoading.set(false);
   }
   openManageBoardRoles() {
     this.showEditBoardMembershipState.update((v) => !v);
   }
   async deleteMemberShip(event: any) {
+    this.createBoardLoading.set(true);
+
     const board_id = event.entityId;
     const user_id = event.memberId;
     try {
@@ -120,6 +124,8 @@ export class ProjectPage {
       this.ngOnInit();
     } catch (err) {
       console.error(err);
+    } finally {
+      this.createBoardLoading.set(false);
     }
   }
 
@@ -163,6 +169,7 @@ export class ProjectPage {
   }
 
   async onSubmiteNewBoard(formData: any) {
+    this.createBoardLoading.set(true);
     await this.boardService.addNewBoard(
       this.projectId,
       formData.board_name,
@@ -170,7 +177,7 @@ export class ProjectPage {
       formData.category,
       this.projectRole
     );
-
+    this.createBoardLoading.set(false);
     this.showModel.set(false);
     this.loadBoards();
   }
@@ -208,6 +215,8 @@ export class ProjectPage {
   }
   async onSubmiteNewMember(formData: any) {
     try {
+      this.createBoardLoading.set(true);
+
       const selectedBoardName = formData.board;
       const selectedRoleName = formData.roles;
 
@@ -228,6 +237,8 @@ export class ProjectPage {
     } catch (e) {
       console.log(e);
       this.showAddMemberModel.set(false);
+    } finally {
+      this.createBoardLoading.set(false);
     }
   }
 

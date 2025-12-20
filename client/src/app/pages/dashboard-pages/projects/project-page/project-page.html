@@ -22,8 +22,9 @@
     </app-dashboard-info-panel>
     @if( showAddMemberModel() ){
     <app-model-view class="management-model" (closeModel)="onClickOpenAddMember()">
-        <app-reactive-form title=" Add New Member" p="    Add a new member to the selected board."
-            buttonName="Add member" (submittedData)="onSubmiteNewMember($event)" [formData]="addMemberformData()"
+        <app-reactive-form [loading]="createBoardLoading()" title=" Add New Member"
+            p="    Add a new member to the selected board." buttonName="Add member"
+            (submittedData)="onSubmiteNewMember($event)" [formData]="addMemberformData()"
             formClass=" management-form-class" titleIcon="add" (change)="onChangeSelect($event)">
             <p class="project-level-info">
                 This is a board-level role. The user can only access the boards they are assigned to, not the entire
@@ -46,7 +47,7 @@
     <app-model-view class="management-model" (closeModel)="onClickOpenAddBoard()">
         <app-reactive-form title="Create New Board" p="Add a new board to start organizing your work"
             buttonName="Create Project" [formData]="formData()" formClass="management-form-class" titleIcon="add"
-            (submittedData)="onSubmiteNewBoard($event)">
+            (submittedData)="onSubmiteNewBoard($event)" [loading]="createBoardLoading()">
         </app-reactive-form>
     </app-model-view>
     }
@@ -68,7 +69,8 @@
             (deleteMember)="deleteMemberShip($event)" (saveRole)="onNewRole($event)"
             headerTitle="Board Members Management"
             headerDescription="Control who can access and manage these boards. Update roles or remove members below."
-            searchPlaceholder="Search by email/board name" context="board"></app-manage-roles>
+            searchPlaceholder="Search by email/board name" context="board" [loading]="createBoardLoading()">
+        </app-manage-roles>
     </app-model-view>
     }
     @if (loadingBoards()) {
@@ -88,7 +90,7 @@
         </div>
         <app-reactive-form title="Create New Board" p="Add a new board to start organizing your work"
             buttonName="Create Project" [formData]="formData()" formClass="management-form-class" titleIcon="add"
-            (submittedData)="onSubmiteNewBoard($event)">
+            (submittedData)="onSubmiteNewBoard($event)" [loading]="createBoardLoading()">
         </app-reactive-form>
     </div>
     }

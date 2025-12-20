@@ -135,7 +135,7 @@ export class BoardListService {
 
     try {
       const res: any = await lastValueFrom(
-        this.http.post(`${this.BASE_URL}/update-list-name`, {
+        this.http.delete(`${this.BASE_URL}/delete-board-list`, {
           body,
           withCredentials: true,
           headers: {
