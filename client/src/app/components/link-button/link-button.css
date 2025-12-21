@@ -197,6 +197,9 @@ button.list-card-button:hover {
   button.create-new-project-button label {
     display: none;
   }
+  button.show label {
+    display: block;
+  }
 }
 @media (max-width: 600px) {
   button.create-new-project-button {

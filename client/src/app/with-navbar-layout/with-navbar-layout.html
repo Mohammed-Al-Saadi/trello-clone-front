@@ -1,7 +1,7 @@
 <div class="with-nave">
     <app-landing-navbar [navLinks]="publicLinks" [logoUrl]="logoUrl">
         <ng-template #landingAuth>
-            <app-link-button title="Login" (click)="onLoginClick()" buttonClass="login">
+            <app-link-button title="Login" route="/login" buttonClass="login">
             </app-link-button>
 
             <app-link-button title="Register" route="/register" buttonClass="register">

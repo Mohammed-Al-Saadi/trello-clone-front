@@ -13,22 +13,11 @@ import { AuthService } from '../services/auth';
   templateUrl: './with-navbar-layout.html',
   styleUrl: './with-navbar-layout.css',
 })
-export class WithNavbarLayout implements OnInit {
-  private router = inject(Router);
-  private auth = inject(AuthService);
-
+export class WithNavbarLayout {
   logoUrl = 'assets/logo1.png';
-
   publicLinks: NavLink[] = [
     { label: 'Home', path: '/', icon: '' },
     { label: 'Feature', path: '/feature', icon: '' },
     { label: 'About', path: '/about', icon: '' },
   ];
-
-  ngOnInit() {}
-
-  async onLoginClick() {
-    const user = await this.auth.checkAuth();
-    this.router.navigate([user ? '/dashboard' : '/login']);
-  }
 }

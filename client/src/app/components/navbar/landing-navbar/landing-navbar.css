@@ -162,6 +162,47 @@
   border-radius: 2px;
   background: linear-gradient(90deg, #8a2be2, #ff007f);
 }
+.dashboard-icon-btn {
+  position: relative;
+  border-radius: 50%;
+  border: navajowhite;
+  background: #070707;
+  color: white;
+  padding: 0.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.507), 0 4px 8px rgba(0, 0, 0, 0.473),
+    0 6px 16px rgba(125, 72, 216, 0.37), inset 0 1px 2px rgba(255, 255, 255, 0.226);
+}
+
+/* show "Dashboard" on hover */
+.dashboard-icon-btn:hover::after {
+  content: 'Dashboard';
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 10px);
+  transform: translateY(-50%);
+  background-color: black;
+  white-space: nowrap;
+  pointer-events: none;
+  border-radius: 0.4rem;
+  padding: 0.5rem;
+  border: 0.5px rgba(255, 255, 255, 0.26) solid;
+}
+
+.dashboard-icon-btn:hover {
+  border-color: rgba(0, 0, 0, 0.22);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-icon-btn:active {
+  transform: translateY(1px);
+}
+
+.dashboard-icon-btn .mat-icon {
+  font-size: 20px;
+  position: relative;
+  top: 0.3rem;
+}
 
 /* ─────────────────────────────
    Smooth fade-up animation for menu links (optional)

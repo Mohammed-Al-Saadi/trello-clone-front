@@ -93,9 +93,9 @@
         </div>
 
         @if (ownerFilterValue !== 'others') {
-        <app-reactive-form title="Create New Project" buttonName="Create Project" [formData]="formData()"
-            (submittedData)="createProject($event)" formClass="management-form-class" titleIcon="add">
-        </app-reactive-form>
+        <app-link-button title-actions buttonClass="create-new-project-button show" title="New Project" icon="note_add"
+            (action)="toggleNewProjectModal()">
+        </app-link-button>
         }
     </div>
     }

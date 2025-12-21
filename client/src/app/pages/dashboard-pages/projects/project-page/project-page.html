@@ -11,7 +11,8 @@
         </div>
         <div content-right>
             <app-link-button title-actions title="Create Board" icon="dashboard_customize"
-                buttonClass="create-new-project-button" (action)="onClickOpenAddBoard()"></app-link-button>
+                buttonClass="create-new-project-button" (action)="onClickOpenAddBoard()">
+            </app-link-button>
             <app-link-button title="Add Member" buttonClass="create-new-project-button" icon="person_add_alt_1"
                 (action)="onClickOpenAddMember()">
             </app-link-button>
@@ -88,10 +89,9 @@
             <h2>No Boards Found</h2>
             <p>Create your first board to get started!</p>
         </div>
-        <app-reactive-form title="Create New Board" p="Add a new board to start organizing your work"
-            buttonName="Create Project" [formData]="formData()" formClass="management-form-class" titleIcon="add"
-            (submittedData)="onSubmiteNewBoard($event)" [loading]="createBoardLoading()">
-        </app-reactive-form>
+        <app-link-button title-actions title="Create Board" icon="dashboard_customize"
+            buttonClass="create-new-project-button show" (action)="onClickOpenAddBoard()">
+        </app-link-button>
     </div>
     }
 </div>
