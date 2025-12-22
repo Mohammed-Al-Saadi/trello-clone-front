@@ -131,7 +131,7 @@ export class BoardPage {
 
   async addNewList(event: any) {
     const name = event.list_name;
-    await this.boardListService.addNewBoardList(this.boardId, name, this.boardRoleName);
+    await this.boardListService.addNewBoardList(this.boardId, name, this.projectId);
     this.showaddListModel.set(false);
     this.loading.set(true);
 
@@ -152,7 +152,7 @@ export class BoardPage {
         role.id,
         email,
         addedBy,
-        this.boardRoleName
+        this.projectId
       );
       this.addMemberForm.form.reset();
     } catch (error) {
@@ -167,7 +167,7 @@ export class BoardPage {
     this.loading.set(true);
     const boardId = event.entityId;
     const userId = event.memberId;
-    await this.boardMembership.deleteBoardMembership(boardId, userId, this.boardRoleName);
+    await this.boardMembership.deleteBoardMembership(boardId, userId, this.projectId);
     this.loading.set(false);
     this.loadBoardLists();
   }
@@ -179,7 +179,7 @@ export class BoardPage {
     const roleName = event.newRole;
     const role = this.auth.roles().find((r) => r.name === roleName);
     if (!role) return;
-    await this.boardMembership.updateBoardMembership(boardId, userId, role.id, this.boardRoleName);
+    await this.boardMembership.updateBoardMembership(boardId, userId, role.id, this.projectId);
     this.loading.set(false);
     this.loadBoardLists();
   }
@@ -199,7 +199,7 @@ export class BoardPage {
       this.showDeleteCardModal.set(false);
       return;
     }
-    await this.tasksService.deleteTask(this.selectedCardToDelete(), this.boardRoleName);
+    await this.tasksService.deleteTask(this.selectedCardToDelete(), this.projectId);
     this.showDeleteCardModal.set(false);
     this.loadBoardLists();
   }
@@ -209,7 +209,7 @@ export class BoardPage {
     if (!confirm) return;
     const listId = this.selectedListId();
     if (!listId) return;
-    await this.boardListService.deleteBoardList(listId, this.boardRoleName);
+    await this.boardListService.deleteBoardList(listId, this.projectId);
     this.selectedListId.set(null);
     this.loadBoardLists();
   }

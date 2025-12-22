@@ -57,17 +57,14 @@ export class ProjectsService {
     return data;
   }
 
-  async deleteProject(project_id: number, owner_id: number, role_name: string) {
+  async deleteProject(project_id: number, owner_id: number) {
     try {
       const response: any = await lastValueFrom(
         this.http.post(
           `${this.BASE_URL}/delete-project`,
-          { project_id, owner_id, role_name },
+          { project_id, owner_id },
           {
             withCredentials: true,
-            headers: {
-              'X-Role-Name': role_name,
-            },
           }
         )
       );
@@ -102,8 +99,7 @@ export class ProjectsService {
     name: string,
     description: string,
     category: string,
-    start_date: string,
-    role_name: string
+    start_date: string
   ) {
     const body = {
       owner_id,
@@ -112,16 +108,12 @@ export class ProjectsService {
       description,
       category,
       start_date,
-      role_name,
     };
 
     try {
       const response: any = await lastValueFrom(
         this.http.put(`${this.BASE_URL}/update-project`, body, {
           withCredentials: true,
-          headers: {
-            'X-Role-Name': role_name || '',
-          },
         })
       );
 

@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { ToastService } from '../components/reusable-toast/toast-service';
 import { environment } from '../../environments/environment';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -12,15 +13,12 @@ export class BoardListService {
   toast = inject(ToastService);
   private BASE_URL = environment.API_BASE_URL;
 
-  async addNewBoardList(board_id: number, name: string, role_name: string) {
-    const body = { board_id, name, role_name };
+  async addNewBoardList(board_id: number, name: string, project_id: number) {
+    const body = { board_id, name, project_id };
     try {
       const res: any = await lastValueFrom(
         this.http.post(`${this.BASE_URL}/add-board-list`, body, {
           withCredentials: true,
-          headers: {
-            'X-Role-Name': role_name || '',
-          },
         })
       );
 
@@ -92,15 +90,12 @@ export class BoardListService {
     }
   }
 
-  async updateListName(id: number, name: string, role_name: string) {
-    const data = { id, name, role_name };
+  async updateListName(id: number, name: string, project_id: number) {
+    const data = { id, name, project_id };
     try {
       const res: any = await lastValueFrom(
         this.http.post(`${this.BASE_URL}/update-list-name`, data, {
           withCredentials: true,
-          headers: {
-            'X-Role-Name': role_name || '',
-          },
         })
       );
 
@@ -130,17 +125,14 @@ export class BoardListService {
     }
   }
 
-  async deleteBoardList(list_id: number, role_name: string) {
-    const body = { list_id, role_name };
+  async deleteBoardList(list_id: number, project_id: number) {
+    const body = { list_id, project_id };
 
     try {
       const res: any = await lastValueFrom(
         this.http.delete(`${this.BASE_URL}/delete-board-list`, {
           body,
           withCredentials: true,
-          headers: {
-            'X-Role-Name': role_name || '',
-          },
         })
       );
 

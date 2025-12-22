@@ -21,6 +21,8 @@ export class AuthService {
       const res: any = await firstValueFrom(
         this.http.get(`${this.BASE_URL}/protected`, { withCredentials: true })
       );
+      console.log(res);
+
       if (res?.authenticated && res.user) {
         this.store.dispatch(setUser({ user: res.user }));
         if (res['app-roles']) {

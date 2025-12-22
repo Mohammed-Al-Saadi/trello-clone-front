@@ -17,17 +17,14 @@ export class BoardMembership {
     role_id: number,
     email: string,
     added_by: number,
-    role_name: string
+    project_id: number
   ) {
-    const body = { board_id, role_id, email, added_by, role_name };
+    const body = { board_id, role_id, email, added_by, project_id };
 
     try {
       const response: any = await lastValueFrom(
         this.http.post(`${this.BASE_URL}/add-board-membership`, body, {
           withCredentials: true,
-          headers: {
-            'X-Role-Name': role_name || '',
-          },
         })
       );
 
@@ -54,16 +51,13 @@ export class BoardMembership {
     }
   }
 
-  async deleteBoardMembership(board_id: number, user_id: number, role_name: string) {
-    const body = { board_id, user_id, role_name };
+  async deleteBoardMembership(board_id: number, user_id: number, project_id: number) {
+    const body = { board_id, user_id, project_id };
 
     try {
       const response: any = await lastValueFrom(
         this.http.post(`${this.BASE_URL}/delete-board-membership`, body, {
           withCredentials: true,
-          headers: {
-            'X-Role-Name': role_name || '',
-          },
         })
       );
 
@@ -93,17 +87,14 @@ export class BoardMembership {
     board_id: number,
     user_id: number,
     role_id: number,
-    role_name: string
+    project_id: number
   ) {
-    const body = { board_id, role_id, user_id, role_name };
+    const body = { board_id, role_id, user_id, project_id };
 
     try {
       const response: any = await lastValueFrom(
         this.http.put(`${this.BASE_URL}/update-board-membership`, body, {
           withCredentials: true,
-          headers: {
-            'X-Role-Name': role_name || '',
-          },
         })
       );
 

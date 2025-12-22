@@ -42,15 +42,12 @@ export class TasksService {
     }
   }
 
-  async deleteTask(card_id: number, role_name: string) {
-    const body = { card_id, role_name };
+  async deleteTask(card_id: number, project_id: number) {
+    const body = { card_id, project_id };
     try {
       const res: any = await lastValueFrom(
         this.http.post(`${this.BASE_URL}/delete-cards`, body, {
           withCredentials: true,
-          headers: {
-            'X-Role-Name': role_name || '',
-          },
         })
       );
 

@@ -30,6 +30,7 @@ import { CardMembershipService } from '../../services/cards-memberships';
 import { CardContent } from '../card-content/card-content';
 import { ModelView } from '../model-view/model-view';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-board-lists',
@@ -52,7 +53,9 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
   @Input() lists: any[] = [];
   @Output() refresh = new EventEmitter<void>();
   @Input() boardMembers: any[] = [];
+  route = inject(ActivatedRoute);
 
+  projectId = this.route.snapshot.params['project_id'];
   boardName = history.state.boardName;
   boardRoleName = history.state.role_name;
 
@@ -162,7 +165,7 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
         this.updateCanScroll();
         this.updateActiveList();
       },
-      { passive: true } // ✅ keeps mobile scroll smooth
+      { passive: true }
     );
   }
 
@@ -260,7 +263,7 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
     const normalizedOld = list.name.trim().toLowerCase();
     const normalizedNew = (newName || '').trim().toLowerCase();
     if (normalizedOld !== normalizedNew) {
-      await this.boardListService.updateListName(id, newName.trim(), this.boardRoleName);
+      await this.boardListService.updateListName(id, newName.trim(), this.projectId);
       this.refresh.emit();
       this.updateCanScroll();
     }
@@ -276,7 +279,7 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
     if (!confirm) return;
     const listId = this.selectedListId();
     if (listId === null) return;
-    await this.boardListService.deleteBoardList(listId, this.boardRoleName);
+    await this.boardListService.deleteBoardList(listId, this.projectId);
     this.refresh.emit();
     this.updateCanScroll();
   }
@@ -336,13 +339,15 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
     this.selectedCardId.set(cardId);
     this.showDeleteCardModal.set(true);
   }
-
+  ngOnInit() {
+    console.log(this.projectId, this.selectedCardId());
+  }
   async handleDeleteCard(confirm: boolean) {
     this.showDeleteCardModal.set(false);
     if (!confirm) return;
     const cardId = this.selectedCardId();
     if (cardId === null) return;
-    await this.tasksService.deleteTask(cardId, this.boardRoleName);
+    await this.tasksService.deleteTask(cardId, this.projectId);
     this.refresh.emit();
   }
 

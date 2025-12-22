@@ -107,7 +107,7 @@ export class ProjectPage {
     const user_id = event.memberId;
     const role_name = event.newRole;
     const role_id = this.roles().find((r) => r.name === role_name).id;
-    await this.memberMembership.updateBoardMembership(board_id, user_id, role_id, this.projectRole);
+    await this.memberMembership.updateBoardMembership(board_id, user_id, role_id, this.projectId);
     this.createBoardLoading.set(false);
   }
   openManageBoardRoles() {
@@ -119,7 +119,7 @@ export class ProjectPage {
     const board_id = event.entityId;
     const user_id = event.memberId;
     try {
-      await this.memberMembership.deleteBoardMembership(board_id, user_id, this.projectRole);
+      await this.memberMembership.deleteBoardMembership(board_id, user_id, this.projectId);
 
       this.ngOnInit();
     } catch (err) {
@@ -170,13 +170,7 @@ export class ProjectPage {
 
   async onSubmiteNewBoard(formData: any) {
     this.createBoardLoading.set(true);
-    await this.boardService.addNewBoard(
-      this.projectId,
-      formData.board_name,
-      0,
-      formData.category,
-      this.projectRole
-    );
+    await this.boardService.addNewBoard(this.projectId, formData.board_name, 0, formData.category);
     this.createBoardLoading.set(false);
     this.showModel.set(false);
     this.loadBoards();
@@ -210,7 +204,7 @@ export class ProjectPage {
     }
     this.createBoardLoading.set(true);
 
-    await this.boardService.editBoard(oldBoard.id, currentName, currentCategory, this.projectRole);
+    await this.boardService.editBoard(oldBoard.id, currentName, currentCategory, this.projectId);
     this.showEditBoardState.set(false);
     this.createBoardLoading.set(false);
 
@@ -232,7 +226,7 @@ export class ProjectPage {
         role_id,
         formData.email,
         this.user().id,
-        this.projectRole
+        this.projectId
       );
 
       this.showAddMemberModel.set(false);
@@ -252,7 +246,7 @@ export class ProjectPage {
     const boardId = this.selectedBoardId();
     if (!boardId) return;
 
-    await this.boardService.deleteBoard(this.projectId, boardId, this.projectRole);
+    await this.boardService.deleteBoard(this.projectId, boardId);
     this.loadBoards();
   }
 

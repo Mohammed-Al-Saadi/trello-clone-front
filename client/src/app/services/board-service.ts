@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { ToastService } from '../components/reusable-toast/toast-service';
 import { environment } from '../../environments/environment';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -11,22 +12,15 @@ export class BoardService {
   private http = inject(HttpClient);
   toast = inject(ToastService);
   private BASE_URL = environment.API_BASE_URL;
+  route = inject(ActivatedRoute);
+  projectId = this.route.snapshot.params['project_id'];
 
-  async addNewBoard(
-    project_id: number,
-    name: string,
-    position: number,
-    category: string,
-    role_name: string
-  ) {
-    const body = { project_id, name, position, category, role_name };
+  async addNewBoard(project_id: number, name: string, position: number, category: string) {
+    const body = { project_id, name, position, category };
     try {
       const res: any = await lastValueFrom(
         this.http.post(`${this.BASE_URL}/add-board`, body, {
           withCredentials: true,
-          headers: {
-            'X-Role-Name': role_name || '',
-          },
         })
       );
 
@@ -50,15 +44,12 @@ export class BoardService {
       throw error;
     }
   }
-  async deleteBoard(project_id: number, board_id: number, role_name: string) {
-    const body = { project_id, board_id, role_name };
+  async deleteBoard(project_id: number, board_id: number) {
+    const body = { project_id, board_id };
     try {
       const res: any = await lastValueFrom(
         this.http.post(`${this.BASE_URL}/delete-board`, body, {
           withCredentials: true,
-          headers: {
-            'X-Role-Name': role_name || '',
-          },
         })
       );
 
@@ -93,16 +84,13 @@ export class BoardService {
     return res;
   }
 
-  async editBoard(board_id: number, name: string, category: string, role_name: string) {
-    const body = { board_id, name, category, role_name };
+  async editBoard(board_id: number, name: string, category: string, project_id: number) {
+    const body = { board_id, name, category, project_id };
 
     try {
       const res: any = await lastValueFrom(
         this.http.put(`${this.BASE_URL}/edit-board`, body, {
           withCredentials: true,
-          headers: {
-            'X-Role-Name': role_name || '',
-          },
         })
       );
 

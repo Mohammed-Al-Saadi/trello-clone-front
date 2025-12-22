@@ -51,16 +51,13 @@ export class ProjectMembership {
     }
   }
 
-  async deleteProjectMembership(project_id: number, user_id: number, role_name: string) {
+  async deleteProjectMembership(project_id: number, user_id: number) {
     const body = { project_id, user_id };
 
     try {
       const response: any = await lastValueFrom(
         this.http.post(`${this.BASE_URL}/delete-project-membership`, body, {
           withCredentials: true,
-          headers: {
-            'X-Role-Name': role_name || '',
-          },
         })
       );
 
@@ -91,17 +88,14 @@ export class ProjectMembership {
     project_id: number,
     user_id: number,
     role_id: number,
-    role_name: string
   ) {
-    const body = { project_id, user_id, role_id, role_name };
+    const body = { project_id, user_id, role_id };
 
     try {
       const response: any = await lastValueFrom(
         this.http.post(`${this.BASE_URL}/edit-project-membership`, body, {
           withCredentials: true,
-          headers: {
-            'X-Role-Name': role_name || '',
-          },
+ 
         })
       );
 

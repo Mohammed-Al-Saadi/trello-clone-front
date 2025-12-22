@@ -114,12 +114,7 @@ export class Management {
       const project_role_name = event.entityRoleName;
       this.updateProjectMembershipLoading.set(true);
       const role_id = this.roles().find((item) => item.name === role_name).id;
-      await this.projectMembership.editProjectUserRole(
-        project_id,
-        user_id,
-        role_id,
-        project_role_name
-      );
+      await this.projectMembership.editProjectUserRole(project_id, user_id, role_id);
     } catch (error) {
       this.updateProjectMembershipLoading.set(false);
     } finally {
@@ -131,11 +126,7 @@ export class Management {
       this.updateProjectMembershipLoading.set(true);
       const user_id = event.memberId;
       const project_id = event.entityId;
-      await this.projectMembership.deleteProjectMembership(
-        project_id,
-        user_id,
-        event.entityRoleName
-      );
+      await this.projectMembership.deleteProjectMembership(project_id, user_id);
       this.ngOnInit();
     } catch (error) {
     } finally {
@@ -202,7 +193,7 @@ export class Management {
     if (!projectId || !userId) return;
 
     if (this.isProjectDelete()) {
-      await this.addProject.deleteProject(projectId, userId, this.roleName());
+      await this.addProject.deleteProject(projectId, userId);
     }
 
     await this.ngOnInit();
@@ -327,8 +318,7 @@ export class Management {
         newName,
         newDescription,
         newCategory,
-        form.created_at,
-        this.roleName()
+        form.created_at
       );
 
       this.showEditModel.set(false);
