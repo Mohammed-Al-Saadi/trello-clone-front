@@ -58,9 +58,8 @@ export class LoginPage {
         }, 1000);
       }
     } catch (err: any) {
-      console.log(err);
+      const message = err?.error?.error || err?.error?.message || err?.message;
 
-      const message = err?.error?.error;
       this.toast.showMessage({ id: 1, type: 'error', text: message });
     } finally {
       this.loading.set(false);
