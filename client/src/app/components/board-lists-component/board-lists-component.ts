@@ -328,7 +328,6 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
       await this.tasksService.moveTasksToOtherList(movedCard.id, targetList.id, event.currentIndex);
     }
 
-    this.refresh.emit();
   }
 
   onOutsideClick = () => {
@@ -339,9 +338,7 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
     this.selectedCardId.set(cardId);
     this.showDeleteCardModal.set(true);
   }
-  ngOnInit() {
-    console.log(this.projectId, this.selectedCardId());
-  }
+
   async handleDeleteCard(confirm: boolean) {
     this.showDeleteCardModal.set(false);
     if (!confirm) return;
