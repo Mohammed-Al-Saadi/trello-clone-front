@@ -30,7 +30,7 @@
         (cdkDropListDropped)="dropList($event)">
         @for (list of lists; track list.id) {
         <div cdkDrag [cdkDragLockAxis]="'x'" [cdkDragBoundary]="'.board-lists-scroll'">
-            <div class="board-list-column">
+            <div class="board-list-column" cdkScrollable>
                 <div class="board-list-header">
                     <div class="list-top-row">
                         <input type="text" [value]="list.name" (blur)="renameList(list.id, $event.target.value)" />
