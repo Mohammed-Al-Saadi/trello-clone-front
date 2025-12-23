@@ -33,11 +33,15 @@
             <div class="board-list-column" cdkScrollable>
                 <div class="board-list-header">
                     <div class="list-top-row">
+                        <div class="drag-handle" cdkDragHandle>
+                            <span class="material-icons">drag_indicator</span>
+                        </div>
                         <input type="text" [value]="list.name" (blur)="renameList(list.id, $event.target.value)" />
                         <span class="material-icons delete-list-icon" (click)="onClickOpenDeleteList(list.id)">
                             delete
                         </span>
                     </div>
+
 
                     <button class="add-task-btn" (click)="onOpenAddCard(list.id)">
                         <span class="material-icons">add</span>
@@ -79,11 +83,16 @@
 
                         @for (card of list.cards; track card.id) {
                         <div cdkDrag class="cards-list-item">
-                            <div class="card-item" (click)="showCardContentModel(card); $event.stopPropagation()">
+                            <div class="card-item">
                                 <div class="row">
+                                    <div class="drag-handle" cdkDragHandle>
+                                        <span class="material-icons">drag_indicator</span>
+                                    </div>
+
                                     <div class="priority-badge" [ngClass]="getPriorityClass(card.priority)"
                                         [attr.data-label]="card.priority"></div>
-                                    <p>{{ card.title }}</p>
+                                    <p (click)="showCardContentModel(card); $event.stopPropagation()">{{ card.title }}
+                                    </p>
                                 </div>
 
                                 <div class="card-menu" (click)="$event.stopPropagation()">

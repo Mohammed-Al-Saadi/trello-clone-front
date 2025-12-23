@@ -130,7 +130,29 @@
   position: sticky;
   top: 0;
   background: #11111a;
-  padding: 1rem 1rem 0.2rem 1rem;
+  padding: 1rem 0.5rem;
+}
+.drag-handle {
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #cfcfcf;
+  transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.drag-handle:hover {
+  color: #c084fc;
+  transform: scale(1.1);
+}
+
+.drag-handle .material-icons {
+  font-size: 24px;
+}
+
+.cards-list-item .drag-handle .material-icons {
+  font-size: 18px;
+  color: #e6e6e6;
 }
 
 .board-list-column {
@@ -138,7 +160,9 @@
   border-radius: 0.6rem;
   border: 0.5px #30303b solid;
   width: 290px;
-  overflow-y: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
+
   max-height: 70vh;
   box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 }
@@ -147,7 +171,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
 }
 
 .board-list-column input {
@@ -183,7 +206,7 @@
 }
 
 .add-task-btn {
-  width: 100%;
+  width: 96%;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -195,8 +218,7 @@
   transition: background 0.2s ease;
   color: #bbb;
   font-size: 0.95rem;
-  margin-top: 0.7rem;
-  margin-bottom: 1rem;
+  margin: 0.5rem auto;
 }
 
 .add-task-btn:hover {
@@ -282,7 +304,7 @@
   flex-direction: column;
   gap: 20px;
   background-color: #11111a;
-  padding: 0rem 1rem 1rem 1rem;
+  padding: 0rem 0.5rem 0.5rem 0.5rem;
 }
 
 .cards-list::-webkit-scrollbar {
@@ -307,7 +329,9 @@
   background: rgba(255, 255, 255, 0.03);
   margin: 10px 0;
 }
-
+.row p {
+  cursor: pointer;
+}
 .cards-list-item {
   background-color: #14141f;
   display: flex;
@@ -322,7 +346,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
 }
 
 .card-item p {
@@ -369,7 +392,6 @@
   margin-top: 6px;
   padding: 4px 0;
   width: 100%;
-  cursor: grab;
 }
 
 .created-at-left {
@@ -455,10 +477,6 @@
 .cdk-drag,
 .cdk-drag * {
   user-select: none !important;
-}
-
-.board-list-column:active {
-  cursor: grabbing;
 }
 
 .cdk-drag-preview {
