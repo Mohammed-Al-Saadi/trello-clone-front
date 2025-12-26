@@ -10,6 +10,14 @@
         </button>
     </div>
 
+
+    <div class="dash-profile">
+        <div class="member-circle">
+            <i style="cursor: pointer; font-size: 18px;" class="fa-solid fa-bell"></i>
+        </div>
+        @if (!collapsed()) { <span>Notifications</span> }
+    </div>
+
     @if (showProfileImage()) {
     <div class="dash-profile">
         <div class="member-circle">
@@ -20,13 +28,6 @@
         }
     </div>
     }
-    <button class="notification-btn" type="button">
-        <i class="fa-solid fa-bell"></i>
-
-        @if (!collapsed()) { <span>Notifications</span> }
-
-    </button>
-
 
     <span class="dash-sep"></span>
 
@@ -46,10 +47,11 @@
         <span class="dash-sep"></span>
 
         <button class="theme-toggle-btn" type="button" (click)="toggleTheme()">
-            <i class="fa-solid" [ngClass]="isDarkMode ? 'fa-sun' : 'fa-moon'"></i>
-            @if (!collapsed()) { <span>{{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}</span> }
+            <i class="fa-solid" [ngClass]="isDarkMode() ? 'fa-sun' : 'fa-moon'"></i>
+            @if (!collapsed()) {
+            <span>{{ isDarkMode() ? 'Light Mode' : 'Dark Mode' }}</span>
+            }
         </button>
-
         <button class="logout-btn" type="button" (click)="logout()">
             <i class="fa-solid fa-right-from-bracket"></i>
             @if (!collapsed()) { <span>Logout</span> }

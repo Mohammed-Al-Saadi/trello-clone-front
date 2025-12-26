@@ -16,11 +16,16 @@ import { getShortNameUtil } from '../../utils/main.projects.utils';
 export class Dashboard {
   logoUrl = 'assets/logo1.png';
   auth = inject(AuthService);
+  isDarkMode = true;
 
   dashboardLinks: NavLink[] = [
     { label: 'Projects', path: '/dashboard/projects', icon: 'fa-regular fa-folder-open' },
     { label: 'Settings', path: '/dashboard/settings', icon: 'fa-solid fa-gear' },
   ];
+
+  toggleTheme() {
+    this.isDarkMode = !this.isDarkMode;
+  }
 
   profileImage = 'assets/profile.png';
   profileName = this.auth.user().full_name;

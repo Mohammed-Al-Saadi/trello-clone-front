@@ -10,5 +10,345 @@ body {
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #3b3b4a transparent;
+  scrollbar-color: #a1a1aa #1f1f1f;
 }
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #1f1f1f;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #a1a1aa;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #c3c3cc;
+}
+
+.light * {
+  scrollbar-width: thin;
+  scrollbar-color: #8f8f8f #f5f5f5;
+}
+
+/* Sidebar in light mode */
+.dash-layout.light .dash-nav {
+  background: #ffffffef;
+  color: #111;
+  box-shadow: none;
+  border-right: 1px #dadadad8 solid;
+}
+.dash-layout.light .dash-sep {
+  background-color: #dadadad8;
+  height: 1px;
+}
+.dash-layout.light .panel-container {
+  border-bottom: 1px #dadadad8 solid;
+  background: #ffffffef !important;
+}
+.dash-layout.light .dash-toggle {
+  background-color: inherit;
+  color: black;
+  font-weight: 800;
+}
+.dash-layout.light .member-circle {
+  background-color: rgb(97, 55, 151);
+  border: none !important;
+}
+.dash-layout.light .dash-profile {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.781);
+}
+.dash-layout.light .notification-btn {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.781);
+}
+
+.dash-layout.light .dash-links a {
+  color: rgb(31, 31, 31) !important;
+  background: unset !important;
+  font-weight: 550 !important;
+}
+.dash-layout.light .dash-links li.active-link a {
+  color: rgb(0, 0, 0) !important;
+  background: #c5c5c598 !important;
+  font-weight: bold !important;
+}
+.dash-layout.light .dash-links a:hover {
+  background: #c5c5c525 !important;
+  color: #000000 !important;
+}
+
+.dash-layout.light .theme-toggle-btn {
+  color: #000000 !important;
+  font-weight: bold !important;
+}
+
+.dash-layout.light .logout-btn {
+  color: #000000 !important;
+  font-weight: bold !important;
+}
+
+.light .panel-container {
+  background-color: white !important;
+}
+.light .panel-container h2 {
+  color: rgb(3, 3, 3) !important;
+}
+
+.light .floating-box {
+  background-color: white !important;
+  border: 1px #dadadad8 solid !important;
+}
+.light .floating-box label {
+  background-color: unset !important;
+  color: black !important;
+}
+
+.light .select-box select {
+  color: black !important;
+  background-color: white !important;
+}
+.light .input-box input {
+  color: black !important;
+  background-color: white !important;
+}
+
+.light button.create-new-project-button {
+  background-color: white !important;
+  color: black !important;
+  border: none !important;
+}
+.light .project-list-container {
+  background-color: rgb(247, 247, 247) !important;
+}
+.light .project-item {
+  background-color: white !important;
+  border: none !important;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.light .back-btn {
+  background-color: rgba(0, 0, 0, 0.082) !important;
+  color: rgb(0, 0, 0) !important;
+  border: none !important;
+}
+.light .workspace-owner {
+  color: rgb(0, 0, 0) !important;
+}
+
+.light .theme-toggle-btn:hover {
+  background: #c5c5c525 !important;
+}
+.light .logout-btn:hover {
+  background: #c5c5c525 !important;
+}
+
+.light .actions .material-icons {
+  color: rgb(0, 0, 0) !important;
+  background-color: #c0c0c018 !important;
+}
+.light .actions .material-icons:hover {
+  background-color: rgb(214, 214, 214) !important;
+}
+.light .project-initial {
+  background-color: rgb(97, 55, 151) !important;
+  color: white !important;
+}
+.light .project-info h2 {
+  color: rgb(73, 73, 73) !important;
+}
+.light .desc {
+  color: rgb(73, 73, 73) !important;
+}
+.light .cata {
+  background-color: rgb(97, 55, 151) !important;
+  color: white !important;
+  font-weight: 550;
+}
+.light .owner {
+  color: rgb(73, 73, 73) !important;
+}
+.light .tooltip {
+  color: black !important;
+  font-size: 15px !important;
+}
+.light .material-icons {
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+.light .board-container {
+  background: rgb(247, 247, 247) !important;
+}
+.light .members-label {
+  color: rgba(0, 0, 0, 0.678) !important;
+}
+.light .date {
+  color: black !important;
+  font-weight: 550;
+}
+.light .cards-list {
+  background-color: rgb(223, 223, 223) !important;
+  border: none !important;
+}
+.light .board-list-header {
+  background-color: rgb(223, 223, 223) !important;
+}
+.light .board-list-column input {
+  background-color: white !important;
+  color: black !important;
+}
+.light .board-list-column {
+  border: none !important;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
+}
+.light .cards-list-item {
+  background-color: white !important;
+  border: none !important;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
+}
+.light .cards-list p {
+  color: black !important;
+}
+.light .add-card-container {
+  background-color: unset !important;
+}
+.light .underline {
+  background: #dadadad8 !important;
+  height: 1.5px !important;
+}
+.light .drop-zone {
+  color: black !important;
+  background-color: white !important;
+  font-weight: 550;
+}
+.light .add-task-btn {
+  color: black !important;
+  background-color: white !important;
+}
+.light .add-task-btn:hover {
+  background-color: rgba(255, 255, 255, 0.74) !important;
+}
+.light .priority-select {
+  background-color: white !important;
+  color: black !important;
+}
+.light .add-card-container button {
+  background: white !important;
+  color: black !important;
+}
+.light .modal {
+  background-color: white !important;
+  color: black !important;
+}
+.light .modal h2,
+.light .modal p {
+  background-color: white !important;
+  color: black !important;
+}
+.light .reactive-form h2 {
+  background-color: white !important;
+  color: black !important;
+}
+.light .reactive-form p {
+  background-color: white !important;
+  color: black !important;
+}
+.light .reactive-form {
+  background-color: white !important;
+  color: black !important;
+}
+
+.light .reactive-form label {
+  background-color: white !important;
+  color: black !important;
+}
+.light .reactive-form input {
+  background-color: rgba(189, 189, 189, 0.055) !important;
+  color: black !important;
+  border: 0.2px rgba(128, 128, 128, 0.24) solid !important;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}
+.light .reactive-form input:focus {
+  border-color: unset !important;
+  border: 0.5px black solid;
+}
+
+.light .reactive-form input::placeholder {
+  color: #000000 !important;
+  border: none !important;
+}
+.light .reactive-form textarea {
+  color: #000000 !important;
+  background-color: rgba(189, 189, 189, 0.055) !important;
+  border: 0.2px rgba(128, 128, 128, 0.24) solid !important;
+
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}
+.light .reactive-form textarea::placeholder {
+  color: #000000 !important;
+}
+
+.light .reactive-form select {
+  color: #000000 !important;
+  background-color: rgba(189, 189, 189, 0.055) !important;
+  border: 0.2px rgba(128, 128, 128, 0.24) solid !important;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}
+.light .reactive-form select:hover {
+  background-color: white !important;
+  border: 0.2px rgba(128, 128, 128, 0.24) solid !important;
+}
+.light .close-btn {
+  color: black !important;
+  background-color: white !important;
+}
+.light .manage-roles-container {
+  background-color: white !important;
+}
+.light .manage-roles-container h2,
+.light .manage-roles-container p {
+  color: black !important;
+}
+.light .board-block,
+.light .member-row {
+  background: #dadada65 !important;
+  color: black !important;
+  border-radius: 0.4rem !important;
+  border: 1px #dadada solid !important;
+  box-shadow: none !important;
+}
+.light .board-block h3 {
+  color: black !important;
+}
+.light .owner-badge {
+  background-color: unset !important;
+  color: #000000 !important;
+  border: none !important;
+}
+.light .owner-icone {
+  color: green !important;
+}
+.light .edit-role-panel {
+  background-color: #f0f0f0 !important;
+  border: 0.2px rgba(128, 128, 128, 0.226) solid !important;
+}
+.light .edit-role-select {
+  background: #f0f0f0 !important;
+  border: 0.2px rgba(128, 128, 128, 0.226) solid !important;
+  color: black !important;
+}
+.light .header-divider {
+  background: #cfcfcf !important;
+  height: 1px !important;
+}
+.light .admin-badge {
+  background-color: unset !important;
+  color: black !important;
+  border: none !important;
+}
+.modal;

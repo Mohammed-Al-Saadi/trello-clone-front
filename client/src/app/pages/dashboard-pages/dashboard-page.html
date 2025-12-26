@@ -1,7 +1,17 @@
-<div class="dash-layout">
-    <app-dashboard-navbar [navLinks]="dashboardLinks" [logoUrl]="logoUrl" [showProfileImage]="true"
-        [showProfileName]="true" [profileImage]="profileImage" [profileName]="profileName"></app-dashboard-navbar>
-    <main class="dash-content">
-        <router-outlet></router-outlet>
-    </main>
+<div class="dash-layout" [class.dark]="isDarkMode" [class.light]="!isDarkMode">
+  <app-dashboard-navbar
+    [navLinks]="dashboardLinks"
+    [logoUrl]="logoUrl"
+    [showProfileImage]="true"
+    [showProfileName]="true"
+    [profileImage]="profileImage"
+    [profileName]="profileName"
+    [isDarkMode]="isDarkMode"
+    (themeToggled)="toggleTheme()"
+  >
+  </app-dashboard-navbar>
+
+  <main class="dash-content">
+    <router-outlet></router-outlet>
+  </main>
 </div>

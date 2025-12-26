@@ -27,14 +27,6 @@ export const ProjectFormData: FormItems[] = [
     validators: [Validators.required, Validators.maxLength(30)],
     allowTyping: true,
   },
-  {
-    label: 'Start Date',
-    type: 'date',
-    formControlName: 'start_date',
-    validators: [],
-    options: [],
-    placeholder: 'Description...',
-  },
 ];
 
 export const CollaboratorFormData = (roles: string[]): FormItems[] => [
