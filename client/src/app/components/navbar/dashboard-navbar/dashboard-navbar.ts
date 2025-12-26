@@ -34,6 +34,11 @@ export class DashboardNavbar {
   }
 
   toggleTheme() {
-    this.themeToggled.emit(!this.isDarkMode());
+    const nextIsDark = !this.isDarkMode();
+
+    document.body.classList.toggle('light', !nextIsDark);
+    document.body.classList.toggle('dark', nextIsDark);
+
+    this.themeToggled.emit(nextIsDark);
   }
 }

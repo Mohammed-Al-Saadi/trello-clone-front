@@ -351,4 +351,21 @@ body {
   color: black !important;
   border: none !important;
 }
-.modal;
+.light .dash-content {
+  background-color: rgb(247, 247, 247) !important;
+  color: black !important;
+}
+.light .empty-message h2,
+.light .empty-message p {
+  background-color: rgb(247, 247, 247) !important;
+  color: black !important;
+}
+.light .cdk-drag-preview {
+  background: #c4c4c4 !important;
+  color: black !important ;
+  border: none !important;
+}
+.light .cdk-drag-preview .card-item p,
+.light .cdk-drag-preview .created-at-left p {
+  color: black !important ;
+}

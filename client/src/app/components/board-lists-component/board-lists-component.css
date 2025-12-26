@@ -480,9 +480,9 @@
 }
 
 .cdk-drag-preview {
-  border-radius: 12px !important;
-  background: #181820 !important;
-  border: 1px solid #2a2a38 !important;
+  border-radius: 12px;
+  background: #181820;
+  border: 1px solid #2a2a38;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 4px 12px rgba(0, 0, 0, 0.4) !important;
   opacity: 0.95;
 }
