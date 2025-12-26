@@ -369,3 +369,132 @@ body {
 .light .cdk-drag-preview .created-at-left p {
   color: black !important ;
 }
+/* shimmer wrapper */
+.light .shimmer-parent {
+  position: relative;
+  overflow: hidden;
+}
+
+.light .shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  height: 100%;
+  width: 150%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(200, 200, 200, 0.15) 50%,
+    rgba(255, 255, 255, 0) 100%
+  ) !important;
+  animation: shimmer 1.6s infinite;
+}
+
+/* Card */
+.light .skeleton-card {
+  background: #f6f7fb !important;
+  border: 1px solid #e4e7ef !important;
+}
+
+/* All skeleton blocks */
+.light .skeleton-avatar,
+.light .skeleton-icon,
+.light .skeleton-title,
+.light .skeleton-line,
+.light .skeleton-tag,
+.light .footer-item,
+.light .list-col-title,
+.light .list-col-count,
+.light .list-col-action,
+.light .list-item-title,
+.light .list-item-line,
+.light .list-item-tag,
+.light .list-item-avatar,
+.light .list-item-date {
+  background: #e7eaf2 !important;
+}
+
+/* List / Kanban column */
+.light .skeleton-list-col {
+  background: #f6f7fb !important;
+  border: 1px solid #e4e7ef !important;
+}
+
+/* List item card */
+.light .list-item {
+  background: #ffffff !important;
+  border: 1px solid #e4e7ef !important;
+}
+
+/* Divider */
+.light .list-col-divider {
+  background: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Responsive (same sizing, just add .light prefix) */
+@media (max-width: 466px) {
+  .light .skeleton-card {
+    max-width: 250px;
+  }
+  .light .skeleton-list-col {
+    max-width: 250px;
+  }
+}
+.light .card-container {
+  background-color: white !important;
+}
+.light .card-container h1 {
+  color: rgb(0, 0, 0) !important;
+}
+.light .due-row,
+.light label,
+.light .section-title,
+.light .comment-header,
+.light .light .comment-actions {
+  color: rgb(0, 0, 0) !important;
+}
+.light .description-box,
+.light .comment-input input {
+  background-color: white !important;
+  color: black !important;
+  border: none !important;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px !important;
+}
+.light hr {
+  border-top: 0.5px solid rgba(199, 199, 199, 0.788) !important;
+}
+.light .assign-box,
+.light .assigned-item,
+.light .comment-text-box {
+  background-color: white !important;
+  color: rgba(0, 0, 0, 0.849) !important;
+  border: none !important;
+  font-weight: 550;
+}
+.light .comment-text-box {
+  background-color: rgba(189, 189, 189, 0.233) !important;
+  color: rgba(0, 0, 0, 0.849) !important;
+  border: none !important;
+  font-weight: 550;
+}
+
+.light .assign-btn.cancel {
+  color: black !important;
+}
+.light .assign-btn.cancel:hover {
+  color: black !important;
+  background-color: #cfcfcf !important;
+}
+.light .assign-btn.assign {
+  color: rgb(255, 255, 255) !important;
+  background-color: #8263b4 !important;
+}
+.light .assign-btn.assign:hover {
+  color: rgb(255, 255, 255) !important;
+  background-color: #8263b4d8 !important;
+}
+
+.light .comment-input input {
+  border: 1px rgb(216, 216, 216) solid !important;
+}

@@ -36,14 +36,16 @@
     }
 
     @if (item.allowTyping) {
-    <input [formControlName]="item.formControlName" [placeholder]="item.placeholder"
-        [attr.list]="'options-' + item.formControlName" />
+    <div class="select-wrapper">
+        <input [formControlName]="item.formControlName" [placeholder]="item.placeholder"
+            [attr.list]="'options-' + item.formControlName" />
 
-    <datalist [id]="'options-' + item.formControlName">
-        @for (option of item.options; track option) {
-        <option [value]="option"></option>
-        }
-    </datalist>
+        <datalist [id]="'options-' + item.formControlName">
+            @for (option of item.options; track option) {
+            <option [value]="option"></option>
+            }
+        </datalist>
+    </div>
     }
     }
 

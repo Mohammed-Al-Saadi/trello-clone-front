@@ -2,7 +2,7 @@
   overflow-y: auto;
   padding-bottom: 24px;
   box-sizing: border-box;
-  height: calc(100vh);
+  height: calc(100vh - 150px);
 }
 
 .project-list {

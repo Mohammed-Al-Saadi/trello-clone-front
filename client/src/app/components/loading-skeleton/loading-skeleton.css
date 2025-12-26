@@ -29,7 +29,6 @@
   }
 }
 
-/* ========== VARIANT: CARD (your existing) ========== */
 .skeleton-card {
   background: #121218;
   border-radius: 14px;
@@ -221,6 +220,15 @@
   height: 10px;
   border-radius: 6px;
   background: #1f1f28;
+}
+
+@media (max-width: 371px) {
+  .light .skeleton-card {
+    max-width: 200px;
+  }
+  .light .skeleton-list-col {
+    max-width: 200px;
+  }
 }
 
 @media (max-width: 466px) {

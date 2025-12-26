@@ -10,7 +10,6 @@
   max-height: calc(100svh - 2rem);
   overflow-y: auto;
   overflow-x: hidden;
-  height: 100vh;
 }
 
 input[type='date'],
@@ -458,11 +457,19 @@ h1 {
 
 .comment-input input {
   flex: 1;
-  border: 1px solid #2d2d3a;
+  border: 0.3px solid #8181dd17;
   background: #11111a;
   padding: 8px;
   border-radius: 8px;
   color: #e5e7eb;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.05s ease;
+}
+
+.comment-input input:focus,
+.comment-input input:focus-visible {
+  border-color: rgba(99, 102, 241, 0.55);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
 }
 
 .send-btn {
@@ -608,6 +615,7 @@ hr {
   font-size: 12px;
   opacity: 0.8;
   cursor: pointer;
+  color: rgb(255, 255, 255);
 }
 
 .comment-actions span:hover {
