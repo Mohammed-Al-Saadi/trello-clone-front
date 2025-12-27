@@ -1,5 +1,7 @@
 .board-container {
   position: relative;
+  transform: none !important;
+  will-change: auto !important;
 }
 
 .board-name {
@@ -575,6 +577,8 @@
   touch-action: pan-y;
   max-width: 99%;
   margin: 0 auto;
+  transform: none !important;
+  will-change: auto !important;
 }
 
 .board-lists-container-main.is-panning {
