@@ -29,9 +29,10 @@
                             <span class="material-icons">drag_indicator</span>
                         </div>
                         <input type="text" [value]="list.name" (blur)="renameList(list.id, $event.target.value)" />
-                        <span class="material-icons delete-list-icon" (click)="onClickOpenDeleteList(list.id)">
+                        <span class="material-icons delete-list-icon" (click)="onClickDeleteList(list.id)">
                             delete
                         </span>
+
                     </div>
                     <button class="add-task-btn" (click)="onOpenAddCard(list.id)">
                         <span class="material-icons">add</span>
@@ -89,9 +90,10 @@
 
                                 <div class="card-menu" (click)="$event.stopPropagation()">
                                     <button class="menu-btn"
-                                        (click)="openDeleteCard(card.id); $event.stopPropagation()">
+                                        (click)="onClickDeleteCard(card.id); $event.stopPropagation()">
                                         <i class="fa fa-trash"></i>
                                     </button>
+
                                 </div>
                             </div>
 
@@ -138,11 +140,5 @@
         }
     </div>
 
-    <app-confirm-delete [show]="showDeleteListModal()" title="Delete List"
-        message="Are you sure you want to delete this list?" (close)="handleDeleteList($event)">
-    </app-confirm-delete>
 
-    <app-confirm-delete [show]="showDeleteCardModal()" title="Delete Card"
-        message="Are you sure you want to delete this card?" (close)="handleDeleteCard($event)">
-    </app-confirm-delete>
 </div>

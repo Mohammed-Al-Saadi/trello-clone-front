@@ -25,76 +25,61 @@ import { BoardListService } from '../../services/board-list';
 import { ConfirmDelete } from '../confirm-delete/confirm-delete';
 import { getShortNameUtil } from '../../utils/main.projects.utils';
 import { AuthService } from '../../services/auth';
-import { CardContentService } from '../../services/card_content';
-import { CardMembershipService } from '../../services/cards-memberships';
-import { CardContent } from '../card-content/card-content';
-import { ModelView } from '../model-view/model-view';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-board-lists',
   standalone: true,
-  imports: [
-    CommonModule,
-    DragDropModule,
-    FormsModule,
-    NgClass,
-    DatePipe,
-    ConfirmDelete,
-    ScrollingModule,
-  ],
+  imports: [CommonModule, DragDropModule, FormsModule, NgClass, DatePipe, ScrollingModule],
   templateUrl: './board-lists-component.html',
   styleUrls: ['./board-lists-component.css'],
 })
 export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() lists: any[] = [];
-  @Output() refresh = new EventEmitter<void>();
   @Input() boardMembers: any[] = [];
-  route = inject(ActivatedRoute);
+  @Output() refresh = new EventEmitter<void>();
   @Output() openCard = new EventEmitter<any>();
+  @Output() deleteList = new EventEmitter<number>();
+  @Output() deleteCard = new EventEmitter<number>();
+  route = inject(ActivatedRoute);
+  tasksService = inject(TasksService);
+  boardListService = inject(BoardListService);
+  auth = inject(AuthService);
 
   projectId = this.route.snapshot.params['project_id'];
   boardName = history.state.boardName;
   boardRoleName = history.state.role_name;
 
-  tasksService = inject(TasksService);
-  boardListService = inject(BoardListService);
-  auth = inject(AuthService);
-  cardContentService = inject(CardContentService);
-  cardMembershipService = inject(CardMembershipService);
-
+  // Signals
   showAddCard = signal<number | null>(null);
   noCardTitle = signal(false);
+  selectedListId = signal<number | null>(null);
+  selectedCardId = signal<number | null>(null);
+  showDeleteListModal = signal(false);
+  showDeleteCardModal = signal(false);
 
+  // Local state
   cardTitleTouched = false;
   newCardTitle = '';
   newCardPriority = '';
-
-  selectedListId = signal<number | null>(null);
-  showDeleteListModal = signal(false);
-
-  showDeleteCardModal = signal(false);
-  selectedCardId = signal<number | null>(null);
-
-  openMenuCardId: number | null = null;
-
-  SelectedCard = signal<any | null>(null);
-  showCardContent = signal<number | null>(null);
-
   activeListIndex = 0;
 
   @ViewChild('boardScroll', { static: false })
   boardScroll!: ElementRef<HTMLElement>;
 
   canScroll = false;
-  canScrollLeft = false;
-  canScrollRight = false;
 
   private scrollEl: HTMLElement | null = null;
 
   constructor() {
     document.addEventListener('click', this.onOutsideClick);
+  }
+  onClickDeleteList(listId: number) {
+    this.deleteList.emit(listId);
+  }
+  onClickDeleteCard(cardId: number) {
+    this.deleteCard.emit(cardId);
   }
   ngAfterViewInit() {
     const el = this.boardScroll?.nativeElement;
@@ -140,7 +125,7 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
       this.updateActiveList();
     });
 
-    /** 📱 Touch support **/
+    /** Touch support **/
     el.addEventListener('touchstart', (e: TouchEvent) => {
       if ((e.target as HTMLElement).closest('.cdk-drag')) return;
       isDown = true;
@@ -185,7 +170,6 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
     const el = this.boardScroll?.nativeElement;
     if (!el) return;
     const listElements = Array.from(el.querySelectorAll('.board-list-column')) as HTMLElement[];
-
     if (!listElements.length) {
       this.activeListIndex = 0;
       return;
@@ -201,7 +185,6 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
       const rect = listEl.getBoundingClientRect();
       const center = rect.left + rect.width / 2;
       const diff = Math.abs(center - containerCenter);
-
       if (diff < minDistance) {
         minDistance = diff;
         closestIndex = index;
@@ -214,10 +197,7 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
   updateCanScroll() {
     const el = this.boardScroll?.nativeElement;
     if (!el) return;
-
     this.canScroll = el.scrollWidth > el.clientWidth + 1;
-    this.canScrollLeft = el.scrollLeft > 0;
-    this.canScrollRight = el.scrollLeft + el.clientWidth < el.scrollWidth - 1;
   }
 
   scroll(amount: number) {
@@ -227,17 +207,6 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
       this.updateCanScroll();
       this.updateActiveList();
     }, 290);
-  }
-
-  onDragMoved(event: CdkDragMove<any>) {
-    const el = this.boardScroll?.nativeElement;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = event.pointerPosition.x;
-    const EDGE = 80;
-    const SPEED = 15;
-    if (x < rect.left + EDGE) el.scrollLeft -= SPEED;
-    else if (x > rect.right - EDGE) el.scrollLeft += SPEED;
   }
 
   get listIds() {
@@ -328,9 +297,7 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
     }
   }
 
-  onOutsideClick = () => {
-    if (this.openMenuCardId !== null) this.openMenuCardId = null;
-  };
+  onOutsideClick = () => {};
 
   openDeleteCard(cardId: number) {
     this.selectedCardId.set(cardId);
@@ -348,13 +315,7 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
 
   async showCardContentModel(card: any) {
     this.selectedCardId.set(card.id);
-    this.SelectedCard.set(card);
-    this.showCardContent.set(card.id);
     this.openCard.emit(card);
-  }
-
-  closeEditor() {
-    this.showCardContent.set(null);
   }
 
   getPriorityClass(priority: string) {
