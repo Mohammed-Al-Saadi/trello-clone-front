@@ -1,7 +1,5 @@
 .board-container {
   position: relative;
-  transform: translateZ(0);
-  will-change: transform;
 }
 
 .board-name {
@@ -669,5 +667,20 @@
 @media (max-height: 679px) {
   .board-list-column {
     max-height: 73vh;
+  }
+}
+/* Only keep the transform on desktop */
+@media (min-width: 768px) {
+  .board-container {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
+
+/* Disable it on mobile where modals break */
+@media (max-width: 767px) {
+  .board-container {
+    transform: none !important;
+    will-change: auto !important;
   }
 }
