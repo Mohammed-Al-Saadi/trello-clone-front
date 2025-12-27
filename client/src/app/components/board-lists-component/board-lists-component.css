@@ -15,6 +15,10 @@
   align-items: center;
   gap: 6px;
 }
+.scroll-arrow.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
 
 .board-text .label {
   font-size: 16px;
@@ -608,13 +612,13 @@
 }
 
 .left {
-  font-size: 15px;
+  font-size: 18px;
   position: relative;
   left: 0.15rem;
 }
 
 .right {
-  font-size: 15px;
+  font-size: 18px;
   position: relative;
   left: 0.08rem;
 }

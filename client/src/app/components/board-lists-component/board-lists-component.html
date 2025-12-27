@@ -1,6 +1,7 @@
 <div class="board-scroll-indicator" *ngIf="canScroll">
     <div class="padding">
-        <span class="material-icons scroll-arrow left" (click)="scroll(-300)">
+        <span class="material-icons scroll-arrow left" [class.disabled]="!canScrollLeft"
+            (click)="canScrollLeft && scroll(-300)">
             arrow_back_ios
         </span>
     </div>
@@ -10,7 +11,8 @@
     </div>
 
     <div class="padding">
-        <span class="material-icons scroll-arrow right" (click)="scroll(300)">
+        <span class="material-icons scroll-arrow right" [class.disabled]="!canScrollRight"
+            (click)="canScrollRight && scroll(300)">
             arrow_forward_ios
         </span>
     </div>

@@ -67,6 +67,8 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
 
   @ViewChild('boardScroll', { static: false })
   boardScroll!: ElementRef<HTMLElement>;
+  canScrollLeft = false;
+  canScrollRight = false;
 
   canScroll = false;
 
@@ -197,7 +199,12 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
   updateCanScroll() {
     const el = this.boardScroll?.nativeElement;
     if (!el) return;
+
+    const maxScrollLeft = el.scrollWidth - el.clientWidth;
+
     this.canScroll = el.scrollWidth > el.clientWidth + 1;
+    this.canScrollLeft = el.scrollLeft > 10;
+    this.canScrollRight = el.scrollLeft < maxScrollLeft - 10;
   }
 
   scroll(amount: number) {
@@ -206,7 +213,7 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
     setTimeout(() => {
       this.updateCanScroll();
       this.updateActiveList();
-    }, 290);
+    }, 400);
   }
 
   get listIds() {
