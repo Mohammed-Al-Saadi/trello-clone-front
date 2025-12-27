@@ -134,6 +134,9 @@ export class CardContent {
       this.SelectedCard.status
     );
   }
+  private normalizeStatus(v: any): boolean {
+    return v === true || v === 'true' || v === 1 || v === 't';
+  }
 
   async ngOnInit() {
     const data = await this.cardContentService.getCardContent(this.SelectedCard.id);
@@ -147,7 +150,11 @@ export class CardContent {
     console.log(data);
 
     this.dueDate.set(data.content.due_date);
-    this.SelectedCard.status = data.content.status === true;
+    const s = data?.content?.status;
+
+    if (s !== null && s !== undefined) {
+      this.SelectedCard.status = this.normalizeStatus(s);
+    }
     this.cardComments.set(data.comments);
     console.log(this.auth.user());
   }
