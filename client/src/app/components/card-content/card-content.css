@@ -10,6 +10,8 @@
   max-height: calc(100svh - 2rem);
   overflow-y: auto;
   overflow-x: hidden;
+  position: relative;
+  z-index: 99999999;
 }
 
 input[type='date'],
