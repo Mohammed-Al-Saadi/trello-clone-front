@@ -501,15 +501,16 @@ body {
 
 .light input[type='date'],
 .light input[type='datetime-local'] {
-  background-color: rgb(255, 255, 255) !important;
+  background-color: white !important;
   border: none !important;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
   color: black !important;
+  -webkit-text-fill-color: black !important;
 }
 .light input[type='date']::-webkit-calendar-picker-indicator,
 .light input[type='datetime-local']::-webkit-calendar-picker-indicator {
   filter: brightness(0) saturate(100%);
-  opacity: 0.9;
+  opacity: 1;
 }
 .light .save-btn,
 .light .cancel-btn {
