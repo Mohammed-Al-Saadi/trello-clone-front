@@ -1,6 +1,5 @@
 .board-container {
   position: relative;
-
 }
 
 .board-name {
@@ -569,6 +568,7 @@
    ✅ GRAB-TO-SCROLL (NEW)
    =========================== */
 .board-lists-container-main {
+  position: absolute;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
@@ -668,5 +668,12 @@
 @media (max-height: 679px) {
   .board-list-column {
     max-height: 73vh;
+  }
+}
+
+@media (max-width: 600px) {
+  .board-container {
+    transform: none !important;
+    will-change: auto !important;
   }
 }
