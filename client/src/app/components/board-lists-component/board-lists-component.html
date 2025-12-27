@@ -27,7 +27,7 @@
             <div class="board-list-column" cdkScrollable>
                 <div class="board-list-header">
                     <div class="list-top-row">
-                        <div class="drag-handle" cdkDragHandle>
+                        <div class="drag-handle drag1" cdkDragHandle>
                             <span class="material-icons">drag_indicator</span>
                         </div>
                         <input type="text" [value]="list.name" (blur)="renameList(list.id, $event.target.value)" />

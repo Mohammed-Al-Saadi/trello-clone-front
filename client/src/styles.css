@@ -201,6 +201,7 @@ body {
 .light .board-list-column input {
   background-color: white !important;
   color: black !important;
+  border: none !important;
 }
 .light .board-list-column {
   border: none !important;
@@ -236,10 +237,12 @@ body {
 .light .priority-select {
   background-color: white !important;
   color: black !important;
+  border: none !important;
 }
 .light .add-card-container button {
   background: white !important;
   color: black !important;
+  border: none !important;
 }
 .light .modal {
   background-color: white !important;
@@ -540,4 +543,9 @@ body {
 .light .dot.active {
   background: #9285c0 !important
   ;
+}
+.light .drag-handle,
+.light .drag1 {
+  background: rgba(189, 189, 189, 0.596) !important;
+  border-radius: 50%;
 }
