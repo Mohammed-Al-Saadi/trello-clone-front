@@ -145,6 +145,7 @@ export class CardContent {
       this.hasDescription.set(false);
     }
     console.log(data);
+
     this.dueDate.set(data.content.due_date);
     this.SelectedCard.status = data.content.status === true;
     this.cardComments.set(data.comments);
