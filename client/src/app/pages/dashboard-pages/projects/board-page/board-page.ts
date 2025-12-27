@@ -20,6 +20,7 @@ import { getShortNameUtil } from '../../../../utils/main.projects.utils';
 import { createAddListFormItems, createAddMemberFormItems } from '../main.project.form.data';
 import { BOARD_ROLE_DESCRIPTIONS } from '../../../../utils/boards';
 import { LoadingSkeleton } from '../../../../components/loading-skeleton/loading-skeleton';
+import { CardContent } from '../../../../components/card-content/card-content';
 
 @Component({
   selector: 'app-board-page',
@@ -38,6 +39,7 @@ import { LoadingSkeleton } from '../../../../components/loading-skeleton/loading
     TitleCasePipe,
     LoadingSkeleton,
     NgFor,
+    CardContent,
   ],
 })
 export class BoardPage {
@@ -54,7 +56,8 @@ export class BoardPage {
   projectName = history.state.projectName;
   boardName = history.state.boardName;
   boardRoleName = history.state.role_name;
-
+  showCardContent = signal(false);
+  selectedCard = signal<any | null>(null);
   lists = signal<any[]>([]);
   allBoardMembers = signal<any[]>([]);
   boardRoles = signal<any[]>([]);
@@ -137,7 +140,15 @@ export class BoardPage {
 
     this.loadBoardLists();
   }
+  openCardContent(card: any) {
+    this.selectedCard.set(card);
+    this.showCardContent.set(true);
+  }
 
+  closeCardContent() {
+    this.selectedCard.set(null);
+    this.showCardContent.set(false);
+  }
   async addBoardMember(formData: any) {
     try {
       this.loading.set(true);

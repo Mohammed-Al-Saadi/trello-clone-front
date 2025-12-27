@@ -53,13 +53,21 @@
         </app-reactive-form>
     </app-model-view>
     }
+    @if (showCardContent() && selectedCard()) {
+    <app-model-view class="management-model" (closeModel)="closeCardContent()">
+        <app-card-content class="card-content-container" [boardMembers]="allBoardMembers()"
+            [SelectedCard]="selectedCard()" (close)="closeCardContent()">
+        </app-card-content>
+    </app-model-view>
+    }
     @if (listsLoading()) {
     <div class="skeleton-grid">
         <app-loading-skeleton *ngFor="let i of [1,2,3,4]" variant="list"></app-loading-skeleton>
     </div>
     }@else{
-    <app-board-lists [lists]="lists()" [boardMembers]="allBoardMembers()"
-        (refresh)="loadBoardLists()"></app-board-lists>
+    <app-board-lists [lists]="lists()" [boardMembers]="allBoardMembers()" (refresh)="loadBoardLists()"
+        (openCard)="openCardContent($event)">
+    </app-board-lists>
     }
     @if (showManageMemberModel()) {
     <app-model-view class="management-model" (closeModel)="openManageMembers()">

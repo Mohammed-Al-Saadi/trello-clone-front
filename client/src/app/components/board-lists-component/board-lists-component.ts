@@ -42,8 +42,6 @@ import { ActivatedRoute } from '@angular/router';
     NgClass,
     DatePipe,
     ConfirmDelete,
-    CardContent,
-    ModelView,
     ScrollingModule,
   ],
   templateUrl: './board-lists-component.html',
@@ -54,6 +52,7 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
   @Output() refresh = new EventEmitter<void>();
   @Input() boardMembers: any[] = [];
   route = inject(ActivatedRoute);
+  @Output() openCard = new EventEmitter<any>();
 
   projectId = this.route.snapshot.params['project_id'];
   boardName = history.state.boardName;
@@ -327,7 +326,6 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
       movedCard.list_id = targetList.id;
       await this.tasksService.moveTasksToOtherList(movedCard.id, targetList.id, event.currentIndex);
     }
-
   }
 
   onOutsideClick = () => {
@@ -352,6 +350,7 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
     this.selectedCardId.set(card.id);
     this.SelectedCard.set(card);
     this.showCardContent.set(card.id);
+    this.openCard.emit(card);
   }
 
   closeEditor() {
