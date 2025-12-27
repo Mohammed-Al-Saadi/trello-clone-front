@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(3px);
-  z-index: 999999 !important;
+  z-index: 199999;
   height: 100vh;
 }
 
