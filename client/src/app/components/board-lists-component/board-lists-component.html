@@ -97,16 +97,17 @@
                                 </div>
                             </div>
 
-                            @if (card.due_date && !card.status) {
+                            @if (card.due_date && card.status !== true) {
                             <div class="underline"></div>
                             <div class="due-date-chip" [ngClass]="getDueClass(card.due_date)">
                                 <span class="material-icons due-icon">schedule</span>
-                                <span class="due-text">Due date: {{ card.due_date | date:'MMM d, yyyy' }}</span>
+                                <span class="due-text">
+                                    Due date: {{ card.due_date | date:'MMM d, yyyy' }}
+                                </span>
                             </div>
                             }
 
-
-                            @if (card.status) {
+                            @if (card.status === true) {
                             <div class="underline"></div>
                             <div class="status-chip completed">
                                 <span class="material-icons status-icon">task_alt</span>
