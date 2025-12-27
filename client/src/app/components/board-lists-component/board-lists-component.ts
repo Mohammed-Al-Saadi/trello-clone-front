@@ -327,6 +327,7 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
       movedCard.list_id = targetList.id;
       await this.tasksService.moveTasksToOtherList(movedCard.id, targetList.id, event.currentIndex);
     }
+
   }
 
   onOutsideClick = () => {
