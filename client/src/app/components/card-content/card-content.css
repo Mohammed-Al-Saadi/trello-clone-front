@@ -12,17 +12,6 @@
   overflow-x: hidden;
 }
 
-input[type='date'],
-input[type='datetime-local'] {
-  color-scheme: dark;
-  
-}
-
-input[type='date']::-webkit-calendar-picker-indicator,
-input[type='datetime-local']::-webkit-calendar-picker-indicator {
-  cursor: pointer;
-}
-
 .title-row {
   display: flex;
   align-items: center;
@@ -622,26 +611,44 @@ hr {
 .comment-actions span:hover {
   text-decoration: underline;
 }
-.due-date-picker {
+/* --- Fix for mobile date/datetime-local inputs --- */
+input[type='datetime-local'],
+input[type='date'] {
+  background-color: #11111a;
   color: #f3f4f6;
-  -webkit-text-fill-color: #f3f4f6; /* important for iOS */
+  -webkit-text-fill-color: #f3f4f6 !important; /* Force visible text */
+  border: 1px solid #2a2a33;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 14px;
+  color-scheme: dark;
 }
 
-.due-date-picker.empty {
-  color: #9ca3af; /* “placeholder-like” color */
-  -webkit-text-fill-color: #9ca3af;
+/* Fix for iOS Safari – show the calendar icon */
+input[type='datetime-local']::-webkit-calendar-picker-indicator,
+input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(1.5); /* make icon visible on dark bg */
+  cursor: pointer;
+  opacity: 1 !important; /* ensure icon shows */
 }
 
-/* Force the internal datetime text pieces to follow the color */
-.due-date-picker::-webkit-datetime-edit,
-.due-date-picker::-webkit-datetime-edit-fields-wrapper,
-.due-date-picker::-webkit-datetime-edit-text,
-.due-date-picker::-webkit-datetime-edit-month-field,
-.due-date-picker::-webkit-datetime-edit-day-field,
-.due-date-picker::-webkit-datetime-edit-year-field,
-.due-date-picker::-webkit-datetime-edit-hour-field,
-.due-date-picker::-webkit-datetime-edit-minute-field,
-.due-date-picker::-webkit-datetime-edit-ampm-field {
-  color: inherit;
-  -webkit-text-fill-color: inherit;
+/* Make placeholder text or empty inputs visible */
+input[type='datetime-local'].empty,
+input[type='date'].empty {
+  color: #9ca3af;
+  -webkit-text-fill-color: #9ca3af !important;
+}
+
+/* Ensure all internal text parts (mobile-friendly) use the right color */
+input[type='datetime-local']::-webkit-datetime-edit,
+input[type='datetime-local']::-webkit-datetime-edit-fields-wrapper,
+input[type='datetime-local']::-webkit-datetime-edit-text,
+input[type='datetime-local']::-webkit-datetime-edit-month-field,
+input[type='datetime-local']::-webkit-datetime-edit-day-field,
+input[type='datetime-local']::-webkit-datetime-edit-year-field,
+input[type='datetime-local']::-webkit-datetime-edit-hour-field,
+input[type='datetime-local']::-webkit-datetime-edit-minute-field,
+input[type='datetime-local']::-webkit-datetime-edit-ampm-field {
+  color: #f3f4f6 !important;
+  -webkit-text-fill-color: #f3f4f6 !important;
 }
