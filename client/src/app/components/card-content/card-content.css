@@ -621,7 +621,6 @@ input[type='date'] {
   border-radius: 6px;
   padding: 8px;
   font-size: 14px;
-  color-scheme: dark;
 }
 
 /* Fix for iOS Safari – show the calendar icon */
