@@ -520,6 +520,11 @@ body {
   background-color: white !important;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
+.light .card-container .save-btn,
+.light .card-container .cancel-btn {
+  background-color: white !important;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
 .light .save-btn .material-icons {
   color: green !important;
 }
@@ -548,4 +553,11 @@ body {
 .light .drag1 {
   background: rgba(189, 189, 189, 0.596) !important;
   border-radius: 50%;
+}
+.light .title-input,
+.light .priority-select {
+  background-color: white !important;
+  color: black !important;
+  border: 1px rgba(0, 0, 0, 0.082) solid !important;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px !important;
 }
