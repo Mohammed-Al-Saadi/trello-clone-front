@@ -1,7 +1,5 @@
 .board-container {
   position: relative;
-  transform: translateZ(0);
-  will-change: transform;
 }
 .management-model {
   position: fixed;
@@ -679,4 +677,11 @@
   .board-list-column {
     max-height: 73vh;
   }
+}
+
+app-card-content,
+app-model-view,
+app-confirm-delete {
+  position: fixed;
+  z-index: 100000;
 }
