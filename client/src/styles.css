@@ -515,8 +515,8 @@ body {
   filter: brightness(0) saturate(100%);
   opacity: 1;
 }
-.light .save-btn,
-.light .cancel-btn {
+.light .due-edit-box .save-btn,
+.light .due-edit-box .cancel-btn {
   background-color: white !important;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
