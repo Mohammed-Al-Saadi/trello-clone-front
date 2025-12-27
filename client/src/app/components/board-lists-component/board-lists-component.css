@@ -1,3 +1,6 @@
+.board-container {
+  position: relative;
+}
 
 .board-name {
   display: flex;

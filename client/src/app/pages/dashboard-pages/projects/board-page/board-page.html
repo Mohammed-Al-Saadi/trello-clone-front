@@ -28,8 +28,6 @@
             </div>
         </div>
     </app-dashboard-info-panel>
-
-
     @if(showAddMemberModel()){
     <app-model-view class="management-model" (closeModel)="onClickOpenAddMember()">
         <app-reactive-form title=" Add New Member" p="Add a new member to start organizing your work"
@@ -60,21 +58,9 @@
         <app-loading-skeleton *ngFor="let i of [1,2,3,4]" variant="list"></app-loading-skeleton>
     </div>
     }@else{
-    <app-board-lists (cardSelected)="openCardContent($event)" [lists]="lists()" [boardMembers]="allBoardMembers()"
-        (refresh)="loadBoardLists()">
-        <div card-content>
-            @if (showCardContent()) {
-            <app-model-view class="management-model" (closeModel)="closeCardContent()">
-                <app-card-content class="card-content-container" [boardMembers]="allBoardMembers()"
-                    [SelectedCard]="selectedCard()" (close)="closeCardContent()">
-                </app-card-content>
-            </app-model-view>
-            }
-        </div>
-    </app-board-lists>
+    <app-board-lists [lists]="lists()" [boardMembers]="allBoardMembers()"
+        (refresh)="loadBoardLists()"></app-board-lists>
     }
-
-
     @if (showManageMemberModel()) {
     <app-model-view class="management-model" (closeModel)="openManageMembers()">
         <app-manage-roles [manageRolesData]="manageRolesData()" [roles]="boardRoles()"

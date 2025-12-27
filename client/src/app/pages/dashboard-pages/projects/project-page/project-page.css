@@ -2,18 +2,7 @@
   width: 100%;
   position: relative;
 }
-.management-model {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  z-index: 1000;
-}
+
 .back-btn {
   background: none;
   border: none;

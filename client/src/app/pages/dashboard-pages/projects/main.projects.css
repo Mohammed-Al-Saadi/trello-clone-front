@@ -6,16 +6,6 @@
   max-height: fit-content;
 }
 
-/* MODAL OVERLAY */
-.management-model {
-  position: fixed;
-  inset: 0;
-  height: 100vh;
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 /* CREATE / FILTER BUTTON AREA */
 .panel-container-button {
