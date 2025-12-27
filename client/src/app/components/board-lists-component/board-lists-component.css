@@ -682,6 +682,5 @@
 app-card-content,
 app-model-view,
 app-confirm-delete {
-  position: fixed;
-  z-index: 100000;
+  z-index: 1000000 !important;
 }
