@@ -568,7 +568,7 @@
    ✅ GRAB-TO-SCROLL (NEW)
    =========================== */
 .board-lists-container-main {
-  position: fixed;
+  position: absolute;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
@@ -577,10 +577,6 @@
   max-width: 99%;
   margin: 0 auto;
   z-index: 999999;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
 }
 
 .board-lists-container-main.is-panning {
@@ -673,5 +669,12 @@
 @media (max-height: 679px) {
   .board-list-column {
     max-height: 73vh;
+  }
+}
+
+@media (max-width: 600px) {
+  .board-container {
+    transform: none !important;
+    will-change: auto !important;
   }
 }
