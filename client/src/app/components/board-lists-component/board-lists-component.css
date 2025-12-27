@@ -1,5 +1,7 @@
 .board-container {
   position: relative;
+  transform: none !important;
+  will-change: auto !important;
 }
 
 .board-name {
@@ -575,6 +577,18 @@
   touch-action: pan-y;
   max-width: 99%;
   margin: 0 auto;
+  transform: none !important;
+  will-change: auto !important;
+}
+
+/* Ensure modals break out of any container and sit on top */
+app-card-content,
+app-model-view,
+app-confirm-delete {
+  position: fixed !important;
+  z-index: 10000 !important;
+  top: 0;
+  left: 0;
 }
 
 .board-lists-container-main.is-panning {
