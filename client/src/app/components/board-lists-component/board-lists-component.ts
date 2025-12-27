@@ -27,8 +27,6 @@ import { getShortNameUtil } from '../../utils/main.projects.utils';
 import { AuthService } from '../../services/auth';
 import { CardContentService } from '../../services/card_content';
 import { CardMembershipService } from '../../services/cards-memberships';
-import { CardContent } from '../card-content/card-content';
-import { ModelView } from '../model-view/model-view';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ActivatedRoute } from '@angular/router';
 
@@ -42,8 +40,6 @@ import { ActivatedRoute } from '@angular/router';
     NgClass,
     DatePipe,
     ConfirmDelete,
-    CardContent,
-    ModelView,
     ScrollingModule,
   ],
   templateUrl: './board-lists-component.html',
@@ -54,6 +50,7 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
   @Output() refresh = new EventEmitter<void>();
   @Input() boardMembers: any[] = [];
   route = inject(ActivatedRoute);
+  @Output() cardSelected = new EventEmitter<any>();
 
   projectId = this.route.snapshot.params['project_id'];
   boardName = history.state.boardName;
@@ -327,7 +324,6 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
       movedCard.list_id = targetList.id;
       await this.tasksService.moveTasksToOtherList(movedCard.id, targetList.id, event.currentIndex);
     }
-
   }
 
   onOutsideClick = () => {
@@ -352,6 +348,7 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
     this.selectedCardId.set(card.id);
     this.SelectedCard.set(card);
     this.showCardContent.set(card.id);
+    this.cardSelected.emit(card);
   }
 
   closeEditor() {

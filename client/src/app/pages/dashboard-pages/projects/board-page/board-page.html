@@ -60,8 +60,18 @@
         <app-loading-skeleton *ngFor="let i of [1,2,3,4]" variant="list"></app-loading-skeleton>
     </div>
     }@else{
-    <app-board-lists [lists]="lists()" [boardMembers]="allBoardMembers()"
-        (refresh)="loadBoardLists()"></app-board-lists>
+    <app-board-lists (cardSelected)="openCardContent($event)" [lists]="lists()" [boardMembers]="allBoardMembers()"
+        (refresh)="loadBoardLists()">
+        <div card-content>
+            @if (showCardContent()) {
+            <app-model-view class="management-model" (closeModel)="closeCardContent()">
+                <app-card-content class="card-content-container" [boardMembers]="allBoardMembers()"
+                    [SelectedCard]="selectedCard()" (close)="closeCardContent()">
+                </app-card-content>
+            </app-model-view>
+            }
+        </div>
+    </app-board-lists>
     }
 
 

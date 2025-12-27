@@ -17,13 +17,8 @@
 </div>
 
 <div class="board-lists-container-main" cdkScrollable #boardScroll>
-    @if (showCardContent()) {
-    <app-model-view class="management-model" (closeModel)="closeEditor()">
-        <app-card-content class="card-content-container" [boardMembers]="boardMembers" (close)="closeEditor()"
-            [SelectedCard]="SelectedCard()">
-        </app-card-content>
-    </app-model-view>
-    }
+    <!-- inside board-lists-component.html, near the top -->
+    <ng-content select="[card-content]"></ng-content>
 
     <div class="board-lists-container" #listsDrop="cdkDropList" cdkDropList [cdkDropListData]="lists"
         cdkDropListOrientation="horizontal" [cdkDropListAutoScrollDisabled]="false" [cdkDropListAutoScrollStep]="5"

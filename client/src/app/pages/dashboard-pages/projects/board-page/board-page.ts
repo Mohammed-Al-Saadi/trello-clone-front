@@ -20,6 +20,7 @@ import { getShortNameUtil } from '../../../../utils/main.projects.utils';
 import { createAddListFormItems, createAddMemberFormItems } from '../main.project.form.data';
 import { BOARD_ROLE_DESCRIPTIONS } from '../../../../utils/boards';
 import { LoadingSkeleton } from '../../../../components/loading-skeleton/loading-skeleton';
+import { CardContent } from '../../../../components/card-content/card-content';
 
 @Component({
   selector: 'app-board-page',
@@ -38,6 +39,7 @@ import { LoadingSkeleton } from '../../../../components/loading-skeleton/loading
     TitleCasePipe,
     LoadingSkeleton,
     NgFor,
+    CardContent,
   ],
 })
 export class BoardPage {
@@ -72,6 +74,8 @@ export class BoardPage {
   selectedRole = signal('');
   selectedRoleDescription = signal('');
   listsLoading = signal(false);
+  selectedCard = signal<any | null>(null);
+  showCardContent = signal(false);
 
   listFormData = signal<FormItems[]>(createAddListFormItems());
   formData = signal<FormItems[]>(
@@ -86,6 +90,15 @@ export class BoardPage {
   @ViewChild(ReactiveForm) addMemberForm!: ReactiveForm;
   @ViewChild(BoardListsComponent) boardListsComp!: BoardListsComponent;
   private savedScrollLeft = 0;
+  openCardContent(card: any) {
+    this.selectedCard.set(card);
+    this.showCardContent.set(true);
+  }
+
+  closeCardContent() {
+    this.showCardContent.set(false);
+    this.selectedCard.set(null);
+  }
 
   ngOnInit() {
     this.loadBoardLists();
