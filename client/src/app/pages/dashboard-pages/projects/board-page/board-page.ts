@@ -98,12 +98,23 @@ export class BoardPage {
   async loadBoardLists() {
     this.listsLoading.set(true);
     const data: any = await this.boardListService.getBoardList(this.boardId);
-    this.lists.set([...data.lists]);
-    this.allBoardMembers.set([...data.members]);
 
+    const normalizedLists = data.lists.map((list: any) => ({
+      ...list,
+      cards: list.cards.map((card: any) => ({
+        ...card,
+        status: card.status === true || card.status === 'true',
+      })),
+    }));
+    console.log(
+      'Cards data',
+      data.lists.flatMap((l: any) => l.cards.map((c: any) => ({ id: c.id, status: c.status })))
+    );
+
+    this.lists.set(normalizedLists);
+    this.allBoardMembers.set([...data.members]);
     this.manageRolesData.set([{ id: this.boardId, name: this.boardName, members: data.members }]);
     this.listsLoading.set(false);
-    console.log(data);
   }
 
   getShortName(name: string) {
