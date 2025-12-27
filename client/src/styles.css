@@ -527,3 +527,17 @@ body {
   font-weight: 500;
   color: rgba(0, 0, 0, 0.808) !important;
 }
+.light .padding {
+  background-color: rgb(216, 216, 216) !important;
+  color: black !important;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px !important;
+}
+
+.light .dot {
+  background: rgb(163, 163, 163) !important;
+  color: white !important;
+}
+.light .dot.active {
+  background: #9285c0 !important
+  ;
+}
