@@ -43,7 +43,8 @@
             </p>
             @if(isEditingDueDate) {
             <div class="due-edit-box">
-                <input type="datetime-local" [(ngModel)]="tempDueDate" class="due-date-picker" />
+                <input type="datetime-local" [(ngModel)]="tempDueDate" class="due-date-picker"
+                    [class.empty]="!tempDueDate" />
 
                 <button class="save-btn" (click)="saveDueDate()">
                     <span class="material-icons">check</span>

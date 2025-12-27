@@ -498,3 +498,31 @@ body {
 .light .comment-input input {
   border: 1px rgb(216, 216, 216) solid !important;
 }
+
+.light input[type='date'],
+.light input[type='datetime-local'] {
+  background-color: rgb(255, 255, 255) !important;
+  border: none !important;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
+  color: black !important;
+}
+.light input[type='date']::-webkit-calendar-picker-indicator,
+.light input[type='datetime-local']::-webkit-calendar-picker-indicator {
+  filter: brightness(0) saturate(100%);
+  opacity: 0.9;
+}
+.light .save-btn,
+.light .cancel-btn {
+  background-color: white !important;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.light .save-btn .material-icons {
+  color: green !important;
+}
+.light .cancel-btn .material-icons {
+  color: red !important;
+}
+.light .due-date:hover {
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.808) !important;
+}

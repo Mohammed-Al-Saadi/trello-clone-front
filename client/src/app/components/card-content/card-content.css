@@ -15,6 +15,7 @@
 input[type='date'],
 input[type='datetime-local'] {
   color-scheme: dark;
+  
 }
 
 input[type='date']::-webkit-calendar-picker-indicator,
@@ -620,4 +621,27 @@ hr {
 
 .comment-actions span:hover {
   text-decoration: underline;
+}
+.due-date-picker {
+  color: #f3f4f6;
+  -webkit-text-fill-color: #f3f4f6; /* important for iOS */
+}
+
+.due-date-picker.empty {
+  color: #9ca3af; /* “placeholder-like” color */
+  -webkit-text-fill-color: #9ca3af;
+}
+
+/* Force the internal datetime text pieces to follow the color */
+.due-date-picker::-webkit-datetime-edit,
+.due-date-picker::-webkit-datetime-edit-fields-wrapper,
+.due-date-picker::-webkit-datetime-edit-text,
+.due-date-picker::-webkit-datetime-edit-month-field,
+.due-date-picker::-webkit-datetime-edit-day-field,
+.due-date-picker::-webkit-datetime-edit-year-field,
+.due-date-picker::-webkit-datetime-edit-hour-field,
+.due-date-picker::-webkit-datetime-edit-minute-field,
+.due-date-picker::-webkit-datetime-edit-ampm-field {
+  color: inherit;
+  -webkit-text-fill-color: inherit;
 }
