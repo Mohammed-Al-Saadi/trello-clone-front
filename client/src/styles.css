@@ -498,54 +498,20 @@ body {
 .light .comment-input input {
   border: 1px rgb(216, 216, 216) solid !important;
 }
-/* IMPORTANT: override any global color-scheme: dark */
+
 .light input[type='date'],
 .light input[type='datetime-local'] {
-  color-scheme: light !important; /* ✅ key for iOS */
-  -webkit-appearance: none;
-  appearance: none;
-
-  background: #fff !important;
-  border: 1px solid rgba(0, 0, 0, 0.25) !important;
-  border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 8px !important;
-
-  color: #000 !important;
-  -webkit-text-fill-color: #000 !important;
+  background-color: white !important;
+  border: none !important;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
+  color: black !important;
+  -webkit-text-fill-color: black !important;
 }
-.light input[type='date'].empty,
-.light input[type='datetime-local'].empty {
-  color: rgba(0, 0, 0, 0.55) !important;
-  -webkit-text-fill-color: rgba(0, 0, 0, 0.55) !important;
-}
-
-/* Force internal date fields to inherit the color */
-.light input[type='date']::-webkit-datetime-edit,
-.light input[type='date']::-webkit-datetime-edit-fields-wrapper,
-.light input[type='date']::-webkit-datetime-edit-text,
-.light input[type='date']::-webkit-datetime-edit-month-field,
-.light input[type='date']::-webkit-datetime-edit-day-field,
-.light input[type='date']::-webkit-datetime-edit-year-field,
-.light input[type='datetime-local']::-webkit-datetime-edit,
-.light input[type='datetime-local']::-webkit-datetime-edit-fields-wrapper,
-.light input[type='datetime-local']::-webkit-datetime-edit-text,
-.light input[type='datetime-local']::-webkit-datetime-edit-month-field,
-.light input[type='datetime-local']::-webkit-datetime-edit-day-field,
-.light input[type='datetime-local']::-webkit-datetime-edit-year-field,
-.light input[type='datetime-local']::-webkit-datetime-edit-hour-field,
-.light input[type='datetime-local']::-webkit-datetime-edit-minute-field,
-.light input[type='datetime-local']::-webkit-datetime-edit-ampm-field {
-  color: inherit !important;
-  -webkit-text-fill-color: inherit !important;
-}
-
-/* Make the picker icon black */
 .light input[type='date']::-webkit-calendar-picker-indicator,
 .light input[type='datetime-local']::-webkit-calendar-picker-indicator {
-  filter: brightness(0) saturate(100%) !important;
+  filter: brightness(0) saturate(100%);
   opacity: 1;
 }
-
 .light .save-btn,
 .light .cancel-btn {
   background-color: white !important;
