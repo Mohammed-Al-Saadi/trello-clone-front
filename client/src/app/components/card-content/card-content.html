@@ -63,7 +63,7 @@
                     <span class="circle" [class.completed]="SelectedCard?.status"></span>
 
                     <span class="label-text">
-                        {{ SelectedCard?.status ? 'Completed' : 'Mark as Complete' }}
+                        {{ SelectedCard?.status === true ? 'Completed' : 'Mark as Complete' }}
                     </span>
 
                 </label>

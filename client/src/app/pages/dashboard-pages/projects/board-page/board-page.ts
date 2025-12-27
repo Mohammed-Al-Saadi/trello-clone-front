@@ -103,6 +103,7 @@ export class BoardPage {
 
     this.manageRolesData.set([{ id: this.boardId, name: this.boardName, members: data.members }]);
     this.listsLoading.set(false);
+    console.log(data);
   }
 
   getShortName(name: string) {
@@ -143,6 +144,7 @@ export class BoardPage {
   openCardContent(card: any) {
     this.selectedCard.set(card);
     this.showCardContent.set(true);
+    console.log(card);
   }
 
   closeCardContent() {
