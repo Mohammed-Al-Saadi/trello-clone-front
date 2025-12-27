@@ -1,3 +1,9 @@
+.board-container {
+  position: relative;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
 .board-name {
   display: flex;
   align-items: center;
