@@ -5,140 +5,141 @@
 
         <!-- Intro -->
         <div class="card">
-            <h3 class="card-title">About Projects and Boards</h3>
+            <h3 class="card-title">Projects & Boards</h3>
             <p>
-                <b>Projects</b> are the main workspaces where your teams organize all boards.
-                Each project can contain multiple boards, and each board represents a specific workflow
-                (for example: <b>Design Board</b> or <b>Development Board</b>).
+                <b>Projects</b> are workspaces that contain multiple boards and members.
             </p>
             <p>
-                <b>Boards</b> contain <b>Lists</b> (columns) and <b>Cards</b> (tasks). Your access depends on your
-                <b>role inside the project</b>.
+                <b>Boards</b> organize your workflow using <b>Lists</b> (columns) and <b>Cards</b> (tasks).
             </p>
-        </div>
 
+            <div class="note-box">
+                <b>Access Levels</b>
+                <ul>
+                    <li><b>Project Roles</b> → Grant access to the entire project and all its boards.</li>
+                    <li><b>Board Roles</b> → Limit access to a single assigned board only.</li>
+                </ul>
+            </div>
+        </div>
 
         <!-- Project Roles -->
         <div class="card">
             <h3 class="card-title">Project Roles & Permissions</h3>
 
             <div class="roles">
-                <!-- Project Owner -->
+                <!-- Owner -->
                 <div class="role">
                     <h4 class="role-title owner">👑 Project Owner</h4>
-                    <p>
-                        Has full control of the project and everything inside it.
-                    </p>
+                    <p>Has full control over the project and everything inside it.</p>
 
                     <ul>
-                        <li><b>Project</b>: view, update, <b>delete</b></li>
-                        <li><b>Members</b>: add/remove members, view member list, update member roles</li>
-                        <li><b>Boards</b>: create, view, update, delete</li>
-                        <li><b>Lists</b>: create, update, delete</li>
-                        <li><b>Cards</b>: create, view, update, delete</li>
+                        <li>Manage project details (name, description, category)</li>
+                        <li>Add, edit, and delete boards</li>
+                        <li>Add and remove project members</li>
+                        <li>Change project member roles</li>
+                        <li>Add and remove board members</li>
+                        <li>Manage lists (add, edit, delete)</li>
+                        <li>Manage cards and tasks (add, edit, delete, move)</li>
+                        <li>Manage board categories and names</li>
                     </ul>
                 </div>
 
-                <!-- Project Admin -->
+                <!-- Admin -->
                 <div class="role">
                     <h4 class="role-title admin">🛠 Project Admin</h4>
                     <p>
-                        Can manage the project content and members, but cannot delete the project.
+                        Can manage boards, lists, and cards in all project boards, but cannot delete or rename the
+                        project.
                     </p>
 
                     <ul>
-                        <li><b>Project</b>: view, <b>update</b> (cannot delete)</li>
-                        <li><b>Members</b>: add/remove members, view member list, update member roles</li>
-                        <li><b>Boards</b>: create, view, update, <b>delete</b></li>
-                        <li><b>Lists</b>: create, update, <b>delete</b> (only owner/admin)</li>
-                        <li><b>Cards</b>: create, view, update, delete</li>
+                        <li>Access all boards inside the project</li>
+                        <li>Add and edit boards (cannot delete project)</li>
+                        <li>Add members to boards (cannot add project members)</li>
+                        <li>Manage lists (add, edit, delete)</li>
+                        <li>Manage cards and tasks (add, edit, delete, move)</li>
+                        <li>View and collaborate on all boards</li>
                     </ul>
                 </div>
 
-                <!-- Project Member -->
+                <!-- Member -->
                 <div class="role">
                     <h4 class="role-title member">👤 Project Member</h4>
                     <p>
-                        Can work inside boards (lists + cards) but cannot manage project members or project settings.
+                        Can work on all boards inside the project but cannot manage members or project settings.
                     </p>
 
                     <ul>
-                        <li><b>Project</b>: view project details</li>
-                        <li><b>Members</b>: <b>no access</b> to project member list / add / remove / update roles</li>
-                        <li><b>Boards</b>: view board details (cannot create/update/delete boards)</li>
-                        <li><b>Lists</b>: create and update list titles (cannot delete lists)</li>
-                        <li><b>Cards</b>: create, view, update, delete</li>
+                        <li>Access all boards inside the project</li>
+                        <li>View and collaborate on lists and cards</li>
+                        <li>Add, edit, and delete cards and tasks</li>
+                        <li>Add and edit lists (cannot delete lists if restricted)</li>
+                        <li>View project details</li>
                     </ul>
-
-                    <p style="margin-top: 10px;">
-                        <b>Note:</b> Members can fully work on tasks (cards) and organize lists, but cannot manage
-                        who joins the project or delete lists.
-                    </p>
                 </div>
             </div>
         </div>
-
 
         <!-- Board Roles -->
         <div class="card">
             <h3 class="card-title">Board Roles & Permissions</h3>
 
             <p>
-                Board roles apply <b>inside a single board</b>. A user must first have access to the project to
-                access boards. Board roles then define what the user can do inside that board.
+                Board roles apply only to the board the user is assigned to.
+                These roles are independent from project roles.
             </p>
 
             <div class="roles">
                 <!-- Board Owner -->
                 <div class="role">
-                    <h4 class="role-title owner">📌 Board Owner</h4>
-                    <p>
-                        Full control of the board.
-                    </p>
+                    <h4 class="role-title owner">📋 Board Owner</h4>
+                    <p>Has full access to manage everything inside their board.</p>
+
                     <ul>
-                        <li><b>Board</b>: update board name/settings, manage everything</li>
-                        <li><b>Members</b>: add/remove board members, change board roles</li>
-                        <li><b>Lists</b>: create, update, delete lists</li>
-                        <li><b>Cards</b>: create, view, update, delete cards</li>
+                        <li>Manage board details (name, settings, category)</li>
+                        <li>Delete board if needed</li>
+                        <li>Add, edit, and delete lists</li>
+                        <li>Add, edit, and delete cards and tasks</li>
                     </ul>
                 </div>
 
                 <!-- Board Admin -->
                 <div class="role">
                     <h4 class="role-title admin">⚙️ Board Admin</h4>
-                    <p>
-                        Can manage board content and members, but cannot delete the board.
-                    </p>
-                    <ul>
-                        <li><b>Board</b>: update board name (and board settings if allowed)</li>
-                        <li><b>Members</b>: add/remove board members (cannot remove board owner)</li>
-                        <li><b>Lists</b>: create and update lists (delete lists only if allowed)</li>
-                        <li><b>Cards</b>: create, view, update, delete cards</li>
-                    </ul>
+                    <p>Can manage board content but cannot manage members or delete the board.</p>
 
-                    <p style="margin-top: 10px;">
-                        <b>Note:</b> Board Admin can manage members inside the board, but they should not be able to
-                        delete the board.
-                    </p>
+                    <ul>
+                        <li>Add, edit, and delete lists</li>
+                        <li>Add, edit, and delete cards and tasks</li>
+                        <li>Update board name or category (cannot delete)</li>
+                    </ul>
                 </div>
 
                 <!-- Board Member -->
                 <div class="role">
                     <h4 class="role-title member">🧩 Board Member</h4>
-                    <p>
-                        Works on tasks inside the board only.
-                    </p>
+                    <p>Can work inside the board but has limited permissions.</p>
+
                     <ul>
-                        <li><b>Board</b>: view board</li>
-                        <li><b>Members</b>: cannot add/remove members</li>
-                        <li><b>Lists</b>: create lists and update list titles (if allowed), cannot delete lists</li>
-                        <li><b>Cards</b>: create, view, update, delete cards</li>
+                        <li>View board content</li>
+                        <li>Add, edit, and delete cards and tasks</li>
+                        <li>Add and edit lists (cannot delete lists)</li>
+                        <li>Cannot add or remove board members</li>
+                        <li>Cannot delete or rename the board</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-
-
+        <!-- Notes -->
+        <div class="card note">
+            <h3 class="card-title">Notes</h3>
+            <ul>
+                <li>All roles can manage cards and tasks according to their assigned board or project role.</li>
+                <li>Project Owners have the highest access across all boards and members.</li>
+                <li>Board roles apply only to the assigned board and do not grant access to the entire project.</li>
+                <li>Project roles automatically include access to all boards within the project.</li>
+            </ul>
+        </div>
     </div>
 </div>
