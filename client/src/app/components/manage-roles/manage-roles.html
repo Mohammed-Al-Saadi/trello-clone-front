@@ -34,11 +34,13 @@
                 @for (member of board.members; track $index) {
                 <div class="member-row">
                     <div class="member-info">
-                        <div class="member-avatar">
-                            {{ member.full_name.charAt(0).toUpperCase() }}
-                        </div>
+
                         <div class="details">
-                            <p class="name">{{ member.full_name }}</p>
+                            <p class="name">
+                                <strong class="member-avatar">
+                                    {{ member.full_name.charAt(0).toUpperCase() }}
+                                </strong>{{ member.full_name }}
+                            </p>
                             <p class="email">{{ member.email }}</p>
 
                             @if (selectedMember() === member.user_id && selectedBoard() === board.id) {
@@ -49,8 +51,16 @@
                                     </option>
                                 </select>
                                 <div class="edit-actions">
-                                    <button class="save-btn" (click)="onSaveRole(board, member)">Save</button>
-                                    <button class="cancel-btn" (click)="onCancelEdit()">Cancel</button>
+                                    <button class="save-btn" (click)="onSaveRole(board, member)" aria-label="Save"
+                                        title="Save">
+                                        <span class="material-icons">check</span>
+                                    </button>
+
+                                    <button class="cancel-btn" (click)="onCancelEdit()" aria-label="Cancel"
+                                        title="Cancel">
+                                        <span class="material-icons">close</span>
+                                    </button>
+
                                 </div>
                             </div>
                             } @else {

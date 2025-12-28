@@ -7,6 +7,7 @@
   z-index: 1050;
   pointer-events: none;
   width: fit-content;
+  z-index: 9999999;
 }
 
 .toast {
