@@ -561,3 +561,20 @@ body {
   border: 1px rgba(0, 0, 0, 0.082) solid !important;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px !important;
 }
+.light .card {
+  background: rgb(224, 224, 224) !important;
+}
+.light .card-title {
+  color: black !important;
+}
+.light .field input {
+  background: #ffffff6b !important;
+  color: rgb(0, 0, 0) !important;
+}
+.light .field label {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.849) !important;
+}
+.light .field input::placeholder {
+  color: rgba(0, 0, 0, 0.35) !important;
+}

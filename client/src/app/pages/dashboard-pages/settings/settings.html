@@ -1,1 +1,68 @@
 <app-dashboard-info-panel title="Settings"></app-dashboard-info-panel>
+<div class="settings-container">
+    <!-- User Info -->
+    <div class="card">
+        <h3 class="card-title">
+            <mat-icon class="icon">person</mat-icon>
+            User Information
+        </h3>
+
+        <div class="grid">
+            <div class="field">
+                <label>Full Name</label>
+                <input type="text" [value]="user.fullName" readonly />
+            </div>
+
+            <div class="field">
+                <label>Email</label>
+                <input type="text" [value]="user.email" readonly />
+            </div>
+
+            <div class="field">
+                <label>Phone</label>
+                <input type="text" [value]="user.phone" readonly />
+            </div>
+
+            <div class="field">
+                <label>Address</label>
+                <input type="text" [value]="user.address" readonly />
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Password -->
+    <div class="card">
+        <h3 class="card-title">
+            <mat-icon class="icon">lock</mat-icon>
+            Update Password
+        </h3>
+
+        <div class="grid">
+            <div class="field">
+                <label>Current Password</label>
+                <input type="password" [(ngModel)]="passwords.current" placeholder="••••••••" />
+            </div>
+
+            <div class="field">
+                <label>New Password</label>
+                <input type="password" [(ngModel)]="passwords.new" placeholder="At least 8 characters" />
+            </div>
+
+            <div class="field">
+                <label>Confirm New Password</label>
+                <input type="password" [(ngModel)]="passwords.confirm" placeholder="Repeat new password" />
+            </div>
+
+            <div class="field align-end">
+                <button (click)="updatePassword()" [disabled]="loading">
+                    {{ loading ? 'Updating...' : 'Update Password' }}
+                </button>
+            </div>
+        </div>
+
+        <div *ngIf="message" class="msg" [class.success]="messageType === 'success'"
+            [class.error]="messageType === 'error'">
+            {{ message }}
+        </div>
+    </div>
+</div>

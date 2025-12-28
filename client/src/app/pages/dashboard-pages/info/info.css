@@ -1,0 +1,85 @@
+:host ::ng-deep .panel-subbar {
+  display: none !important;
+}
+
+.help-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 1rem;
+  overflow-y: scroll;
+  max-height: 90dvh;
+}
+
+.card {
+  background: linear-gradient(180deg, rgba(24, 24, 35, 0.95), rgba(16, 16, 25, 0.95));
+  border: 1px solid rgba(167, 139, 250, 0.14);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #c4b5fd;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #dddafc;
+}
+
+.roles {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.role {
+  background: rgba(28, 28, 38, 0.6);
+  border: 1px solid rgba(167, 139, 250, 0.15);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.role-title {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.role-title.owner {
+  color: #c084fc;
+}
+.role-title.admin {
+  color: #8b5cf6;
+}
+.role-title.member {
+  color: #a5b4fc;
+}
+
+.note ul {
+  margin: 0;
+  padding-left: 20px;
+  list-style-type: disc;
+  color: #e4e2ff;
+}
+
+.note li {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #c9c6ef;
+}
+
+@media (max-width: 768px) {
+  .roles {
+    gap: 12px;
+  }
+}

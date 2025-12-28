@@ -11,6 +11,7 @@ import { Settings } from './pages/dashboard-pages/settings/settings';
 import { Protected } from './services/protected';
 import { ProjectPage } from './pages/dashboard-pages/projects/project-page/project-page';
 import { BoardPage } from './pages/dashboard-pages/projects/board-page/board-page';
+import { Info } from './pages/dashboard-pages/info/info';
 
 export const routes: Routes = [
   {
@@ -35,6 +36,8 @@ export const routes: Routes = [
       { path: 'projects/:project_id/boards/:board_id', component: BoardPage },
 
       { path: 'settings', component: Settings },
+      { path: 'help', component: Info },
+
       { path: '', redirectTo: 'projects', pathMatch: 'prefix' },
     ],
   },

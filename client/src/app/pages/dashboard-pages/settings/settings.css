@@ -1,0 +1,154 @@
+:host ::ng-deep .panel-subbar {
+  display: none !important;
+}
+
+/* Page background like your dashboard */
+.settings-container {
+  padding: 24px;
+  color: #e9e7ff;
+  max-height: 90vh;
+  overflow-y: scroll;
+}
+
+.page-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #f4f1ff;
+}
+
+/* Card style closer to your project cards */
+.card {
+  background: linear-gradient(180deg, rgba(24, 24, 35, 0.95), rgba(16, 16, 25, 0.95));
+  border: 1px solid rgba(167, 139, 250, 0.14);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #f4f1ff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 13px;
+  color: rgba(233, 231, 255, 0.7);
+}
+
+/* Inputs: darker + purple focus like your UI */
+.field input {
+  height: 42px;
+  padding: 0 12px;
+  border-radius: 10px;
+  background: rgba(18, 18, 28, 0.9);
+  border: 1px solid rgba(167, 139, 250, 0.18);
+  color: #f4f1ff;
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.field input::placeholder {
+  color: rgba(233, 231, 255, 0.35);
+}
+
+.field input:focus {
+  border-color: rgba(167, 139, 250, 0.65);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.25);
+  background: rgba(22, 22, 34, 0.95);
+}
+
+.field.align-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+/* Button: purple glow like screenshot */
+button {
+  height: 42px;
+  padding: 0 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  box-shadow: 0 8px 18px rgba(124, 58, 237, 0.25);
+}
+
+button:hover:not(:disabled) {
+  filter: brightness(1.08);
+  box-shadow: 0 10px 22px rgba(124, 58, 237, 0.35);
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Messages: keep readable but align with purple theme */
+.msg {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.msg.success {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(167, 139, 250, 0.18);
+  color: #b8f7d0;
+}
+
+.msg.error {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(167, 139, 250, 0.18);
+  color: #ffb3b3;
+}
+.card-title .icon {
+  font-size: 22px;
+  color: #a78bfa !important;
+  vertical-align: middle;
+  transition: color 0.3s ease;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .field.align-end {
+    justify-content: stretch;
+  }
+  button {
+    width: 100%;
+  }
+}
+@media (max-width: 600px) {
+  :host ::ng-deep .date {
+    display: block !important;
+  }
+}

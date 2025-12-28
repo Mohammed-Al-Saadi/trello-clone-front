@@ -17,7 +17,6 @@
 .project-info h2 {
   color: #ffffffd2;
   font-size: 1.1rem;
-  text-transform: capitalize;
   margin-top: 1rem;
   max-width: 240px;
 
@@ -240,7 +239,6 @@
 @media (max-width: 383px) {
   .project-info h2 {
     font-size: 1rem;
-    text-transform: capitalize;
     margin-top: 1rem;
     max-width: 210px;
     overflow: hidden;
