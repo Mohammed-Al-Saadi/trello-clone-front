@@ -328,13 +328,13 @@ body {
 .light .board-block h3 {
   color: black !important;
 }
-.light .owner-badge {
-  background-color: unset !important;
-  color: #000000 !important;
-  border: none !important;
+.light .owner-badge,
+.light .member-badge {
+  background: unset !important;
+  border: 1px rgba(78, 78, 78, 0.253) solid !important;
 }
 .light .owner-icone {
-  color: green !important;
+  color: rgb(100, 167, 100) !important;
 }
 .light .edit-role-panel {
   background-color: #f0f0f0 !important;
@@ -526,10 +526,10 @@ body {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .light .save-btn .material-icons {
-  color: green !important;
+  color: rgb(255, 255, 255) !important;
 }
 .light .cancel-btn .material-icons {
-  color: red !important;
+  color: rgb(255, 255, 255) !important;
 }
 .light .due-date:hover {
   font-weight: 500;

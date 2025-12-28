@@ -400,7 +400,7 @@
   gap: 6px;
 
   background: #1e1e1e;
-  color: #e5e5e5;
+  color: #3d7745;
 
   padding: 4px 12px;
   border-radius: 12px;
@@ -413,7 +413,7 @@
 
 .owner-icon {
   font-size: 19px;
-  color: #6abf69; /* green: highest privilege */
+  color: #6abf69 !important;
 }
 
 /* ============================
@@ -439,7 +439,7 @@
 
 .admin-icon {
   font-size: 19px;
-  color: #60a5fa; /* blue: admin privilege */
+  color: #60a5fa !important; /* blue: admin privilege */
 }
 
 /* ============================
@@ -452,7 +452,7 @@
   gap: 6px;
 
   background: #26232f;
-  color: #c4b5fd;
+  color: #9480e2;
 
   padding: 4px 12px;
   border-radius: 12px;
@@ -465,7 +465,7 @@
 
 .member-icon {
   font-size: 19px;
-  color: #a78bfa; /* purple: lowest privileged role */
+  color: #a78bfa !important; /* purple: lowest privileged role */
 }
 .loader {
   width: 60px;
