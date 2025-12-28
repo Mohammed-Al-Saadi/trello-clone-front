@@ -2,15 +2,30 @@
   display: none !important;
 }
 
-.help-content {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 1rem;
-  overflow-y: scroll;
-  max-height: 90dvh;
+/* Keep your mobile date fix */
+@media (max-width: 600px) {
+  :host ::ng-deep .date {
+    display: block !important;
+  }
 }
 
+/* Container */
+.help-container {
+  color: #e9e7ff;
+}
+
+/* Make the help body scroll like your settings page */
+.help-content {
+  padding: 24px;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Card style (same as your settings) */
 .card {
   background: linear-gradient(180deg, rgba(24, 24, 35, 0.95), rgba(16, 16, 25, 0.95));
   border: 1px solid rgba(167, 139, 250, 0.14);
@@ -19,67 +34,149 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
+/* Card title */
 .card-title {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   color: #c4b5fd;
-  margin-bottom: 12px;
+  margin: 0 0 12px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
+/* Paragraphs */
 .card p {
-  font-size: 14px;
+  margin: 0 0 10px;
+  color: rgba(233, 231, 255, 0.85);
   line-height: 1.6;
-  color: #dddafc;
+  font-size: 14px;
 }
 
+/* Bullets general */
+.card ul {
+  margin: 10px 0 0;
+  padding-left: 18px;
+}
+
+.card li {
+  margin: 6px 0;
+  color: rgba(233, 231, 255, 0.82);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Roles wrapper */
 .roles {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-top: 10px;
+  gap: 14px;
+  margin-top: 12px;
 }
 
+/* Role card */
 .role {
-  background: rgba(28, 28, 38, 0.6);
-  border: 1px solid rgba(167, 139, 250, 0.15);
-  border-radius: 10px;
+  border-radius: 14px;
   padding: 14px;
+  background: rgba(18, 18, 28, 0.6);
+  border: 1px solid rgba(167, 139, 250, 0.14);
 }
 
+/* Role title colors */
 .role-title {
-  font-weight: 600;
+  margin: 0 0 6px;
   font-size: 16px;
-  margin-bottom: 6px;
+  font-weight: 800;
+  color: #f4f1ff;
 }
 
 .role-title.owner {
-  color: #c084fc;
+  color: #c084fc; /* brighter purple */
 }
+
 .role-title.admin {
-  color: #8b5cf6;
+  color: #8b5cf6; /* medium purple */
 }
+
 .role-title.member {
-  color: #a5b4fc;
+  color: #a5b4fc; /* soft indigo */
 }
 
-.note ul {
-  margin: 0;
-  padding-left: 20px;
-  list-style-type: disc;
-  color: #e4e2ff;
+/* Role text */
+.role p {
+  margin: 0 0 10px;
+  color: rgba(233, 231, 255, 0.78);
 }
 
-.note li {
-  margin: 6px 0;
-  font-size: 14px;
-  color: #c9c6ef;
+/* Extra note cards */
+.card.note {
+  border-color: rgba(167, 139, 250, 0.18);
+  background: linear-gradient(180deg, rgba(24, 24, 35, 0.95), rgba(14, 14, 22, 0.95));
 }
 
+/* Small info box inside a card (used in examples/notes) */
+.note-box {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(167, 139, 250, 0.16);
+  background: rgba(124, 58, 237, 0.08);
+  color: #e9e7ff;
+}
+
+.note-box ul {
+  margin-top: 8px;
+}
+
+/* Route summary list: make it more readable */
+.card.note ul li b {
+  color: #f4f1ff;
+}
+
+/* Links if you ever add them */
+.help-content a {
+  color: #a78bfa;
+  text-decoration: none;
+}
+
+.help-content a:hover {
+  text-decoration: underline;
+}
+
+/* Scrollbar (optional nice touch) */
+.help-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.help-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+}
+
+.help-content::-webkit-scrollbar-thumb {
+  background: rgba(167, 139, 250, 0.25);
+  border-radius: 12px;
+}
+
+.help-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(167, 139, 250, 0.35);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .roles {
-    gap: 12px;
+  .help-content {
+    padding: 16px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .card-title {
+    font-size: 16px;
+  }
+
+  .role-title {
+    font-size: 15px;
   }
 }
