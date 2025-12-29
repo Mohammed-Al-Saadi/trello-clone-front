@@ -9,51 +9,67 @@
   }
 }
 
-/* Container */
+/* ---------- Layout ---------- */
 .help-container {
   color: #e9e7ff;
 }
 
-/* Make the help body scroll like your settings page */
 .help-content {
   padding: 24px;
   max-height: 90vh;
-  overflow-y: scroll;
-
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-/* Card style (same as your settings) */
+/* ---------- Card ---------- */
 .card {
-  background: linear-gradient(180deg, rgba(24, 24, 35, 0.95), rgba(16, 16, 25, 0.95));
+  background: linear-gradient(180deg, rgba(24, 24, 35, 0.96), rgba(16, 16, 25, 0.96));
   border: 1px solid rgba(167, 139, 250, 0.14);
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Card title */
 .card-title {
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 800;
   color: #c4b5fd;
   margin: 0 0 12px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  letter-spacing: 0.2px;
 }
 
-/* Paragraphs */
+/* optional subtle divider under titles */
+.card-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  margin-left: 10px;
+  background: linear-gradient(
+    90deg,
+    rgba(167, 139, 250, 0.35),
+    rgba(167, 139, 250, 0.05),
+    transparent
+  );
+}
+
 .card p {
   margin: 0 0 10px;
   color: rgba(233, 231, 255, 0.85);
-  line-height: 1.6;
+  line-height: 1.65;
   font-size: 14px;
 }
 
-/* Bullets general */
+.muted {
+  color: rgba(233, 231, 255, 0.68);
+  margin-top: -6px;
+}
+
+/* Lists */
 .card ul {
   margin: 10px 0 0;
   padding-left: 18px;
@@ -66,55 +82,11 @@
   line-height: 1.5;
 }
 
-/* Roles wrapper */
-.roles {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-top: 12px;
-}
-
-/* Role card */
-.role {
-  border-radius: 14px;
-  padding: 14px;
-  background: rgba(18, 18, 28, 0.6);
-  border: 1px solid rgba(167, 139, 250, 0.14);
-}
-
-/* Role title colors */
-.role-title {
-  margin: 0 0 6px;
-  font-size: 16px;
-  font-weight: 800;
+.card li b {
   color: #f4f1ff;
 }
 
-.role-title.owner {
-  color: #c084fc; /* brighter purple */
-}
-
-.role-title.admin {
-  color: #8b5cf6; /* medium purple */
-}
-
-.role-title.member {
-  color: #a5b4fc; /* soft indigo */
-}
-
-/* Role text */
-.role p {
-  margin: 0 0 10px;
-  color: rgba(233, 231, 255, 0.78);
-}
-
-/* Extra note cards */
-.card.note {
-  border-color: rgba(167, 139, 250, 0.18);
-  background: linear-gradient(180deg, rgba(24, 24, 35, 0.95), rgba(14, 14, 22, 0.95));
-}
-
-/* Small info box inside a card (used in examples/notes) */
+/* ---------- Note Box ---------- */
 .note-box {
   margin-top: 12px;
   padding: 12px;
@@ -128,89 +100,148 @@
   margin-top: 8px;
 }
 
-/* Route summary list: make it more readable */
-.card.note ul li b {
+/* Warning variant */
+.note-box.warning {
+  border-color: rgba(251, 191, 36, 0.25);
+  background: rgba(251, 191, 36, 0.08);
+  color: rgba(255, 245, 214, 0.9);
+}
+
+/* ---------- Chips ---------- */
+.chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(167, 139, 250, 0.08);
+  border: 1px solid rgba(167, 139, 250, 0.18);
+  color: rgba(233, 231, 255, 0.9);
+  font-size: 13px;
+  line-height: 1;
+  user-select: none;
+  transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+
+.chip:hover {
+  transform: translateY(-1px);
+  background: rgba(167, 139, 250, 0.12);
+  border-color: rgba(167, 139, 250, 0.28);
+}
+
+/* ---------- Roles Grid ---------- */
+.roles {
+  margin-top: 12px;
+}
+
+/* IMPORTANT: your HTML has BOTH classes: "roles roles-grid".
+   This makes it a grid automatically. */
+.roles-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+/* Role card */
+.role {
+  border-radius: 14px;
+  padding: 14px;
+  background: rgba(18, 18, 28, 0.65);
+  border: 1px solid rgba(167, 139, 250, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  transition: transform 0.12s ease, border-color 0.12s ease;
+}
+
+.role:hover {
+  transform: translateY(-2px);
+  border-color: rgba(167, 139, 250, 0.22);
+}
+
+.role-title {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 900;
   color: #f4f1ff;
 }
 
-/* Links if you ever add them */
+.role-title.owner {
+  color: #c084fc;
+}
+
+.role-title.admin {
+  color: #8b5cf6;
+}
+
+.role-title.member {
+  color: #a5b4fc;
+}
+
+.role p {
+  margin: 0 0 10px;
+  color: rgba(233, 231, 255, 0.78);
+}
+
+/* Make "Cannot" text stand out neatly */
+.role b {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Notes card variant */
+.card.note {
+  border-color: rgba(167, 139, 250, 0.18);
+  background: linear-gradient(180deg, rgba(24, 24, 35, 0.95), rgba(14, 14, 22, 0.95));
+}
+
+/* Links */
 .help-content a {
   color: #a78bfa;
   text-decoration: none;
 }
-
 .help-content a:hover {
   text-decoration: underline;
 }
 
-/* Scrollbar (optional nice touch) */
+/* ---------- Scrollbar ---------- */
 .help-content::-webkit-scrollbar {
   width: 10px;
 }
-
 .help-content::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.04);
   border-radius: 12px;
 }
-
 .help-content::-webkit-scrollbar-thumb {
   background: rgba(167, 139, 250, 0.25);
   border-radius: 12px;
 }
-
 .help-content::-webkit-scrollbar-thumb:hover {
   background: rgba(167, 139, 250, 0.35);
 }
 
-/* Responsive */
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .roles-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 768px) {
   .help-content {
     padding: 16px;
   }
-
   .card {
     padding: 16px;
   }
-
   .card-title {
     font-size: 16px;
   }
-
   .role-title {
     font-size: 15px;
-  }
-}
-.muted {
-  color: rgba(233, 231, 255, 0.7);
-  margin-top: -6px;
-}
-
-.note-box {
-  margin-top: 12px;
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(167, 139, 250, 0.16);
-  background: rgba(124, 58, 237, 0.08);
-  color: #e9e7ff;
-}
-
-.perm-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 10px;
-}
-
-.perm h5 {
-  margin: 0 0 8px;
-  font-size: 12px;
-  font-weight: 800;
-  color: #c4b5fd;
-  letter-spacing: 0.2px;
-}
-
-@media (max-width: 768px) {
-  .perm-grid {
-    grid-template-columns: 1fr;
   }
 }

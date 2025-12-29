@@ -586,3 +586,24 @@ body {
   color: rgba(0, 0, 0, 0.781) !important;
   font-size: 15px;
 }
+.light .help-container .card {
+  background: rgba(255, 255, 255, 0.685) !important;
+}
+.light .help-container .card p,
+.light .help-container .card h3,
+.light .help-container .card li,
+.light .help-container .card ul,
+.light .help-container .card b,
+.light .help-container .card .chip {
+  color: black !important;
+  font-weight: 550 !important;
+}
+.light .help-container .role {
+  background: rgb(231, 231, 231) !important;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
+}
+.light .note-box.warning {
+  background: rgba(124, 58, 237, 0.08) !important;
+  color: black !important;
+  border: none !important;
+}
