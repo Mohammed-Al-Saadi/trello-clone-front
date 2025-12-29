@@ -169,11 +169,20 @@ export class ProjectPage {
   }
 
   async onSubmiteNewBoard(formData: any) {
-    this.createBoardLoading.set(true);
-    await this.boardService.addNewBoard(this.projectId, formData.board_name, 0, formData.category);
-    this.createBoardLoading.set(false);
-    this.showModel.set(false);
-    this.loadBoards();
+    try {
+      this.createBoardLoading.set(true);
+      await this.boardService.addNewBoard(
+        this.projectId,
+        formData.board_name,
+        0,
+        formData.category
+      );
+      this.createBoardLoading.set(false);
+      this.showModel.set(false);
+      this.loadBoards();
+    } catch (error) {
+      this.createBoardLoading.set(false);
+    }
   }
 
   openEditBoard(board: any) {
@@ -190,25 +199,33 @@ export class ProjectPage {
   }
 
   async onSubmitEditBoard(editFormData: any) {
-    const oldBoard = this.selectedBoard();
-    const { noChange, currentName, currentCategory } = checkBoardNoChanges(oldBoard, editFormData);
+    try {
+      const oldBoard = this.selectedBoard();
+      const { noChange, currentName, currentCategory } = checkBoardNoChanges(
+        oldBoard,
+        editFormData
+      );
 
-    if (noChange) {
-      this.toast.showMessage({
-        id: 1,
-        type: 'success',
-        text: 'No changes detected.',
-      });
+      if (noChange) {
+        this.toast.showMessage({
+          id: 1,
+          type: 'success',
+          text: 'No changes detected.',
+        });
+        this.showEditBoardState.set(false);
+        return;
+      }
+      this.createBoardLoading.set(true);
+
+      await this.boardService.editBoard(oldBoard.id, currentName, currentCategory, this.projectId);
       this.showEditBoardState.set(false);
-      return;
+      this.createBoardLoading.set(false);
+
+      this.loadBoards();
+    } catch (error) {
+      this.showEditBoardState.set(false);
+      this.createBoardLoading.set(false);
     }
-    this.createBoardLoading.set(true);
-
-    await this.boardService.editBoard(oldBoard.id, currentName, currentCategory, this.projectId);
-    this.showEditBoardState.set(false);
-    this.createBoardLoading.set(false);
-
-    this.loadBoards();
   }
   async onSubmiteNewMember(formData: any) {
     try {
