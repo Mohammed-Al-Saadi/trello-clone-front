@@ -62,6 +62,7 @@ export class SrpAuthService {
       } catch (err: any) {
         throw err;
       }
+      console.log(start);
 
       const salt_hex: string = String(start.salt).toLowerCase();
       const B_hex: string = String(start.B).toLowerCase();

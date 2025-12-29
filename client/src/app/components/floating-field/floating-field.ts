@@ -15,6 +15,8 @@ export class FloatingField {
   @Input() placeholder = '';
   @Input() icon?: string;
 
+  @Input() inputType: 'text' | 'password' | 'email' | 'number' | 'tel' = 'text';
+
   @Input() options: string[] = [];
 
   @Input() model: any;

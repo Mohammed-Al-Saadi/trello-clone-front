@@ -1,12 +1,12 @@
 <div class="floating-box" [class.input-box]="type === 'input'" [class.select-box]="type === 'select'">
-
     <label>{{ label }}</label>
 
     <!-- INPUT -->
     <ng-container *ngIf="type === 'input'">
         <span *ngIf="icon" class="material-icons icon">{{ icon }}</span>
 
-        <input [placeholder]="placeholder" [ngModel]="model" (ngModelChange)="updateValue($event)" />
+        <!-- ✅ bind input type -->
+        <input [type]="inputType" [placeholder]="placeholder" [ngModel]="model" (ngModelChange)="updateValue($event)" />
     </ng-container>
 
     <!-- SELECT -->
@@ -17,5 +17,4 @@
             </option>
         </select>
     </ng-container>
-
 </div>
