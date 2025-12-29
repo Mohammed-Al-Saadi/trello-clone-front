@@ -578,3 +578,11 @@ body {
 .light .field input::placeholder {
   color: rgba(0, 0, 0, 0.35) !important;
 }
+.light .info-row {
+  background-color: white !important;
+  color: black !important;
+}
+.light .info-row span {
+  color: rgba(0, 0, 0, 0.781) !important;
+  font-size: 15px;
+}

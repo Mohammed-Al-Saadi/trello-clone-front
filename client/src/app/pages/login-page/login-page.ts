@@ -25,17 +25,17 @@ export class LoginPage {
 
   formData = signal<FormItems[]>([
     {
-      label: 'Email',
+      label: 'Email *',
       type: 'email',
       formControlName: 'email',
       placeholder: 'Your email...',
       validators: [Validators.required, Validators.email],
     },
     {
-      label: 'Password',
+      label: 'Password *',
       type: 'password',
       formControlName: 'password',
-      placeholder: 'Password',
+      placeholder: 'Password...',
       validators: [Validators.required, Validators.minLength(6)],
     },
   ]);

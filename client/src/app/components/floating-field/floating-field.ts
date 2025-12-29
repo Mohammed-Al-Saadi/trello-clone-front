@@ -15,12 +15,25 @@ export class FloatingField {
   @Input() placeholder = '';
   @Input() icon?: string;
 
-  @Input() inputType: 'text' | 'password' | 'email' | 'number' | 'tel' = 'text';
-
   @Input() options: string[] = [];
+
+  // ✅ supports password/tel/etc.
+  @Input() inputType: 'text' | 'password' | 'email' | 'number' | 'tel' = 'text';
 
   @Input() model: any;
   @Output() modelChange = new EventEmitter<any>();
+
+  // ✅ only used when inputType === 'password'
+  showPassword = false;
+
+  get resolvedInputType(): string {
+    if (this.inputType !== 'password') return this.inputType;
+    return this.showPassword ? 'text' : 'password';
+  }
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
 
   updateValue(val: any) {
     this.model = val;

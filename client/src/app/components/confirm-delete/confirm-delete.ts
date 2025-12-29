@@ -1,23 +1,28 @@
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-confirm-delete',
+  standalone: true,
   imports: [NgIf],
   templateUrl: './confirm-delete.html',
-  styleUrl: './confirm-delete.css',
+  styleUrls: ['./confirm-delete.css'],
 })
 export class ConfirmDelete {
-  @Input() title = 'Confirm Delete';
-  @Input() message = 'Are you sure you want to delete this item?';
   @Input() show = false;
-  @Output() close = new EventEmitter<boolean>();
+  @Input() title = '';
+  @Input() message = '';
 
-  confirm() {
-    this.close.emit(true);
-  }
+  @Input() cancelText = 'Cancel';
+  @Input() confirmText = 'Delete';
+
+  @Output() close = new EventEmitter<boolean>();
 
   cancel() {
     this.close.emit(false);
+  }
+
+  confirm() {
+    this.close.emit(true);
   }
 }

@@ -52,10 +52,25 @@
     @else if (item.type === 'date') {
     <input type="date" [formControlName]="item.formControlName" [value]="item.value || ''" />
     } @else {
+    @if (item.type === 'password') {
+    <div class="password-wrapper">
+        <input [type]="isPasswordVisible(item.formControlName) ? 'text' : 'password'"
+            [formControlName]="item.formControlName" [placeholder]="item.placeholder" />
+
+        <div type="button" class="toggle-password" (click)="togglePassword(item.formControlName)"
+            aria-label="Toggle password visibility">
+            <span class="material-icons">
+                {{ isPasswordVisible(item.formControlName) ? 'visibility_off' : 'visibility' }}
+            </span>
+        </div>
+    </div>
+
+    }
+    @else {
     <input [type]="item.type" [formControlName]="item.formControlName" [placeholder]="item.placeholder"
         [value]="item.value || ''" />
     }
-
+    }
     @if (form.get(item.formControlName)?.touched || form.get(item.formControlName)?.dirty) {
     <div class="errors">
         @for (msg of errorMessages(item.formControlName, item.label); track $index) {

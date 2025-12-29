@@ -5,8 +5,16 @@
     <ng-container *ngIf="type === 'input'">
         <span *ngIf="icon" class="material-icons icon">{{ icon }}</span>
 
-        <!-- ✅ bind input type -->
-        <input [type]="inputType" [placeholder]="placeholder" [ngModel]="model" (ngModelChange)="updateValue($event)" />
+        <input [type]="resolvedInputType" [placeholder]="placeholder" [ngModel]="model"
+            (ngModelChange)="updateValue($event)" />
+
+        <!-- ✅ show/hide icon only for password -->
+        <button *ngIf="inputType === 'password'" type="button" class="toggle-password" (click)="togglePassword()"
+            aria-label="Toggle password visibility">
+            <span class="material-icons">
+                {{ showPassword ? 'visibility_off' : 'visibility' }}
+            </span>
+        </button>
     </ng-container>
 
     <!-- SELECT -->

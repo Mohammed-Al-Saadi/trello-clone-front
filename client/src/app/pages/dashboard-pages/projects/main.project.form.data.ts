@@ -19,7 +19,7 @@ export const ProjectFormData: FormItems[] = [
     options: [],
   },
   {
-    label: 'Category',
+    label: 'Category *',
     type: 'select',
     formControlName: 'category',
     placeholder: 'Choose or type a category',

@@ -92,5 +92,23 @@ select option {
     padding: 0.3rem;
     max-width: 60px;
   }
-  
+}
+.floating-box {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  transform: translateY(-10%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: inherit;
+  opacity: 0.8;
+}
+
+.toggle-password:hover {
+  opacity: 1;
 }

@@ -58,3 +58,6 @@
         </button>
     </div>
 </aside>
+<app-confirm-delete [show]="showLogoutModal()" title="Logout" message="Are you sure you want to logout?"
+    confirmText="Logout" cancelText="Cancel" (close)="handleLogout($event)">
+</app-confirm-delete>

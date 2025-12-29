@@ -27,31 +27,31 @@ export class Register {
 
   formData = signal<FormItems[]>([
     {
-      label: 'Name',
+      label: 'Name *',
       type: 'text',
       formControlName: 'full_name',
       placeholder: 'Your email...',
       validators: [Validators.required],
     },
     {
-      label: 'Email',
+      label: 'Email *',
       type: 'email',
       formControlName: 'emailRaw',
       placeholder: 'Your email...',
       validators: [Validators.required, Validators.email],
     },
     {
-      label: 'Password',
+      label: 'Password *',
       type: 'password',
       formControlName: 'password',
-      placeholder: 'Password',
+      placeholder: 'Password...',
       validators: [Validators.required, Validators.minLength(6)],
     },
     {
-      label: 'Confirm Password',
+      label: 'Confirm Password *',
       type: 'password',
       formControlName: 'confirmPassword',
-      placeholder: 'Password',
+      placeholder: 'Confirm Password...',
       validators: [Validators.required, Validators.minLength(6)],
     },
   ]);

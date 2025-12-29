@@ -64,6 +64,15 @@ export class ReactiveForm implements OnInit {
     const value = (event.target as HTMLSelectElement).value;
     item.onChange?.(value);
   }
+  passwordVisible: Record<string, boolean> = {};
+
+  togglePassword(controlName: string) {
+    this.passwordVisible[controlName] = !this.passwordVisible[controlName];
+  }
+
+  isPasswordVisible(controlName: string) {
+    return !!this.passwordVisible[controlName];
+  }
 
   ngOnInit() {
     const items = this.formData();
