@@ -196,18 +196,17 @@ export class Management {
           description: 'Manage your project owners here.',
           showButtons: ['previous', 'next'],
         },
-
         {
           element: '[tourAnchor="ManageCard"]',
-          title: 'Manage Owners',
-          description: 'Manage your project owners here.',
+          title: 'Edit & Delete Card',
+          description: 'Edit card details or delete the card from this board.',
           showButtons: ['previous', 'next'],
         },
 
         {
           element: '[tourAnchor="ProjectCard"]',
-          title: 'Open a Project to Continue',
-          description: 'Click a project card to open its boards.',
+          title: 'Open a Project',
+          description: 'Click next to open a project card and continue the tour.',
           route: true,
           showButtons: ['previous', 'next'],
         },
