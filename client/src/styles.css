@@ -677,7 +677,20 @@ body .driver-popover-prev-btn::after {
   font-size: 30px;
   font-weight: 100 !important;
 }
+body .driver-highlighted-element {
+  position: relative !important;
+  z-index: 9999999 !important;
 
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.9), 0 0 0 9999px rgba(0, 0, 0, 0.45) !important;
+
+  border-radius: 8px;
+}
+
+/* Ensure children are also visible */
+body .driver-highlighted-element * {
+  position: relative;
+  z-index: 9999999 !important;
+}
 /* Hover */
 .driver-popover .driver-popover-close-btn:hover {
   border-radius: 50%;
