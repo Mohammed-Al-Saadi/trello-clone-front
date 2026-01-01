@@ -253,60 +253,60 @@ body {
   background-color: white !important;
   color: black !important;
 }
-.light .reactive-form h2 {
+.light .dash-content .reactive-form h2 {
   background-color: white !important;
   color: black !important;
 }
-.light .reactive-form p {
+.light .dash-content .reactive-form p {
   background-color: white !important;
   color: black !important;
 }
-.light .reactive-form {
+.light .dash-content .reactive-form {
   background-color: white !important;
   color: black !important;
 }
 
-.light .reactive-form label {
+.light .dash-content .reactive-form label {
   background-color: white !important;
   color: black !important;
 }
-.light .reactive-form input {
+.light .dash-content .reactive-form input {
   background-color: rgba(189, 189, 189, 0.055) !important;
   color: black !important;
   border: 0.2px rgba(128, 128, 128, 0.24) solid !important;
   box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 }
-.light .reactive-form input:focus {
+.light .dash-content .reactive-form input:focus {
   border-color: unset !important;
   border: 0.5px black solid;
 }
 
-.light .reactive-form input::placeholder {
+.light .dash-content .reactive-form input::placeholder {
   color: #000000 !important;
   border: none !important;
 }
-.light .reactive-form textarea {
+.light .dash-content .reactive-form textarea {
   color: #000000 !important;
   background-color: rgba(189, 189, 189, 0.055) !important;
   border: 0.2px rgba(128, 128, 128, 0.24) solid !important;
 
   box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 }
-.light .reactive-form textarea::placeholder {
+.light .dash-content .reactive-form textarea::placeholder {
   color: #000000 !important;
 }
 
-.light .reactive-form select {
+.light .dash-content .reactive-form select {
   color: #000000 !important;
   background-color: rgba(189, 189, 189, 0.055) !important;
   border: 0.2px rgba(128, 128, 128, 0.24) solid !important;
   box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 }
-.light .reactive-form select:hover {
+.light .dash-content .reactive-form select:hover {
   background-color: white !important;
   border: 0.2px rgba(128, 128, 128, 0.24) solid !important;
 }
-.light .close-btn {
+.light .dash-content .close-btn {
   color: black !important;
   background-color: white !important;
 }
