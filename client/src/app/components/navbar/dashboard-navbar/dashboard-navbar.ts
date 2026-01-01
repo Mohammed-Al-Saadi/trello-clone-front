@@ -34,6 +34,11 @@ export class DashboardNavbar {
   private router = inject(Router);
   private toast = inject(ToastService);
   private store = inject(Store);
+  private setDarkMode() {
+    document.body.classList.remove('light');
+    document.body.classList.add('dark');
+    this.themeToggled.emit(true);
+  }
 
   showLogoutModal = signal(false);
 
@@ -53,9 +58,10 @@ export class DashboardNavbar {
       await this.auth.logout();
 
       this.store.dispatch(clearUser());
+      this.setDarkMode();
 
       this.toast.showMessage({ id: 1, type: 'success', text: 'Logged out successfully.' });
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
     } catch (error: any) {
       const msg = error?.error?.error || error?.message || 'Logout failed. Please try again.';
       this.toast.showMessage({ id: 1, type: 'error', text: msg });
