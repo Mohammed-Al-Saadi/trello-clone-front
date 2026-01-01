@@ -1,7 +1,7 @@
 <div class="project-list-container">
     <div class="project-list">
         @for (item of projectsData; track item.id) {
-        <div class="project-item" (click)="goToProject.emit(item.id)">
+        <div class="project-item" (click)="goToProject.emit(item.id)" tourAnchor="ProjectCard">
             <div class="project-info">
 
                 <div class="project-list-title">
@@ -9,7 +9,7 @@
                         {{ item.name[0] | uppercase }}
                     </label>
 
-                    <div class="actions" (click)="$event.stopPropagation()">
+                    <div class="actions" (click)="$event.stopPropagation()" tourAnchor="ManageCard">
                         <span class="material-icons edit-icon" (click)="editProject.emit(item)">
                             edit
                         </span>

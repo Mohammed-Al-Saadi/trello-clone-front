@@ -4,14 +4,14 @@
             <span class="material-icons">chevron_left</span>
         </button>
         <div content-right>
-            <app-link-button (action)="onClickOpenAddList()" title="Add List" buttonClass="create-new-project-button"
-                icon="playlist_add">
+            <app-link-button (action)="onClickOpenAddList()" tourAnchor="addBoard" title="Add List"
+                buttonClass="create-new-project-button" icon="playlist_add">
             </app-link-button>
-            <app-link-button (action)="onClickOpenAddMember()" title="Add Members"
+            <app-link-button (action)="onClickOpenAddMember()" tourAnchor="addMember" title="Add Members"
                 buttonClass="create-new-project-button" icon="person_add">
             </app-link-button>
 
-            <app-link-button (action)="openManageMembers()" title="Manage Members"
+            <app-link-button (action)="openManageMembers()" tourAnchor="manageMember" title="Manage Members"
                 buttonClass="create-new-project-button" icon="manage_accounts">
             </app-link-button>
         </div>

@@ -21,6 +21,7 @@ import { createAddListFormItems, createAddMemberFormItems } from '../main.projec
 import { BOARD_ROLE_DESCRIPTIONS } from '../../../../utils/boards';
 import { LoadingSkeleton } from '../../../../components/loading-skeleton/loading-skeleton';
 import { CardContent } from '../../../../components/card-content/card-content';
+import { TutorialService } from '../../../../services/tutorial-service';
 
 @Component({
   selector: 'app-board-page',
@@ -69,6 +70,7 @@ export class BoardPage {
   showDeleteModal = signal(false);
   showDeleteCardModal = signal(false);
   loading = signal(false);
+  tutorialService = inject(TutorialService);
 
   selectedListId = signal<number | null>(null);
   selectedCardToDelete = signal<number>(0);
@@ -93,6 +95,83 @@ export class BoardPage {
   ngOnInit() {
     this.loadBoardLists();
     this.boardRoles.set(this.auth.roles().filter((r) => r.name.startsWith('board')));
+
+    this.tutorialService.initTutorial(
+      [
+        {
+          element: '[tourAnchor="addBoard"]',
+          title: 'Create a Board List',
+          description: 'Click here to create a new list inside this board.',
+          showButtons: ['previous', 'next', 'close'],
+        },
+        {
+          element: '[tourAnchor="addMember"]',
+          title: 'Add a Board Member',
+          description: 'Invite someone to this board so they can collaborate with you.',
+          showButtons: ['previous', 'next', 'close'],
+        },
+        {
+          element: '[tourAnchor="manageMember"]',
+          title: 'Manage Board Members',
+          description: 'View members, change their roles, or remove them from this board.',
+          showButtons: ['previous', 'next', 'close'],
+        },
+        {
+          element: '[tourAnchor="dragList"]',
+          title: 'Drag Lists Left & Right',
+          description:
+            'Click and hold a list header, then drag left or right to reorder your lists.',
+          showButtons: ['previous', 'next', 'close'],
+        },
+        {
+          element: '[tourAnchor="editListName"]',
+          title: 'Edit List Name',
+          description: 'Click the list title to rename it. Press Enter (or click outside) to save.',
+          showButtons: ['previous', 'next', 'close'],
+        },
+        {
+          element: '[tourAnchor="deleteList"]',
+          title: 'Delete List',
+          description:
+            'Delete this list (and all cards inside it). You’ll be asked to confirm first.',
+          showButtons: ['previous', 'next', 'close'],
+        },
+        {
+          element: '[tourAnchor="addTask"]',
+          title: 'Add a New Task',
+          description: 'Click here to create a new task (card) in this list.',
+          showButtons: ['previous', 'next', 'close'],
+        },
+        {
+          element: '[tourAnchor="dragCard"]',
+          title: 'Drag Cards to Reorder or Move',
+          description:
+            'Drag a card up or down to reorder it, or drag it left/right to move it to another list.',
+          showButtons: ['previous', 'next', 'close'],
+        },
+        {
+          element: '[tourAnchor="openCard"]',
+          title: 'Open & Edit a Card',
+          description:
+            ' Click the card title to open it.Inside the card, you can: • Rename the card by clicking its title • Set or update a due date • Change the priority • Assign members and manage details Everything saves automatically.',
+          showButtons: ['previous', 'next', 'close'],
+        },
+        {
+          element: 'body',
+          title: 'You’re all set! 🎉',
+          description:
+            'Thanks for taking the Tavalo tour. You’re ready to start using the app. You can close this guide now and continue.',
+          side: 'over',
+          align: 'center',
+          showButtons: ['close', 'done'],
+        },
+      ],
+      true
+    );
+
+    setTimeout(() => {
+      this.tutorialService.startTutorial();
+    }, 300);
   }
 
   async loadBoardLists() {

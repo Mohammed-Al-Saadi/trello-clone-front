@@ -10,14 +10,14 @@
             </app-floating-field>
         </div>
         <div content-right>
-            <app-link-button title-actions title="Create Board" icon="dashboard_customize"
+            <app-link-button title-actions tourAnchor="addBoard" title="Create Board" icon="dashboard_customize"
                 buttonClass="create-new-project-button" (action)="onClickOpenAddBoard()">
             </app-link-button>
-            <app-link-button title="Add Member" buttonClass="create-new-project-button" icon="person_add_alt_1"
-                (action)="onClickOpenAddMember()">
+            <app-link-button title="Add Member" tourAnchor="addMember" buttonClass="create-new-project-button"
+                icon="person_add_alt_1" (action)="onClickOpenAddMember()">
             </app-link-button>
-            <app-link-button title="Manage Members" buttonClass="create-new-project-button" icon="manage_accounts"
-                (action)="openManageBoardRoles()">
+            <app-link-button title="Manage Members" tourAnchor="manageMember" buttonClass="create-new-project-button"
+                icon="manage_accounts" (action)="openManageBoardRoles()">
             </app-link-button>
         </div>
     </app-dashboard-info-panel>

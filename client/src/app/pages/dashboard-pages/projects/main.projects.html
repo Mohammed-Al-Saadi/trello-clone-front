@@ -14,15 +14,18 @@
             </div>
         </div>
         <div content-right>
-            <app-link-button title-actions buttonClass="create-new-project-button" title="New Project" icon="note_add"
-                (action)="toggleNewProjectModal()">
+            <app-link-button tourAnchor="addProject" title-actions buttonClass="create-new-project-button"
+                title="New Project" icon="note_add" (action)="toggleNewProjectModal()">
             </app-link-button>
-            <app-link-button buttonClass="create-new-project-button" title="Add Owners" icon="person_add_alt_1"
-                (action)="toggleAddCollaboratorModal()">
+
+            <app-link-button tourAnchor="addOwners" buttonClass="create-new-project-button" title="Add Owners"
+                icon="person_add_alt_1" (action)="toggleAddCollaboratorModal()">
             </app-link-button>
-            <app-link-button buttonClass="create-new-project-button" title="Manage Owners" icon="manage_accounts"
-                (action)="onOpenManageOwners()">
+
+            <app-link-button tourAnchor="manageOwners" buttonClass="create-new-project-button" title="Manage Owners"
+                icon="manage_accounts" (action)="onOpenManageOwners()">
             </app-link-button>
+
         </div>
     </app-dashboard-info-panel>
     @if (showModel()) {
