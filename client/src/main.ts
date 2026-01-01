@@ -3,6 +3,7 @@ import { App } from './app/app';
 import { appConfig, httpReq } from './app/app.config';
 import { provideStore } from '@ngrx/store';
 import { userReducer } from './app/store/reducer';
+import 'driver.js/dist/driver.css';
 
 bootstrapApplication(App, {
   providers: [...appConfig.providers, ...httpReq.providers, provideStore({ user: userReducer })],
