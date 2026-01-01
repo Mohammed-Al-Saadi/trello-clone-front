@@ -168,7 +168,7 @@ export class Management {
     this.tutorialService.initTutorial([
       {
         element: 'body',
-        title: 'Welcome to Tavalo 👋',
+        title: 'Welcome to TavoloPro 👋',
         description: 'Ready for a quick demo? Click Next to start, or Close to cancel.',
         showButtons: ['next', 'close'],
         side: 'over',
