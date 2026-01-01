@@ -36,30 +36,7 @@ export class FeaturesPage {
       iconColor: '#2e7d32',
       iconBgColor: '#e8f5e9',
     },
-    {
-      title: 'Notifications',
-      p: 'Stay up to date with smart alerts for task updates, mentions, and board activities.',
-      icon: 'notifications_active',
-      type: 'material' as const,
-      iconColor: '#3949ab',
-      iconBgColor: '#e8eaf6',
-    },
-    {
-      title: 'Built-in Chat',
-      p: 'Communicate instantly with your team without switching tools — everything stays in context.',
-      icon: 'chat',
-      type: 'material' as const,
-      iconColor: '#ec407a',
-      iconBgColor: '#fce4ec',
-    },
-    {
-      title: 'Analytics Dashboard',
-      p: 'Track productivity, monitor progress, and get visual insights into team performance.',
-      icon: 'analytics',
-      type: 'material' as const,
-      iconColor: '#f57c00',
-      iconBgColor: '#fff3e0',
-    },
+
     {
       title: 'Custom Workspaces',
       p: 'Organize projects by teams or departments and control member access with ease.',

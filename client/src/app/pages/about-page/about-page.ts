@@ -47,7 +47,7 @@ export class AboutPage {
   ];
   ourTeam = [
     {
-      title: 'Karim Al-Sayed',
+      title: 'Mohammed Al-Saadi',
       p: 'Founder & CEO — Visionary leader focused on empowering teams to collaborate smarter and move faster.',
       icon: 'account_circle',
       type: 'material' as const,
