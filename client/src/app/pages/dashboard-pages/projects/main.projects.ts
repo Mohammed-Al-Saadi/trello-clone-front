@@ -24,6 +24,7 @@ import { LoadingSkeleton } from '../../../components/loading-skeleton/loading-sk
 import { FloatingField } from '../../../components/floating-field/floating-field';
 import { ManageRoles } from '../../../components/manage-roles/manage-roles';
 import { TutorialService } from '../../../services/tutorial-service';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-management',
@@ -101,6 +102,9 @@ export class Management {
     this.selectedRole.set(value);
     this.selectedRoleDescription.set(this.roleDescriptions[value] || '');
   }
+  showGuidanceModal() {
+    this.tutorialService.restartTutorialClientOnly();
+  }
 
   roleDescriptions: Record<string, string> = {
     project_admin: 'Full access: manage boards, tasks, and members.',
@@ -161,61 +165,63 @@ export class Management {
       return [...items];
     });
 
-    this.tutorialService.initTutorial(
-      [
-        {
-          element: 'body',
-          title: 'Welcome to Tavalo 👋',
-          description: 'Ready for a quick demo? Click Next to start, or Close to cancel.',
-          showButtons: ['next', 'close'],
-          side: 'over',
-          align: 'center',
-        },
-        {
-          element: '[tourAnchor="nav"]',
-          title: 'Navigation bar',
-          description:
-            'From here you can access: Projects, Settings, Help, switch Light/Dark mode, and Logout.',
-          showButtons: ['previous', 'next', 'close'],
-        },
-        {
-          element: '[tourAnchor="addProject"]',
-          title: 'Add Project',
-          description: 'Click here to create a new project.',
-          showButtons: ['previous', 'next', 'close'],
-        },
-        {
-          element: '[tourAnchor="addOwners"]',
-          title: 'Add Owners',
-          description: 'Add collaborators to your project.',
-          showButtons: ['previous', 'next'],
-        },
-        {
-          element: '[tourAnchor="manageOwners"]',
-          title: 'Manage Owners',
-          description: 'Manage your project owners here.',
-          showButtons: ['previous', 'next'],
-        },
-        {
-          element: '[tourAnchor="ManageCard"]',
-          title: 'Edit & Delete Card',
-          description: 'Edit card details or delete the card from this board.',
-          showButtons: ['previous', 'next'],
-        },
+    this.tutorialService.initTutorial([
+      {
+        element: 'body',
+        title: 'Welcome to Tavalo 👋',
+        description: 'Ready for a quick demo? Click Next to start, or Close to cancel.',
+        showButtons: ['next', 'close'],
+        side: 'over',
+        align: 'center',
+      },
+      {
+        element: '[tourAnchor="nav"]',
+        title: 'Navigation bar',
+        description:
+          'From here you can access: Projects, Settings, Help, switch Light/Dark mode, and Logout.',
+        showButtons: ['previous', 'next', 'close'],
+      },
+      {
+        element: '[tourAnchor="addProject"]',
+        title: 'Add Project',
+        description: 'Click here to create a new project.',
+        showButtons: ['previous', 'next', 'close'],
+      },
+      {
+        element: '[tourAnchor="addOwners"]',
+        title: 'Add Owners',
+        description: 'Add collaborators to your project.',
+        showButtons: ['previous', 'next'],
+      },
+      {
+        element: '[tourAnchor="manageOwners"]',
+        title: 'Manage Owners',
+        description: 'Manage your project owners here.',
+        showButtons: ['previous', 'next'],
+      },
+      {
+        element: '[tourAnchor="showGuidance"]',
+        title: 'Show Guidance',
+        description: 'Click here anytime to replay the guided tour.',
+        showButtons: ['previous', 'next', 'close'],
+      },
 
-        {
-          element: '[tourAnchor="ProjectCard"]',
-          title: 'Open a Project',
-          description: 'Click next to open a project card and continue the tour.',
-          route: true,
-          showButtons: ['previous', 'next'],
-        },
-      ],
-      true
-    );
-    setTimeout(() => {
-      this.tutorialService.startTutorial();
-    }, 300);
+      {
+        element: '[tourAnchor="ManageCard"]',
+        title: 'Edit & Delete Card',
+        description: 'Edit card details or delete the card from this board.',
+        showButtons: ['previous', 'next'],
+      },
+
+      {
+        element: '[tourAnchor="ProjectCard"]',
+        title: 'Open a Project',
+        description: 'Click next to open a project card and continue the tour.',
+        route: true,
+        showButtons: ['previous', 'next'],
+      },
+    ]);
+    this.tutorialService.startTutorial();
 
     this.loadingProjects.set(false);
   }

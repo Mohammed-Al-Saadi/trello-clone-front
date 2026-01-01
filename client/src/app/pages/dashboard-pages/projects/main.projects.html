@@ -25,6 +25,11 @@
             <app-link-button tourAnchor="manageOwners" buttonClass="create-new-project-button" title="Manage Owners"
                 icon="manage_accounts" (action)="onOpenManageOwners()">
             </app-link-button>
+            <span tourAnchor="showGuidance" class="material-icons guidance-icon" title="Show Guidance"
+                (click)="showGuidanceModal()">
+                lightbulb
+            </span>
+
 
         </div>
     </app-dashboard-info-panel>

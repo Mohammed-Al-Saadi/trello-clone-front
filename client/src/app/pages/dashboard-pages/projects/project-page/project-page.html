@@ -19,6 +19,10 @@
             <app-link-button title="Manage Members" tourAnchor="manageMember" buttonClass="create-new-project-button"
                 icon="manage_accounts" (action)="openManageBoardRoles()">
             </app-link-button>
+            <span tourAnchor="showGuidance" class="material-icons guidance-icon" title="Show Guidance"
+                (click)="showGuidanceModal()">
+                lightbulb
+            </span>
         </div>
     </app-dashboard-info-panel>
     @if( showAddMemberModel() ){

@@ -135,50 +135,47 @@ export class ProjectPage {
     this.boardRoles.set(this.roles().filter((r) => r.name.startsWith('board')));
     this.loadBoards();
 
-    this.tutorialService.initTutorial(
-      [
-        {
-          element: '[tourAnchor="addBoard"]',
-          title: 'Create a Board',
-          description: 'Click here to create a new board inside this project.',
-          showButtons: ['previous', 'next', 'close'],
-        },
-        {
-          element: '[tourAnchor="addMember"]',
-          title: 'Add a Board Member',
-          description: 'Invite someone to this board so they can collaborate with you.',
-          showButtons: ['previous', 'next', 'close'],
-        },
-        {
-          element: '[tourAnchor="manageMember"]',
-          title: 'Manage Board Members',
-          description: 'View members, change their roles, or remove them from this board.',
-          showButtons: ['previous', 'next', 'close'],
-        },
+    this.tutorialService.initTutorial([
+      {
+        element: '[tourAnchor="addBoard"]',
+        title: 'Create a Board',
+        description: 'Click here to create a new board inside this project.',
+        showButtons: ['previous', 'next', 'close'],
+      },
+      {
+        element: '[tourAnchor="addMember"]',
+        title: 'Add a Board Member',
+        description: 'Invite someone to this board so they can collaborate with you.',
+        showButtons: ['previous', 'next', 'close'],
+      },
+      {
+        element: '[tourAnchor="manageMember"]',
+        title: 'Manage Board Members',
+        description: 'View members, change their roles, or remove them from this board.',
+        showButtons: ['previous', 'next', 'close'],
+      },
 
-        {
-          element: '[tourAnchor="ManageCard"]',
-          title: 'Manage Boards',
-          description: 'Here you can, edit or delete Board.',
-          showButtons: ['previous', 'next', 'close'],
-        },
+      {
+        element: '[tourAnchor="ManageCard"]',
+        title: 'Manage Boards',
+        description: 'Here you can, edit or delete Board.',
+        showButtons: ['previous', 'next', 'close'],
+      },
 
-        {
-          element: '[tourAnchor="ProjectCard"]',
-          title: 'Open a Board to Continue',
-          description: 'Click a board card to open it and explore the lists inside.',
-          showButtons: ['previous', 'next', 'close'],
-          route: true,
-        },
-      ],
-      true
-    );
+      {
+        element: '[tourAnchor="ProjectCard"]',
+        title: 'Open a Board to Continue',
+        description: 'Click a board card to open it and explore the lists inside.',
+        showButtons: ['previous', 'next', 'close'],
+        route: true,
+      },
+    ]);
 
-    setTimeout(() => {
-      this.tutorialService.startTutorial();
-    }, 300);
+    this.tutorialService.startTutorial();
   }
-
+  showGuidanceModal() {
+    this.tutorialService.restartTutorialClientOnly();
+  }
   async loadBoards() {
     this.loadingBoards.set(true);
 

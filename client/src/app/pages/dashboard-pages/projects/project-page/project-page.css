@@ -35,7 +35,19 @@
   font-weight: 700;
   color: #ffffff;
 }
-
+.guidance-icon {
+  cursor: pointer;
+  font-size: 24px;
+  color: #cacaca;
+  transition: transform 0.2s, color 0.2s;
+  vertical-align: middle;
+  position: relative;
+  top: -0.1rem !important;
+}
+.guidance-icon:hover {
+  transform: scale(1.2);
+  color: #8174f7;
+}
 .back-btn {
   display: flex;
   align-items: center;

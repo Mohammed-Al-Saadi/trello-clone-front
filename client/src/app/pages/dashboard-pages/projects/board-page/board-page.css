@@ -25,6 +25,17 @@
   color: rgb(219, 219, 219);
   font-weight: bold;
 }
+.guidance-icon {
+  cursor: pointer;
+  font-size: 24px;
+  color: #cacaca;
+  transition: transform 0.2s, color 0.2s;
+  vertical-align: middle;
+}
+.guidance-icon:hover {
+  transform: scale(1.2);
+  color: #8174f7;
+}
 .project-level-info {
   font-size: 14px;
   color: #cbd5e1 !important;
