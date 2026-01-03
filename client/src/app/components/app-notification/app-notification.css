@@ -5,10 +5,10 @@
   backdrop-filter: blur(2px);
 
   display: flex;
-  justify-content: center; 
-  align-items: center; 
+  justify-content: center;
+  align-items: center;
 
-  padding: 0; 
+  padding: 0;
   z-index: 3000;
 }
 
@@ -124,5 +124,11 @@ input:checked + .slider:before {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 456px) {
+  .notif-container {
+    width: 80% !important;
   }
 }
