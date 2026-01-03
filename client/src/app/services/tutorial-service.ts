@@ -99,5 +99,7 @@ export class TutorialService {
           error: (err) => console.error('Error updating tutorial status', err),
         });
     }
+    this.driverObj.destroy();
+    window.location.reload();
   }
 }

@@ -126,6 +126,22 @@
   gap: 0.8rem;
   transition: all 0.3s ease;
   margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.notification-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-content {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
 }
 
 .dash-profile img {

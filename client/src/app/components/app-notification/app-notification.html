@@ -1,0 +1,24 @@
+<div class="notif-backdrop" (click)="onBackdropClick()">
+    <div class="notif-container" (click)="stopClick($event)">
+        <div class="notif-header">
+            <h4>Notifications</h4>
+
+            <div class="notif-toggle">
+                <span>Only show unread</span>
+                <label class="switch">
+                    <input type="checkbox"  />
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="notif-body">
+            <div class="notif-icon">
+                <i class="fa-regular fa-bell-slash"></i>
+            </div>
+            <p class="notif-empty">Demo notifications — not working yet.</p>
+        </div>
+    </div>
+</div>

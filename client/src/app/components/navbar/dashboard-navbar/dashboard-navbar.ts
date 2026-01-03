@@ -11,11 +11,19 @@ import { ToastService } from '../../reusable-toast/toast-service';
 
 import { ConfirmDelete } from '../../confirm-delete/confirm-delete';
 import { clearUser } from '../../../store/actions';
+import { AppNotification } from '../../app-notification/app-notification';
 
 @Component({
   selector: 'app-dashboard-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, MatIconModule, ConfirmDelete],
+  imports: [
+    CommonModule,
+    RouterLink,
+    RouterLinkActive,
+    MatIconModule,
+    ConfirmDelete,
+    AppNotification,
+  ],
   templateUrl: './dashboard-navbar.html',
   styleUrls: ['./dashboard-navbar.css'],
 })
@@ -29,6 +37,8 @@ export class DashboardNavbar {
   collapsed = signal(true);
   isDarkMode = input<boolean>(true);
   themeToggled = output<boolean>();
+  showNotificationModal = signal<boolean>(false);
+  showLogoutModal = signal(false);
 
   private auth = inject(SrpAuthService);
   private router = inject(Router);
@@ -40,7 +50,9 @@ export class DashboardNavbar {
     this.themeToggled.emit(true);
   }
 
-  showLogoutModal = signal(false);
+  toggleNotificationModal() {
+    this.showNotificationModal.update((v) => !v);
+  }
 
   toggle() {
     this.collapsed.update((v) => !v);
@@ -71,7 +83,9 @@ export class DashboardNavbar {
   getShortName(name: string) {
     return getShortNameUtil(name);
   }
-
+  toggleProfile() {
+    this.router.navigate(['/dashboard/settings']);
+  }
   toggleTheme() {
     const nextIsDark = !this.isDarkMode();
     document.body.classList.toggle('light', !nextIsDark);

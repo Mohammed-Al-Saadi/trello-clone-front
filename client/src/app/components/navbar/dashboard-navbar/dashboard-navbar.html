@@ -12,14 +12,15 @@
 
 
     <div class="dash-profile">
-        <div class="member-circle">
+        <div class="member-circle" (click)="toggleNotificationModal()">
             <i style="cursor: pointer; font-size: 18px;" class="fa-solid fa-bell"></i>
         </div>
         @if (!collapsed()) { <span>Notifications</span> }
     </div>
 
+
     @if (showProfileImage()) {
-    <div class="dash-profile">
+    <div class="dash-profile" (click)="toggleProfile()">
         <div class="member-circle">
             {{ getShortName(profileName())}}
         </div>
@@ -61,3 +62,7 @@
 <app-confirm-delete [show]="showLogoutModal()" title="Logout" message="Are you sure you want to logout?"
     confirmText="Logout" cancelText="Cancel" (close)="handleLogout($event)">
 </app-confirm-delete>
+@if (showNotificationModal()) {
+<app-notification class="test" title="Demo Notification" (close)="showNotificationModal.set(false)">
+</app-notification>
+}
