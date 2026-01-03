@@ -20,7 +20,7 @@ export class Dashboard {
 
   dashboardLinks: NavLink[] = [
     { label: 'Projects', path: '/dashboard/projects', icon: 'fa-solid fa-diagram-project' },
-    { label: 'Settings', path: '/dashboard/settings', icon: 'fa-solid fa-user-gear' },
+    { label: 'Settings', path: '/dashboard/settings', icon: 'fa-solid  fa-gear' },
     { label: 'Help Center', path: '/dashboard/help', icon: 'fa-regular fa-circle-question' },
   ];
 
