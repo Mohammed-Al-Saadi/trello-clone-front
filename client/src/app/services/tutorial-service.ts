@@ -98,8 +98,8 @@ export class TutorialService {
           next: (res) => console.log('Tutorial status updated', res),
           error: (err) => console.error('Error updating tutorial status', err),
         });
+      this.driverObj.destroy();
+      window.location.reload();
     }
-    this.driverObj.destroy();
-    window.location.reload();
   }
 }
