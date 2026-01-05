@@ -93,7 +93,10 @@ export class TutorialService {
     this.driverObj.destroy();
 
     const user = this.userDataState();
-    if (!user || user.tour_completed) return;
+    if (!user || user.tour_completed) {
+      this.isClosing = false;
+      return;
+    }
 
     this.http
       .put(
@@ -108,6 +111,7 @@ export class TutorialService {
           return of(null);
         }),
         finalize(() => {
+          this.isClosing = false;
           window.location.reload();
         })
       )
