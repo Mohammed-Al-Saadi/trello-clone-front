@@ -5,6 +5,7 @@ import { selectUser } from '../store/selectors';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { catchError, finalize, of, take } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TutorialService {
@@ -82,24 +83,34 @@ export class TutorialService {
     this.currentStep++;
     this.driverObj.drive(this.currentStep);
   }
+
+  private isClosing = false;
+
   private handleClose() {
+    if (this.isClosing) return;
+    this.isClosing = true;
+
     this.driverObj.destroy();
+
     const user = this.userDataState();
-    if (!user?.tour_completed) {
-      this.http
-        .put(
-          `${this.BASE_URL}/update-tutorial-status`,
-          { user_id: user.id },
-          {
-            withCredentials: true,
-          }
-        )
-        .subscribe({
-          next: (res) => console.log('Tutorial status updated', res),
-          error: (err) => console.error('Error updating tutorial status', err),
-        });
-      this.driverObj.destroy();
-      window.location.reload();
-    }
+    if (!user || user.tour_completed) return;
+
+    this.http
+      .put(
+        `${this.BASE_URL}/update-tutorial-status`,
+        { user_id: user.id, completed: true },
+        { withCredentials: true }
+      )
+      .pipe(
+        take(1),
+        catchError((err) => {
+          console.error('Error updating tutorial status', err);
+          return of(null);
+        }),
+        finalize(() => {
+          window.location.reload();
+        })
+      )
+      .subscribe();
   }
 }
