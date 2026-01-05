@@ -4,3 +4,4 @@ import { UserState } from './reducer';
 export const selectUserState = createFeatureSelector<UserState>('user');
 
 export const selectUser = createSelector(selectUserState, (state) => state.user);
+export const selectProjectIds = createSelector(selectUserState, (state) => state.projectIds);

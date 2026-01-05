@@ -25,6 +25,7 @@ import { FloatingField } from '../../../components/floating-field/floating-field
 import { ManageRoles } from '../../../components/manage-roles/manage-roles';
 import { TutorialService } from '../../../services/tutorial-service';
 import { MatIcon } from '@angular/material/icon';
+import { setProjectIds } from '../../../store/actions';
 
 @Component({
   selector: 'app-management',
@@ -85,6 +86,7 @@ export class Management {
   selectedRoleDescription = signal('');
   roleName = signal('');
   tutorialService = inject(TutorialService);
+
   addProjectCollaborator = signal<FormItems[]>(
     CollaboratorFormData(
       this.roles()
@@ -152,12 +154,12 @@ export class Management {
     );
 
     const data = Array.isArray(response) ? response : response.projects ?? [];
-    console.log(data);
-    console.log(response);
 
     this.projectsData.set(data);
     this.allProjects.set(data);
     const projectNames = data.map((p: any) => p.name);
+    const allProjectsIds = data.map((p: any) => p.id);
+    this.store.dispatch(setProjectIds({ projectIds: allProjectsIds }));
 
     this.addProjectCollaborator.update((items) => {
       const projectField = items.find((f) => f.formControlName === 'project');

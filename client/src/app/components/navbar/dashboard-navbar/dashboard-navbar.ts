@@ -12,6 +12,7 @@ import { ToastService } from '../../reusable-toast/toast-service';
 import { ConfirmDelete } from '../../confirm-delete/confirm-delete';
 import { clearUser } from '../../../store/actions';
 import { AppNotification } from '../../app-notification/app-notification';
+import { selectProjectIds } from '../../../store/selectors';
 
 @Component({
   selector: 'app-dashboard-navbar',
