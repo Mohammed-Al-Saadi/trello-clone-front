@@ -3,16 +3,30 @@
         <div class="notif-header">
             <h4>Notifications</h4>
 
-
+            <!-- Show Clear only if there are messages -->
+            <button class="notif-clear-btn" *ngIf="messages.length > 0" (click)="clearAll($event)" type="button">
+                Clear
+            </button>
         </div>
 
         <hr class="divider" />
 
-        <div class="notif-body">
-            <div class="notif-icon">
-                <i class="fa-regular fa-bell-slash"></i>
+        <!-- If messages exist, show them -->
+        <div class="notif-body" *ngIf="messages.length > 0; else emptyState">
+            <div class="notif-item" *ngFor="let msg of messages">
+                <div class="notif-message">{{ msg.text || msg.message || 'No content' }}</div>
+                <div class="notif-time">{{ msg._ts | date:'short' }}</div>
             </div>
-            <p class="notif-empty">Demo notifications — not working yet.</p>
         </div>
+
+        <!-- Empty state (keep the bell icon here) -->
+        <ng-template #emptyState>
+            <div class="notif-body">
+                <div class="notif-icon">
+                    <i class="fa-regular fa-bell-slash"></i>
+                </div>
+                <p class="notif-empty">No notifications yet.</p>
+            </div>
+        </ng-template>
     </div>
 </div>

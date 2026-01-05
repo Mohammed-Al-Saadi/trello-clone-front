@@ -10,20 +10,21 @@
         </button>
     </div>
 
-
+    <!-- Bell / Notifications -->
     <div class="dash-profile">
         <div class="member-circle" (click)="toggleNotificationModal()">
             <i style="cursor: pointer; font-size: 18px;" class="fa-solid fa-bell"></i>
+            @if (unread()) {
+            <span class="notif-dot">+</span>
+            }
         </div>
         @if (!collapsed()) { <span>Notifications</span> }
     </div>
 
-
+    <!-- Profile -->
     @if (showProfileImage()) {
     <div class="dash-profile" (click)="toggleProfile()">
-        <div class="member-circle">
-            {{ getShortName(profileName())}}
-        </div>
+        <div class="member-circle">{{ getShortName(profileName()) }}</div>
         @if (showProfileName() && !collapsed()) {
         <p>{{ profileName() }}</p>
         }
@@ -32,6 +33,7 @@
 
     <span class="dash-sep"></span>
 
+    <!-- Nav Links -->
     <nav class="dash-links">
         <ul>
             @for (link of navLinks(); track link.path) {
@@ -44,12 +46,13 @@
             }
         </ul>
     </nav>
+
+    <!-- Bottom -->
     <div class="dash-bottom">
         <span class="dash-sep"></span>
 
         <button class="theme-toggle-btn" type="button" (click)="toggleTheme()">
             <i [ngClass]="isDarkMode() ? 'fa-regular fa-sun' : 'fa-regular fa-moon'"></i>
-
             @if (!collapsed()) {
             <span>{{ isDarkMode() ? 'Light Mode' : 'Dark Mode' }}</span>
             }
@@ -61,10 +64,22 @@
         </button>
     </div>
 </aside>
+
+<!-- Logout Modal -->
 <app-confirm-delete [show]="showLogoutModal()" title="Logout" message="Are you sure you want to logout?"
     confirmText="Logout" cancelText="Cancel" (close)="handleLogout($event)">
 </app-confirm-delete>
+
+<!-- Notification Modal -->
 @if (showNotificationModal()) {
-<app-notification class="test" title="Demo Notification" (close)="showNotificationModal.set(false)">
+<app-notification title="Notifications" (close)="showNotificationModal.set(false)">
+    <div class="notif-list">
+        @if (notifications().length === 0) {
+        <p class="empty-msg">No new messages</p>
+        }
+        @for (n of notifications(); track $index) {
+        <div class="notif-item">{{ n?.text ?? (n | json) }}</div>
+        }
+    </div>
 </app-notification>
 }

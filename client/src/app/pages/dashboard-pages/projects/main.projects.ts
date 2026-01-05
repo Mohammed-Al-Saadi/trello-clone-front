@@ -165,6 +165,7 @@ export class Management {
       return [...items];
     });
 
+    
     this.tutorialService.initTutorial([
       {
         element: 'body',

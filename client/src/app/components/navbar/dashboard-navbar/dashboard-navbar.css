@@ -128,6 +128,38 @@
   margin-bottom: 1rem;
   cursor: pointer;
 }
+.member-circle {
+  position: relative;
+}
+
+.notif-dot {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ff3b30;
+  color: white;
+  font-size: 11px;
+  line-height: 1;
+  border-radius: 50%;
+  padding: 2px 5px;
+  font-weight: bold;
+}
+
+.notif-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.notif-item {
+  padding: 8px;
+  border-bottom: 1px solid #333;
+}
+
+.empty-msg {
+  text-align: center;
+  padding: 10px;
+  color: #aaa;
+}
 
 .notification-modal {
   position: fixed;
