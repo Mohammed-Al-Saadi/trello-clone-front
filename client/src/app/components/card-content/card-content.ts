@@ -140,23 +140,24 @@ export class CardContent {
 
   async ngOnInit() {
     const data = await this.cardContentService.getCardContent(this.SelectedCard.id);
-    if (data?.content?.content_html) {
-      this.cardDescription.set(data.content.content_html);
+
+    const content = data?.content;
+
+    if (content?.content_html) {
+      this.cardDescription.set(content.content_html);
       this.hasDescription.set(true);
     } else {
       this.cardDescription.set('');
       this.hasDescription.set(false);
     }
-    console.log(data);
+    this.dueDate.set(content?.due_date ?? null);
 
-    this.dueDate.set(data.content.due_date);
-    const s = data?.content?.status;
-
+    const s = content?.status;
     if (s !== null && s !== undefined) {
       this.SelectedCard.status = this.normalizeStatus(s);
     }
-    this.cardComments.set(data.comments);
-    console.log(this.auth.user());
+
+    this.cardComments.set(data?.comments ?? []);
   }
 
   async saveDescription(html: string) {
