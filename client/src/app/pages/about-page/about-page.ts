@@ -55,7 +55,7 @@ export class AboutPage {
       iconBgColor: '#f3e5f5',
     },
     {
-      title: 'Sara Lindström',
+      title: 'Jain John',
       p: 'Head of Design — Passionate about creating user experiences that are both powerful and intuitive.',
       icon: 'brush',
       type: 'material' as const,
@@ -63,20 +63,12 @@ export class AboutPage {
       iconBgColor: '#e1f5fe',
     },
     {
-      title: 'Alex Chen',
+      title: 'John Duo',
       p: 'CTO — Leads the engineering team, ensuring Tavolo’s platform is scalable, fast, and secure.',
       icon: 'memory',
       type: 'material' as const,
       iconColor: '#f57c00',
       iconBgColor: '#fff3e0',
-    },
-    {
-      title: 'Maria González',
-      p: 'Head of Operations — Keeps everything running smoothly, from product launches to customer success.',
-      icon: 'groups',
-      type: 'material' as const,
-      iconColor: '#2e7d32',
-      iconBgColor: '#e8f5e9',
     },
   ];
 

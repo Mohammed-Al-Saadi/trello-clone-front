@@ -132,7 +132,7 @@
   position: sticky;
   top: 0;
   background: #11111a;
-  padding: 1rem 0.5rem;
+  padding: 1rem 1rem 0.1rem 1rem;
 }
 .drag-handle {
   cursor: grab;
@@ -211,6 +211,28 @@
   color: #ff4c4c;
   transform: scale(1.1);
 }
+.spinner {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #000;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  margin-right: 6px;
+  vertical-align: middle;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+button[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
 
 .add-task-btn {
   width: 100%;
@@ -223,9 +245,10 @@
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.2s ease;
-  color: #bbb;
+  color: #ebebeb;
   font-size: 0.95rem;
   margin: 0.5rem auto;
+  font-weight: 550;
 }
 
 .add-task-btn:hover {
@@ -285,6 +308,12 @@
   width: 70%;
   padding: 0.55rem;
   transition: background 0.18s ease, transform 0.12s ease, box-shadow 0.18s ease;
+}
+hr {
+  border: none;
+  height: 1px;
+  background: rgb(56, 52, 78);
+  margin: 16px 0;
 }
 
 .add-card-container button:hover {

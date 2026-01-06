@@ -14,9 +14,12 @@
     <div class="dash-profile">
         <div class="member-circle" (click)="toggleNotificationModal()">
             <i style="cursor: pointer; font-size: 18px;" class="fa-solid fa-bell"></i>
-            @if (unread()) {
-            <span class="notif-dot">+</span>
+            @if (notifications().length > 0) {
+            <span class="notif-badge">
+                {{ notifications().length > 99 ? '99+' : notifications().length }}
+            </span>
             }
+
         </div>
         @if (!collapsed()) { <span>Notifications</span> }
     </div>
@@ -65,12 +68,10 @@
     </div>
 </aside>
 
-<!-- Logout Modal -->
 <app-confirm-delete [show]="showLogoutModal()" title="Logout" message="Are you sure you want to logout?"
     confirmText="Logout" cancelText="Cancel" (close)="handleLogout($event)">
 </app-confirm-delete>
 
-<!-- Notification Modal -->
 @if (showNotificationModal()) {
 <app-notification title="Notifications" (close)="showNotificationModal.set(false)">
     <div class="notif-list">

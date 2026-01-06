@@ -73,6 +73,7 @@ export class Management {
   createProjectLoading = signal(false);
   addProjectMembershipLoading = signal(false);
   updateProjectMembershipLoading = signal(false);
+  deleteLoading = signal(false);
 
   updateProjectLoading = signal(false);
   loadingProjects = signal(true);
@@ -165,7 +166,6 @@ export class Management {
       return [...items];
     });
 
-    
     this.tutorialService.initTutorial([
       {
         element: 'body',
@@ -247,20 +247,39 @@ export class Management {
     this.showDeleteModal.set(true);
     this.roleName.set(role_name);
   }
-
   async handleDelete(confirmed: boolean) {
-    this.showDeleteModal.set(false);
-    if (!confirmed) return;
+    if (!confirmed) {
+      this.showDeleteModal.set(false);
+      return;
+    }
 
     const projectId = this.selectedProjectId();
     const userId = this.selectedCollaboratorId();
     if (!projectId || !userId) return;
 
-    if (this.isProjectDelete()) {
-      await this.addProject.deleteProject(projectId, userId);
-    }
+    try {
+      this.deleteLoading.set(true);
 
-    await this.ngOnInit();
+      if (this.isProjectDelete()) {
+        await this.addProject.deleteProject(projectId, userId);
+      }
+      await this.ngOnInit();
+      this.toast.showMessage({
+        id: 1,
+        type: 'success',
+        text: 'Project deleted successfully.',
+      });
+
+      this.showDeleteModal.set(false);
+    } catch (error) {
+      this.toast.showMessage({
+        id: 1,
+        type: 'error',
+        text: 'Failed to delete project. Please try again.',
+      });
+    } finally {
+      this.deleteLoading.set(false);
+    }
   }
 
   filterProjects() {

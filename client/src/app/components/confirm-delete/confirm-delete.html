@@ -4,8 +4,19 @@
     <p>{{ message }}</p>
 
     <div class="actions">
-      <button class="btn cancel" (click)="cancel()">{{ cancelText }}</button>
-      <button class="btn delete" (click)="confirm()">{{ confirmText }}</button>
+      <button class="btn cancel" (click)="cancel()" [disabled]="loading">
+        {{ cancelText }}
+      </button>
+
+      <button class="btn delete" (click)="confirm()" [disabled]="loading">
+        <ng-container *ngIf="!loading; else loadingSpinner">
+          {{ confirmText }}
+        </ng-container>
+
+        <ng-template #loadingSpinner>
+          <span class="spinner"></span> Deleting...
+        </ng-template>
+      </button>
     </div>
   </div>
 </div>

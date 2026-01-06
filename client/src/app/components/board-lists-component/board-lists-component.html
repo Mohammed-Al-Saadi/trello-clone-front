@@ -42,7 +42,6 @@
                         <span class="material-icons">add</span>
                         Add Task
                     </button>
-
                     @if(showAddCard() === list.id) {
                     <div class="add-card-container">
                         <input type="text" placeholder="Card name..." [(ngModel)]="newCardTitle"
@@ -59,12 +58,19 @@
                                 <option value="high priority">High priority</option>
                             </select>
 
-                            <button class="add-card-btn" (click)="onSubmitCard(list.id)">
-                                Add Card
+                            <button class="add-card-btn" (click)="onSubmitCard(list.id)" [disabled]="addCardLoading()">
+                                <ng-container *ngIf="!addCardLoading(); else loadingState">
+                                    Add Card
+                                </ng-container>
+                                <ng-template #loadingState>
+                                    <span class="spinner"></span> Adding...
+                                </ng-template>
                             </button>
+
                         </div>
                     </div>
                     }
+                    <hr>
                 </div>
 
                 <div cdkDropListGroup>

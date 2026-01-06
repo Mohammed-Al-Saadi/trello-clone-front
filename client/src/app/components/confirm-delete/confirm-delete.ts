@@ -12,17 +12,20 @@ export class ConfirmDelete {
   @Input() show = false;
   @Input() title = '';
   @Input() message = '';
-
   @Input() cancelText = 'Cancel';
   @Input() confirmText = 'Delete';
+
+  @Input() loading = false;
 
   @Output() close = new EventEmitter<boolean>();
 
   cancel() {
+    if (this.loading) return;
     this.close.emit(false);
   }
 
   confirm() {
+    if (this.loading) return;
     this.close.emit(true);
   }
 }

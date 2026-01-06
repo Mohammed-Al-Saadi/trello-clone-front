@@ -53,6 +53,8 @@ export class BoardPage {
   projectId = this.route.snapshot.params['project_id'];
   boardId = this.route.snapshot.params['board_id'];
   ownerName = history.state.ownerName;
+  deleteListLoading = signal(false);
+  deleteCardLoading = signal(false);
 
   projectName = history.state.projectName;
   boardName = history.state.boardName;
@@ -298,18 +300,45 @@ export class BoardPage {
       this.showDeleteCardModal.set(false);
       return;
     }
-    await this.tasksService.deleteTask(this.selectedCardToDelete(), this.projectId);
-    this.showDeleteCardModal.set(false);
-    this.loadBoardLists();
+
+    const cardId = this.selectedCardToDelete();
+    if (!cardId) return;
+
+    try {
+      this.deleteCardLoading.set(true);
+
+      await this.tasksService.deleteTask(cardId, this.projectId);
+
+      this.showDeleteCardModal.set(false);
+      await this.loadBoardLists();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      this.deleteCardLoading.set(false);
+    }
   }
 
   async handleDelete(confirm: boolean) {
-    this.showDeleteModal.set(false);
-    if (!confirm) return;
+    if (!confirm) {
+      this.showDeleteModal.set(false);
+      return;
+    }
+
     const listId = this.selectedListId();
     if (!listId) return;
-    await this.boardListService.deleteBoardList(listId, this.projectId);
-    this.selectedListId.set(null);
-    this.loadBoardLists();
+
+    try {
+      this.deleteListLoading.set(true);
+
+      await this.boardListService.deleteBoardList(listId, this.projectId);
+
+      this.showDeleteModal.set(false);
+      this.selectedListId.set(null);
+      await this.loadBoardLists();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      this.deleteListLoading.set(false);
+    }
   }
 }

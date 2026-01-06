@@ -50,8 +50,8 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
   projectId = this.route.snapshot.params['project_id'];
   boardName = history.state.boardName;
   boardRoleName = history.state.role_name;
+  addCardLoading = signal(false);
 
-  // Signals
   showAddCard = signal<number | null>(null);
   noCardTitle = signal(false);
   selectedListId = signal<number | null>(null);
@@ -59,7 +59,6 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
   showDeleteListModal = signal(false);
   showDeleteCardModal = signal(false);
 
-  // Local state
   cardTitleTouched = false;
   newCardTitle = '';
   newCardPriority = '';
@@ -268,22 +267,33 @@ export class BoardListsComponent implements AfterViewInit, OnChanges, OnDestroy 
 
   async onSubmitCard(listId: number) {
     this.cardTitleTouched = true;
+
     if (!this.newCardTitle.trim()) {
       this.noCardTitle.set(true);
       return;
     }
-    await this.tasksService.addNewtask(
-      listId,
-      this.newCardTitle.trim(),
-      this.auth.user().id,
-      this.newCardPriority
-    );
-    this.newCardTitle = '';
-    this.newCardPriority = '';
-    this.showAddCard.set(null);
-    this.cardTitleTouched = false;
-    this.refresh.emit();
-    this.updateCanScroll();
+
+    try {
+      this.addCardLoading.set(true);
+
+      await this.tasksService.addNewtask(
+        listId,
+        this.newCardTitle.trim(),
+        this.auth.user().id,
+        this.newCardPriority
+      );
+
+      this.newCardTitle = '';
+      this.newCardPriority = '';
+      this.showAddCard.set(null);
+      this.cardTitleTouched = false;
+      this.refresh.emit();
+      this.updateCanScroll();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      this.addCardLoading.set(false);
+    }
   }
 
   async dropCard(event: any, targetList: any) {

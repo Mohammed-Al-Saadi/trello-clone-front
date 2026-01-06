@@ -73,6 +73,7 @@ export class ProjectPage {
   selectedBoard = signal<any>(null);
   selectedBoardId = signal<number | null>(null);
   selectedRoleDescription = signal('');
+  deleteLoading = signal(false);
 
   searchQuery = signal('');
   addMemberformData = signal<FormItems[]>(getAddMemberFormData(this.roles()));
@@ -299,14 +300,23 @@ export class ProjectPage {
   }
 
   async handleDelete(confirmed: boolean) {
-    this.showDeleteModal.set(false);
-    if (!confirmed) return;
+    if (!confirmed) {
+      this.showDeleteModal.set(false);
+      return;
+    }
 
     const boardId = this.selectedBoardId();
     if (!boardId) return;
 
-    await this.boardService.deleteBoard(this.projectId, boardId);
-    this.loadBoards();
+    try {
+      this.deleteLoading.set(true);
+      await this.boardService.deleteBoard(this.projectId, boardId);
+      this.showDeleteModal.set(false);
+      await this.loadBoards();
+    } catch (error) {
+    } finally {
+      this.deleteLoading.set(false);
+    }
   }
 
   openDeleteBoard(event: { id: number }) {

@@ -67,7 +67,7 @@
     <div class="confirm-delete">
         <app-confirm-delete [show]="showDeleteModal()" [title]="isProjectDelete() ? 'Delete Project' : 'Delete User'"
             [message]="isProjectDelete() ? 'Are you sure you want to delete this project?' : 'Are you sure you want to delete this user?'"
-            (close)="handleDelete($event)">
+            (close)="handleDelete($event)" [loading]="deleteLoading()">
         </app-confirm-delete>
     </div>
     @if (showEditModel()) {

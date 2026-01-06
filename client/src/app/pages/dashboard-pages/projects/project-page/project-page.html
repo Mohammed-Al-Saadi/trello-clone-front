@@ -56,7 +56,7 @@
         </app-reactive-form>
     </app-model-view>
     }
-    <app-confirm-delete [show]="showDeleteModal()" title="Delete Board"
+    <app-confirm-delete [show]="showDeleteModal()" title="Delete Board" [loading]="deleteLoading()"
         message="Are you sure you want to delete this board?" (close)="handleDelete($event)">
     </app-confirm-delete>
     @if (showEditBoardState()) {

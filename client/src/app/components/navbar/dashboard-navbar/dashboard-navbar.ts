@@ -43,7 +43,7 @@ export class DashboardNavbar implements OnInit, OnDestroy {
   collapsed = signal(true);
   showNotificationModal = signal(false);
   showLogoutModal = signal(false);
-  unread = signal(false); 
+  unread = signal(false);
   notifications = signal<any[]>([]);
 
   private auth = inject(SrpAuthService);
