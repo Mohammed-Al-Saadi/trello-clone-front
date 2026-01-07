@@ -15,9 +15,8 @@
         <div class="member-circle" (click)="toggleNotificationModal()">
             <i style="cursor: pointer; font-size: 18px;" class="fa-solid fa-bell"></i>
             @if (unread() && notifications().length > 0) {
-            <span class="notif-badge">
-                {{ notifications().length > 99 ? '99+' : notifications().length }}
-            </span>
+            <span class="notif-badge">+</span>
+
             }
 
 
